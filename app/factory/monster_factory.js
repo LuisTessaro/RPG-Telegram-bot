@@ -3,7 +3,7 @@ function player_factory() { }
 player_factory.prototype.getMonster = function (map, bot) {
 
     let monster_stats = {
-        name: 'VAIII',
+        name: '',
         hp: 0,
         sp: 0,
         autoAttackDmg: 0,

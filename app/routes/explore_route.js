@@ -84,7 +84,7 @@ module.exports = function (bot) {
                 let player_damage = dice(player.autoAttackDmg);
                 battleLog += `🔷 🎯${player_accuracy}  💢${player_damage}  ✨${monster_flee}\n`;
                 if (player_accuracy >= monster_flee) {
-                    battleLog += `${player.name} delt ${player_damage} damage to ${monster.name}\n`;
+                    battleLog += `${player.name} dealt ${player_damage} damage to ${monster.name}\n`;
                     monster.hp -= player_damage;
                     //skills
                     var i;
@@ -115,7 +115,7 @@ module.exports = function (bot) {
                 let monster_damage = dice(monster.autoAttackDmg);
                 battleLog += `🔶 🎯${monster_accuracy}  💢${monster_damage}  ✨${player_flee}\n`;
                 if (monster_accuracy >= player_flee) {
-                    battleLog += `${monster.name} delt ${monster_damage} damage to ${player.name}\n`
+                    battleLog += `${monster.name} dealt ${monster_damage} damage to ${player.name}\n`
                     player.hp -= monster_damage;
                     battleLog += `${player.name} hp: ${player.hp}/${playerMaxHp}\n\n`
                     if (player.hp <= 0) {
@@ -134,7 +134,7 @@ module.exports = function (bot) {
                 let monster_damage = dice(monster.autoAttackDmg);
                 battleLog += `🔶 🎯${monster_accuracy}  💢${monster_damage}  ✨${player_flee}\n`;
                 if (monster_accuracy >= player_flee) {
-                    battleLog += `${monster.name} delt ${monster_damage} damage to ${player.name}\n`
+                    battleLog += `${monster.name} dealt ${monster_damage} damage to ${player.name}\n`
                     player.hp -= monster_damage;
                     battleLog += `${player.name} hp: ${player.hp}/${playerMaxHp}\n\n`
                     if (player.hp <= 0) {
@@ -153,7 +153,7 @@ module.exports = function (bot) {
                 let player_damage = dice(player.autoAttackDmg);
                 battleLog += `🔷 🎯${player_accuracy}  💢${player_damage}  ✨${monster_flee}\n`;
                 if (player_accuracy >= monster_flee) {
-                    battleLog += `${player.name} delt ${player_damage} damage to ${monster.name}\n`;
+                    battleLog += `${player.name} dealt ${player_damage} damage to ${monster.name}\n`;
                     monster.hp -= player_damage;
                     //skills
                     var i;

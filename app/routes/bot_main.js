@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-var seconds = 30;
+var seconds = 5;
 
 
 const users = {};
@@ -7,6 +7,8 @@ module.exports = function (bot) {
     bot.on(['/start', '/back'], msg => {
         startWrapper(msg);
     });
+
+
     bot.on('/register', function (msg) {
         let replyMarkup = bot.keyboard([
             ['/class Warrior'],
@@ -18,42 +20,29 @@ module.exports = function (bot) {
         return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup });
     });
 
-    function playerCreator(name, classe) {
-        return {
-            name: name,
-            classe: classe,
-            level: 1,
-            exp: 0,
-            attributes: {
-                str: 5,
-                dex: 5,
-                agi: 5,
-                con: 5,
-                int: 5,
-                wis: 5,
-                car: 5,
-                wil: 5,
-                luk: 5
-            },
-            equipment: [],
-            bag: []
-        }
-    }
 
     bot.on(/^\/class (.+)$/, (msg, props) => {
-        const classe = props.match[1];
-        var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-        PlayerDAO.insert(playerCreator(msg.from.username, classe));
-        let replyMarkup = bot.keyboard([
-            ['/start'],
-            ['/explore green_woods'],
-            ['/stop_exploring', '/exp']
-        ], { resize: true });
-        return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
+        handlePlayerExists(msg)
+            .then(function (resolve) {
+                bot.sendMessage(msg.from.id, 'You are already registerd');
+                startWrapper(msg);
+            })
+            .catch(function (reject) {
+                const classe = props.match[1];
+                var PlayerDAO = new bot.infra.DAO.PlayerDAO();
+                PlayerDAO.insert(playerCreator(msg.from.username, classe));
+                //cant call start wrapper here because it will not wait fix maybe?
+                let replyMarkup = bot.keyboard([
+                    ['/start'],
+                    ['/explore green_woods'],
+                    ['/stop_exploring', '/exp']
+                ], { resize: true });
+                return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
+            });
     });
     //dev tool
 
-    //exploration if the user existis call a wrapper that does battle stuff:
+    //exploration if the user exists call a wrapper that does battle stuff:
     bot.on(/^\/explore (.+)$/, (msg, props) => {
         const map = props.match[1];
         if (map == 'green_woods') {
@@ -65,45 +54,46 @@ module.exports = function (bot) {
     });
 
     bot.on('/stop_exploring', (msg) => {//if existis do something
-        //users[msg.from.username].WantsToExplore = false;
-        //users[msg.from.username].exploring = false;
+        //WantsToExplore = false;
+        //exploring = false;
+        bot.sendMessage(msg.from.id, 'Not implemented!');
     });
 
-    function exploreWrapper(msg, map) {
-        //get monster from map
-        //gonna have a factory prob
-        let monster = {
-            name: 'Wolf',
-            hp: 50,
-            sp: 0,
-            autoAttackDmg: 13,
-            flee: 5,
-            accuracy: 10,
-            iniciative_bonus: 0,
-            exp: 1
-        };
+    bot.on('/exp', (msg) => {
+        handlePlayerExists(msg)
+            .then(function (resolve) {//resolve is player if found
+                bot.sendMessage(msg.from.id, 'You have: ' + resolve.exp + " exp.");
+            })
+            .catch(function (reject) {
+            });
+    });
 
+    bot.on('/reborn', (msg) => {
+        reborn(msg);
+    });
+
+
+    function exploreWrapper(msg, map) {
         //searches for the player everytime the battle wrapper is called
-        var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-        PlayerDAO.searchByName(msg.from.username)
-            .then(function (resp) {
-                if (resp[0]) {
-                    //create and call player factory
-                    let playerF = new bot.factory.player_factory();
-                    let player = playerF.calculateStatsForPlayer(resp[0], bot);
-                    //player  monster
-                    setImmediate(() => Promise.delay(seconds * 1000)
-                        .then(() => {
-                            console.log('message sent to: ' + msg.from.username);
-                            bot.sendMessage(msg.from.id, battle(player, monster, msg, map));
-                        }));
-                } else {
-                    console.log('didnt find player');
-                    return bot.sendMessage(msg.from.id, 'use /register to set up an account');
-                }
+        handlePlayerExists(msg)
+            .then(function (resolve) {//resolve is player if found
+                let playerFactory = new bot.factory.player_factory();
+                let player = playerFactory.calculateStatsForPlayer(resolve, bot);
+
+                var monster_factory = new bot.factory.monster_factory();
+                var monster = monster_factory.getMonster('green_woods', bot);
+
+                //exploring 
+                setImmediate(() => Promise.delay(seconds * 1000)
+                    .then(() => {
+                        console.log('message sent to: ' + msg.from.username);
+                        bot.sendMessage(msg.from.id, battle(player, monster, msg, map));
+                    }));
+            })
+            .catch(function (reject) {
+                console.log('something went terribly wrong');
             });
     }
-
     function battle(player, monster, msg, map) {
         var startMessage = '', battleLog = '';
         playerIniciative = dice(20);
@@ -139,6 +129,7 @@ module.exports = function (bot) {
                     if (monster.hp <= 0) {
                         startMessage += `✔️${player.name} vs. ${monster.name}!\n\n`;
                         battleLog += `🆙 Experience: ${monster.exp} \n🎲 Loot: \n🎩 Equip:`;
+                        addExp(msg, monster.exp);
                         exploreWrapper(msg, map);
                         return startMessage + battleLog;
                     }
@@ -203,6 +194,7 @@ module.exports = function (bot) {
                     if (monster.hp <= 0) {
                         startMessage += `✔️${player.name} vs. ${monster.name}!\n\n`;
                         battleLog += `🆙 Experience: ${monster.exp} \n🎲 Loot: \n🎩 Equip:`;
+                        addExp(msg, monster.exp);
                         exploreWrapper(msg, map);
                         return startMessage + battleLog;
                     }
@@ -215,29 +207,71 @@ module.exports = function (bot) {
 
         return startMessage + battleLog;
     }
-
-
     function dice(faces) {
         return Math.floor((Math.random() * faces + 1) + 1);
     }
-
     function startWrapper(msg) {
+        handlePlayerExists(msg)
+            .then(function (resolve) {
+                console.log(resolve);
+                let replyMarkup = bot.keyboard([
+                    ['/start'],
+                    ['/explore green_woods'],
+                    ['/stop_exploring', '/exp']
+                ], { resize: true });
+                return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
+    }
+    function handlePlayerExists(msg) {
+        return new Promise(function (resolve, reject) {
+            var PlayerDAO = new bot.infra.DAO.PlayerDAO();
+            PlayerDAO.searchByName(msg.from.username)
+                .then(function (resp) {
+                    if (resp[0]) resolve(resp[0]);
+                    else reject('didnt find player');
+                });
+        });
+    }
+    function playerCreator(name, classe) {
+        return {
+            name: name,
+            classe: classe,
+            level: 1,
+            exp: 0,
+            attributes: {
+                str: 5,
+                dex: 5,
+                agi: 5,
+                con: 5,
+                int: 5,
+                wis: 5,
+                car: 5,
+                wil: 5,
+                luk: 5
+            },
+            equipment: [],
+            bag: []
+        }
+    }
+    function addExp(msg, expGains) {
         var PlayerDAO = new bot.infra.DAO.PlayerDAO();
         PlayerDAO.searchByName(msg.from.username)
             .then(function (resp) {
-                if (resp[0]) {// /start and /back MUST always return a keyboard if the player exists
-                    console.log('player found : ' + resp[0].name);
-                    console.log(resp[0]);
-                    let replyMarkup = bot.keyboard([
-                        ['/start'],
-                        ['/explore green_woods'],
-                        ['/stop_exploring', '/exp']
-                    ], { resize: true });
-                    return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
-                } else {
-                    console.log('didnt find player');
-                    return bot.sendMessage(msg.from.id, 'use /register to set up an account');
-                }
+                var exp = resp[0].exp;
+                exp += expGains;
+                PlayerDAO.update({
+                    name: msg.from.username
+                }, { $set: { "exp": exp } });
             });
+
+    }
+
+    function reborn(msg) {
+        var PlayerDAO = new bot.infra.DAO.PlayerDAO();
+        PlayerDAO.deleteByName(msg.from.username);
     }
 }

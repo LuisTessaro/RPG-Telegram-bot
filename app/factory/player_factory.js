@@ -5,7 +5,7 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
     let player_stats = {
         name: player.name,
         classe: player.classe,
-        attributes : player.attributes,
+        attributes: player.attributes,
         skills: [],
         hp: 0,
         sp: 0,
@@ -24,21 +24,21 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
 
         var player_skills = class_by_name.getSkills();
         var i;
-        for (i in player_skills){
-            if(player.level >= player_skills[i].level_required)
+        for (i in player_skills) {
+            if (player.level >= player_skills[i].level_required)
                 player_stats.skills.push(player_skills[i]);
         }
     }
     if (player.classe == 'Warrior') {
-        solver(new bot.classes.warrior()); 
+        solver(new bot.classes.warrior());
     } else if (player.classe == 'Thief') {
         solver(new bot.classes.thief());
     } else if (player.classe == 'Mage') {
         solver(new bot.classes.mage());
     } else if (player.classe == 'Archer') {
-        solver(new bot.classes.warrior());
+        solver(new bot.classes.archer());
     } else if (player.classe == 'Cleric') {
-        solver(new bot.classes.warrior());
+        solver(new bot.classes.cleric());
     }
     return player_stats;
 };

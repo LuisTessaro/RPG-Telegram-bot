@@ -37,7 +37,6 @@ PlayerDAO.prototype.update = function (query, new_values) {
         var dbo = db.db("telemmo");
         dbo.collection("players").updateOne(query, new_values, function (err, res) {
             if (err) throw err;
-            console.log("1 document updated");
             db.close();
         });
     });

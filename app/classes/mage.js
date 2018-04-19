@@ -54,21 +54,21 @@ mage.prototype.spFormula = function () {
 
 mage.prototype.accuracyFormula = function () {
     let formula_acc = function (dex, lvl) {
-        return (dex * 2) + lvl;
+        return (dex * 5) + lvl;
     };
     return formula_acc;
 };
 
 mage.prototype.fleeFormula = function () {
     let formula_flee = function (agi, lvl) {
-        return agi + lvl;
+        return lvl;
     };
     return formula_flee;
 };
 
 mage.prototype.autoAttackFormula = function () {
     let formula_autoAttack = function (str, dex, agi, lvl) {
-        return str + dex + agi + lvl;
+        return str;
     };
     return formula_autoAttack;
 };

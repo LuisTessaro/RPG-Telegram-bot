@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-var seconds = 10;
+var seconds = 5;
 
 const users = {};
 
@@ -57,7 +57,7 @@ module.exports = function (bot) {
                 //exploring 
                 setImmediate(() => Promise.delay(seconds * 1000)
                     .then(() => {
-                        console.log('message sent to: ' + msg.from.username);
+                        console.log(msg.from.username);
                         bot.sendMessage(msg.from.id, battle(player, monster, msg, map, users[msg.from.username].WantsToExplore));
                     }));
             })
@@ -91,7 +91,8 @@ module.exports = function (bot) {
                     for (i in player.skills) {
                         let rand = dice(100);
                         if (rand < player.skills[i].odds) {
-                            let skill_damage = dice(player.skills[i].damage);
+                            let skill_damage = player.skills[i].damage()/2;
+                            skill_damage += dice(player.skills[i].damage()/2);
                             battleLog += `${player.skills[i].emoji} ${player.skills[i].skill_name} cast for ${skill_damage} damage\n`;
                             monster.hp -= skill_damage;
                         }
@@ -160,7 +161,8 @@ module.exports = function (bot) {
                     for (i in player.skills) {
                         let rand = dice(100);
                         if (rand < player.skills[i].odds) {
-                            let skill_damage = dice(player.skills[i].damage);
+                            let skill_damage = player.skills[i].damage()/2;
+                            skill_damage += dice(player.skills[i].damage()/2);
                             battleLog += `${player.skills[i].emoji} ${player.skills[i].skill_name} cast for ${skill_damage} damage\n`;
                             monster.hp -= skill_damage;
                         }
@@ -183,6 +185,7 @@ module.exports = function (bot) {
 
         return startMessage + battleLog;
     }
+    
     function dice(faces) {
         return Math.floor((Math.random() * faces + 1) + 1);
     }

@@ -1,38 +1,55 @@
-function mage() {}
+function mage() { }
 
-mage.prototype.getSkills = function () {
+mage.prototype.getSkills = function (att) {
+    /*
+    Strength: 10
+    Dexterity: 5
+    Agility: 5
+    Constitution: 5
+    Intelligence: 5
+    Wisdom: 5
+    */
+    var healingSkills = [];
     var skills = [
         {
-            skill_name: "Fire Bolt",
-            damage: 20,
+            skill_name: "Fire Bolt (+INT +WIS)",
+            damage: function () {
+                return att.int * 3;
+            },
+            level_required: 1,
+            odds: 50,
+            cost: 0,
+            emoji: "🔥"
+        },
+        {
+            skill_name: "Frost Bolt (+INT +WIS)",
+            damage: function () {
+                return att.int * 3;
+            },
+            level_required: 1,
+            odds: 50,
+            cost: 0,
+            emoji: "❄️"
+        },
+        {
+            skill_name: "Arcane Bolt (+INT +WIS)",
+            damage: function () {
+                return att.int * 3;
+            },
             level_required: 1,
             odds: 50,
             cost: 0,
             emoji: "🔮"
         },
         {
-            skill_name: "Frost Bolt",
-            damage: 20,
-            level_required: 1,
-            odds: 50,
-            cost: 0,
-            emoji: "🔮"
-        },
-        {
-            skill_name: "Arcane Bolt",
-            damage: 20,
-            level_required: 1,
-            odds: 50,
-            cost: 0,
-            emoji: "🔮"
-        },
-        {
-            skill_name: "METEOR",
-            damage: 250,
+            skill_name: "METEOR!!!! (+INT)",
+            damage: function () {
+                return att.int*25;
+            },
             level_required: 1,
             odds: 1,
             cost: 0,
-            emoji: "🔮"
+            emoji: "☄️"
         }
     ];
     return skills;

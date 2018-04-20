@@ -1,6 +1,15 @@
-function cleric() {}
+function cleric() { }
 
-cleric.prototype.getSkills = function () {
+cleric.prototype.getSkills = function (att) {
+    /*
+    Strength: 10
+    Dexterity: 5
+    Agility: 5
+    Constitution: 5
+    Intelligence: 5
+    Wisdom: 5
+    */
+    var healingSkills = [];
     var skills = [];
     return skills;
 };

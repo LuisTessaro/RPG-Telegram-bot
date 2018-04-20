@@ -1,42 +1,61 @@
-function warrior() {}
+function warrior() { }
 
-warrior.prototype.getSkills = function () {
+warrior.prototype.getSkills = function (att) {
+    /*
+    Strength: 10
+    Dexterity: 5
+    Agility: 5
+    Constitution: 5
+    Intelligence: 5
+    Wisdom: 5
+    */
+    var healingSkills = [];
     var skills = [
         {
-            skill_name: "Weapon Swing",
-            damage: 6,
+            skill_name: "Weapon Swing (+STR)",
+            damage: function () {
+                return att.str;
+            },
+            level_required: 1,
+            odds: 50,
+            cost: 0,
+            emoji: "😤"
+        },
+        {
+            skill_name: "Furious Slash (+STR -INT)",
+            damage: function () {
+                return (att.str * 2) - att.int;
+            },
             level_required: 1,
             odds: 25,
             cost: 0,
             emoji: "😤"
         },
         {
-            skill_name: "Furious Slash",
-            damage: 20,
+            skill_name: "Rage!!! (+STR +CON -INT)",
+            damage: function () {
+                return (att.str * 2) + att.con - att.int;
+            },
             level_required: 1,
-            odds: 10,
+            odds: 25,
             cost: 0,
             emoji: "😤"
         },
         {
-            skill_name: "Rage!!!",
-            damage: 20,
-            level_required: 1,
-            odds: 10,
-            cost: 0,
-            emoji: "😤"
-        },
-        {
-            skill_name: "Cross Slash",
-            damage: 40,
+            skill_name: "Cross Slash (+STR +DEX)",
+            damage: function () {
+                return (att.str + att.dex) * 2;
+            },
             level_required: 15,
-            odds: 5,
+            odds: 10,
             cost: 0,
             emoji: "⚔️"
         },
         {
-            skill_name: "Infinity Rampage",
-            damage: 200,
+            skill_name: "Infinity Rampage (+STR)",
+            damage: function () {
+                return att.str * 20;
+            },
             level_required: 1,
             odds: 1,
             cost: 0,

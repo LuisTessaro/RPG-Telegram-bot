@@ -22,7 +22,7 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
         player_stats.autoAttackDmg = class_by_name.autoAttackFormula()(player.attributes.str, player.attributes.dex, player.attributes.agi, player.level);
         player_stats.accuracy = class_by_name.accuracyFormula()(player.attributes.dex, player.level);
 
-        var player_skills = class_by_name.getSkills();
+        var player_skills = class_by_name.getSkills(player.attributes);
         var i;
         for (i in player_skills) {
             if (player.level >= player_skills[i].level_required)

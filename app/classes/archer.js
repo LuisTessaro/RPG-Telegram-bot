@@ -1,10 +1,21 @@
-function archer() {}
+function archer() { }
 
-archer.prototype.getSkills = function () {
+archer.prototype.getSkills = function (att) {
+    /*
+    Strength: 10
+    Dexterity: 5
+    Agility: 5
+    Constitution: 5
+    Intelligence: 5
+    Wisdom: 5
+    */
+    var healingSkills = [];
     var skills = [
         {
             skill_name: "Double Strife",
-            damage: 6,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 25,
             cost: 0,
@@ -12,7 +23,9 @@ archer.prototype.getSkills = function () {
         },
         {
             skill_name: "Pet Attack",
-            damage: 20,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 10,
             cost: 0,
@@ -20,7 +33,9 @@ archer.prototype.getSkills = function () {
         },
         {
             skill_name: "Headshot!",
-            damage: 20,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 10,
             cost: 0,
@@ -28,7 +43,9 @@ archer.prototype.getSkills = function () {
         },
         {
             skill_name: "Snipe",
-            damage: 40,
+            damage: function () {
+                return att.str;
+            },
             level_required: 15,
             odds: 5,
             cost: 0,
@@ -36,7 +53,9 @@ archer.prototype.getSkills = function () {
         },
         {
             skill_name: "Arrow Storm",
-            damage: 200,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 1,
             cost: 0,

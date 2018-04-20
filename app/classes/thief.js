@@ -1,10 +1,21 @@
-function thief() {}
+function thief() { }
 
-thief.prototype.getSkills = function () {
+thief.prototype.getSkills = function (att) {
+    /*
+    Strength: 10
+    Dexterity: 5
+    Agility: 5
+    Constitution: 5
+    Intelligence: 5
+    Wisdom: 5
+    */
+    var healingSkills = [];
     var skills = [
         {
             skill_name: "Stab",
-            damage: 6,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 25,
             cost: 0,
@@ -12,7 +23,9 @@ thief.prototype.getSkills = function () {
         },
         {
             skill_name: "Backstab",
-            damage: 20,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 10,
             cost: 0,
@@ -20,7 +33,9 @@ thief.prototype.getSkills = function () {
         },
         {
             skill_name: "Shadow Step",
-            damage: 20,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 10,
             cost: 0,
@@ -28,7 +43,9 @@ thief.prototype.getSkills = function () {
         },
         {
             skill_name: "Cross Slash",
-            damage: 40,
+            damage: function () {
+                return att.str;
+            },
             level_required: 15,
             odds: 5,
             cost: 0,
@@ -36,7 +53,9 @@ thief.prototype.getSkills = function () {
         },
         {
             skill_name: "Curse: DEATH",
-            damage: 200,
+            damage: function () {
+                return att.str;
+            },
             level_required: 1,
             odds: 1,
             cost: 0,

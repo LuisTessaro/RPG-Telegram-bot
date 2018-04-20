@@ -62,9 +62,7 @@ module.exports = function (bot) {
                 luk: 5
             },
             equipment: [],
-            bag: [],
-            exploring: false,
-            WantsToExplore: true
+            bag: []
         }
     }
 }

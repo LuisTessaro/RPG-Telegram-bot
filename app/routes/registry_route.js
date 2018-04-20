@@ -19,7 +19,6 @@ module.exports = function (bot) {
             ], { resize: true });
             return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
         } else bot.sendMessage(msg.from.id, 'You must set up a @ on your telegram account to play this game :c');
-
     });
 
     bot.on('/register', function (msg) {

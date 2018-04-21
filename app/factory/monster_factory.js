@@ -16,7 +16,19 @@ player_factory.prototype.getMonster = function (map, bot) {
 
     function solver(map_by_name) {
         var possibleMonsters = map_by_name.getMonsters();
-        var i = Math.floor(Math.random() * possibleMonsters.length);
+        var i;
+        let r = Math.floor(Math.random() * 100);
+        if (r < 30) {
+            i = 0;
+        } else if (r < 60) {
+            i = 1;
+        } else if (r < 90) {
+            i = 2;
+        } else if (r < 95) {
+            i = 3;
+        } else if (r < 100) {
+            i = 4;
+        }
         monster_stats.name = possibleMonsters[i].name;
         monster_stats.hp = possibleMonsters[i].hp;
         monster_stats.sp = possibleMonsters[i].sp;

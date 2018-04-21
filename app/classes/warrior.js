@@ -12,7 +12,7 @@ warrior.prototype.getSkills = function (att) {
     var healingSkills = [];
     var skills = [
         {
-            skill_name: "Weapon Swing (+STR)",
+            skill_name: "Weapon Swing",
             damage: function () {
                 return att.str;
             },
@@ -22,7 +22,7 @@ warrior.prototype.getSkills = function (att) {
             emoji: "😤"
         },
         {
-            skill_name: "Furious Slash (+STR -INT)",
+            skill_name: "Furious Slash",
             damage: function () {
                 return (att.str * 2) - att.int;
             },
@@ -32,7 +32,7 @@ warrior.prototype.getSkills = function (att) {
             emoji: "😤"
         },
         {
-            skill_name: "Rage!!! (+STR +CON -INT)",
+            skill_name: "Rage!!!",
             damage: function () {
                 return (att.str * 2) + att.con - att.int;
             },
@@ -42,7 +42,7 @@ warrior.prototype.getSkills = function (att) {
             emoji: "😤"
         },
         {
-            skill_name: "Cross Slash (+STR +DEX)",
+            skill_name: "Cross Slash",
             damage: function () {
                 return (att.str + att.dex) * 2;
             },
@@ -52,7 +52,7 @@ warrior.prototype.getSkills = function (att) {
             emoji: "⚔️"
         },
         {
-            skill_name: "Infinity Rampage (+STR)",
+            skill_name: "Infinity Rampage",
             damage: function () {
                 return att.str * 20;
             },

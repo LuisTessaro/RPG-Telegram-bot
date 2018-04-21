@@ -12,7 +12,7 @@ mage.prototype.getSkills = function (att) {
     var healingSkills = [];
     var skills = [
         {
-            skill_name: "Fire Bolt (+INT +WIS)",
+            skill_name: "Fire Bolt",
             damage: function () {
                 return att.int * 3;
             },
@@ -22,7 +22,7 @@ mage.prototype.getSkills = function (att) {
             emoji: "🔥"
         },
         {
-            skill_name: "Frost Bolt (+INT +WIS)",
+            skill_name: "Frost Bolt",
             damage: function () {
                 return att.int * 3;
             },
@@ -32,7 +32,7 @@ mage.prototype.getSkills = function (att) {
             emoji: "❄️"
         },
         {
-            skill_name: "Arcane Bolt (+INT +WIS)",
+            skill_name: "Arcane Bolt",
             damage: function () {
                 return att.int * 3;
             },
@@ -42,7 +42,7 @@ mage.prototype.getSkills = function (att) {
             emoji: "🔮"
         },
         {
-            skill_name: "METEOR!!!! (+INT)",
+            skill_name: "METEOR!!!!",
             damage: function () {
                 return att.int*25;
             },

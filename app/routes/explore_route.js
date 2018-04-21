@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-var seconds = 5;
+var seconds = 30;
 
 const users = {};
 
@@ -57,7 +57,6 @@ module.exports = function (bot) {
                 //exploring 
                 setImmediate(() => Promise.delay(seconds * 1000)
                     .then(() => {
-                        console.log(msg.from.username);
                         bot.sendMessage(msg.from.id, battle(player, monster, msg, map, users[msg.from.username].WantsToExplore));
                     }));
             })

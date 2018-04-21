@@ -8,29 +8,29 @@ const possibleMonsters = [
         accuracy: 10,
         iniciative_bonus: 0,
         occurrence: 50,
-        exp: 500
+        exp: 4
     },
     {
         name: 'Wolf',
-        hp: 50,
+        hp: 65,
         sp: 0,
-        autoAttackDmg: 10,
+        autoAttackDmg: 15,
         flee: 2,
-        accuracy: 10,
+        accuracy: 15,
         iniciative_bonus: 0,
         occurrence: 40,
-        exp: 500
+        exp: 16
     },
     {
         name: 'Dark Fairy',
-        hp: 50,
+        hp: 77,
         sp: 0,
-        autoAttackDmg: 10,
-        flee: 2,
-        accuracy: 10,
+        autoAttackDmg: 23,
+        flee: 5,
+        accuracy: 15,
         iniciative_bonus: 0,
         occurrence: 40,
-        exp: 500
+        exp: 26
     },
     {
         name: 'BOSS: Treant',
@@ -52,7 +52,7 @@ const possibleMonsters = [
         accuracy: 0,
         iniciative_bonus: 0,
         occurrence: 1,
-        exp: 1000
+        exp: 200
     }
 ];
 

@@ -14,39 +14,39 @@ archer.prototype.getSkills = function (att) {
         {
             skill_name: "Double Strife",
             damage: function () {
-                return att.str;
+                return att.dex + att.lvl;
             },
             level_required: 1,
-            odds: 25,
+            odds: 90,
             cost: 0,
             emoji: "🏹"
         },
         {
             skill_name: "Pet Attack",
             damage: function () {
-                return att.str;
+                return att.dex * 2;
             },
             level_required: 1,
-            odds: 10,
+            odds: 20,
             cost: 0,
             emoji: "🏹"
         },
         {
             skill_name: "Headshot!",
             damage: function () {
-                return att.str;
+                return att.dex * 10;
             },
             level_required: 1,
-            odds: 10,
+            odds: 5,
             cost: 0,
             emoji: "🏹"
         },
         {
             skill_name: "Snipe",
             damage: function () {
-                return att.str;
+                return att.dex * 10;
             },
-            level_required: 15,
+            level_required: 1,
             odds: 5,
             cost: 0,
             emoji: "🏹"
@@ -54,10 +54,10 @@ archer.prototype.getSkills = function (att) {
         {
             skill_name: "Arrow Storm",
             damage: function () {
-                return att.str;
+                return att.dex * 25;
             },
             level_required: 1,
-            odds: 1,
+            odds: 3,
             cost: 0,
             emoji: "🏹"
         }
@@ -88,14 +88,14 @@ archer.prototype.accuracyFormula = function () {
 
 archer.prototype.fleeFormula = function () {
     let formula_flee = function (agi, lvl) {
-        return agi + lvl;
+        return agi + lvl + agi/2;
     };
     return formula_flee;
 };
 
 archer.prototype.autoAttackFormula = function () {
     let formula_autoAttack = function (str, dex, agi, lvl) {
-        return str + dex + agi + lvl;
+        return dex + lvl;
     };
     return formula_autoAttack;
 };

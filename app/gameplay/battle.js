@@ -66,7 +66,6 @@ module.exports = function (bot) {
     });
 
     function exploreWrapper(msg, map) {
-        //searches for the player everytime the battle wrapper is called
         handlePlayerExists(msg)
             .then(function (resolve) {//resolve is player if found
                 let playerFactory = new bot.factory.player_factory();

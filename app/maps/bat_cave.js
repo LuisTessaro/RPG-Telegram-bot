@@ -1,10 +1,10 @@
 const possibleMonsters = [
     {
         name: 'Bat',
-        hp: 20,
+        hp: 360,
         sp: 0,
-        autoAttackDmg: 5,
-        flee: 0,
+        autoAttackDmg: 50,
+        flee: 5,
         accuracy: 10,
         iniciative_bonus: 0,
         occurrence: 50,

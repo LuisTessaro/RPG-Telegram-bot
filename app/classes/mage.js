@@ -17,7 +17,7 @@ mage.prototype.getSkills = function (att) {
                 return att.int * 3;
             },
             level_required: 1,
-            odds: 50,
+            odds: 40,
             cost: 0,
             emoji: "🔥"
         },
@@ -27,7 +27,7 @@ mage.prototype.getSkills = function (att) {
                 return att.int * 3;
             },
             level_required: 1,
-            odds: 50,
+            odds: 40,
             cost: 0,
             emoji: "❄️"
         },
@@ -37,7 +37,7 @@ mage.prototype.getSkills = function (att) {
                 return att.int * 3;
             },
             level_required: 1,
-            odds: 50,
+            odds: 40,
             cost: 0,
             emoji: "🔮"
         },
@@ -47,7 +47,7 @@ mage.prototype.getSkills = function (att) {
                 return att.int*25;
             },
             level_required: 1,
-            odds: 1,
+            odds: 3,
             cost: 0,
             emoji: "☄️"
         }

@@ -1,9 +1,9 @@
 const possibleMonsters = [
     {
         name: 'Dark Slime',
-        hp: 20,
+        hp: 180,
         sp: 0,
-        autoAttackDmg: 5,
+        autoAttackDmg: 20,
         flee: 0,
         accuracy: 10,
         iniciative_bonus: 0,
@@ -12,9 +12,9 @@ const possibleMonsters = [
     },
     {
         name: 'Dark Wolf',
-        hp: 65,
+        hp: 210,
         sp: 0,
-        autoAttackDmg: 15,
+        autoAttackDmg: 30,
         flee: 2,
         accuracy: 15,
         iniciative_bonus: 0,
@@ -23,9 +23,9 @@ const possibleMonsters = [
     },
     {
         name: 'Super Dark Fairy',
-        hp: 77,
+        hp: 310,
         sp: 0,
-        autoAttackDmg: 23,
+        autoAttackDmg: 40,
         flee: 5,
         accuracy: 15,
         iniciative_bonus: 0,
@@ -33,18 +33,18 @@ const possibleMonsters = [
         exp: 26
     },
     {
-        name: 'BOSS: Dark Treant',
-        hp: 150,
+        name: "BOSS: Old Witch's Helper",
+        hp: 600,
         sp: 0,
-        autoAttackDmg: 20,
-        flee: 5,
-        accuracy: 10,
+        autoAttackDmg: 100,
+        flee: 0,
+        accuracy: 0,
         iniciative_bonus: 0,
         occurrence: 1,
         exp: 500
     },
     {
-        name: 'Dark Treasure',
+        name: 'Treasure',
         hp: 1,
         sp: 0,
         autoAttackDmg: 0,

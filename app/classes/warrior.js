@@ -17,27 +17,27 @@ warrior.prototype.getSkills = function (att) {
                 return att.str;
             },
             level_required: 1,
-            odds: 50,
+            odds: 70,
             cost: 0,
             emoji: "😤"
         },
         {
             skill_name: "Furious Slash",
             damage: function () {
-                return (att.str * 2) - att.int;
+                return att.str * 2;
             },
             level_required: 1,
-            odds: 25,
+            odds: 40,
             cost: 0,
             emoji: "😤"
         },
         {
             skill_name: "Rage!!!",
             damage: function () {
-                return (att.str * 2) + att.con - att.int;
+                return ((att.str + att.con) * 2);
             },
             level_required: 1,
-            odds: 25,
+            odds: 5,
             cost: 0,
             emoji: "😤"
         },
@@ -54,10 +54,10 @@ warrior.prototype.getSkills = function (att) {
         {
             skill_name: "Infinity Rampage",
             damage: function () {
-                return att.str * 20;
+                return att.str * 25;
             },
             level_required: 1,
-            odds: 1,
+            odds: 3,
             cost: 0,
             emoji: "☠️"
         }

@@ -3,7 +3,6 @@ module.exports = function (bot) {
     bot.on(['/start', '/back'], msg => {
         handlePlayerExists(msg)
             .then(function (resolve) {
-                console.log(resolve);
                 let replyMarkup = bot.keyboard([
                     ['/explore green_woods'],
                     ['/explore dark_forest'],

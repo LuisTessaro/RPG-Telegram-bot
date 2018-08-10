@@ -21,11 +21,11 @@ player_factory.prototype.getMonster = function (map, bot) {
         let r = Math.floor(Math.random() * 100);
         if (r < 30) {
             i = 0;
-        } else if (r < 60) {
+        } else if (r < 75) {
             i = 1;
-        } else if (r < 90) {
+        } else if (r < 98) {
             i = 2;
-        } else if (r < 95) {
+        } else if (r < 99) {
             i = 3;
         } else if (r < 100) {
             i = 4;

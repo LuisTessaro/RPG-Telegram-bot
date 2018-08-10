@@ -14,7 +14,17 @@ thief.prototype.getSkills = function (att) {
         {
             skill_name: "Stab",
             damage: function () {
-                return att.str;
+                return att.str + (att.dex *2);
+            },
+            level_required: 1,
+            odds: 40,
+            cost: 0,
+            emoji: "🔪"
+        },
+        {
+            skill_name: "Backstab",
+            damage: function () {
+                return (att.str + att.dex) * 2;
             },
             level_required: 1,
             odds: 25,
@@ -22,19 +32,9 @@ thief.prototype.getSkills = function (att) {
             emoji: "🔪"
         },
         {
-            skill_name: "Backstab",
-            damage: function () {
-                return att.str;
-            },
-            level_required: 1,
-            odds: 10,
-            cost: 0,
-            emoji: "🔪"
-        },
-        {
             skill_name: "Shadow Step",
             damage: function () {
-                return att.str;
+                return (att.str + att.agi + att.dex) * 4;
             },
             level_required: 1,
             odds: 10,
@@ -54,10 +54,10 @@ thief.prototype.getSkills = function (att) {
         {
             skill_name: "Curse: DEATH",
             damage: function () {
-                return att.str;
+                return att.dex * 25;
             },
             level_required: 1,
-            odds: 1,
+            odds: 3,
             cost: 0,
             emoji: "😈"
         }
@@ -88,7 +88,7 @@ thief.prototype.accuracyFormula = function () {
 
 thief.prototype.fleeFormula = function () {
     let formula_flee = function (agi, lvl) {
-        return agi + lvl;
+        return agi * 2 + lvl;
     };
     return formula_flee;
 };

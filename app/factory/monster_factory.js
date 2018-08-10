@@ -41,6 +41,12 @@ player_factory.prototype.getMonster = function (map, bot) {
     }
     if (map == 'green_woods') {
         solver(new bot.maps.green_woods());
+    } else if (map == 'dark_forest') {
+        solver(new bot.maps.dark_forest());
+    } else if (map == 'bat_cave') {
+        solver(new bot.maps.bat_cave());
+    } else if (map == 'deep_below') {
+        solver(new bot.maps.deep_below());
     }
     return monster_stats;
 };

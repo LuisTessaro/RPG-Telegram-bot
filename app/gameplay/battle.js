@@ -1,13 +1,7 @@
 const Promise = require('bluebird');
 var seconds = 10;
-const users = {};//check if this is bad
-
+const users = {};
 module.exports = function (bot) {
-
-    bot.on('/say', function (msg) {
-        console.log(users);
-    });
-
     //exploration if the user exists call a wrapper that does battle stuff:
     bot.on(/^\/explore (.+)$/, (msg, props) => {
         handlePlayerExists(msg)
@@ -32,8 +26,17 @@ module.exports = function (bot) {
                     if (map == 'green_woods') {
                         bot.sendMessage(msg.from.id, 'You started exploring the Green Woods');
                         exploreWrapper(msg, map);
-                    } else bot.sendMessage(msg.from.id, 'Invalid map, use /start to see all available maps');
-                } else bot.sendMessage(msg.from.id, 'You are already exloring or did not return yeet');
+                    } else if(map == 'dark_forest') {
+                        bot.sendMessage(msg.from.id, 'You started exploring the Dark Forest');
+                        exploreWrapper(msg, map);
+                    } else if(map == 'bat_cave') {
+                        bot.sendMessage(msg.from.id, 'You started exploring the Bat Cave');
+                        exploreWrapper(msg, map);
+                    }else if(map == 'deep_below') {
+                        bot.sendMessage(msg.from.id, 'You started exploring the Deep Below');
+                        exploreWrapper(msg, map);
+                    }else bot.sendMessage(msg.from.id, 'Invalid map, use /start to see all available maps');
+                } else bot.sendMessage(msg.from.id, 'You are already exploring or did not return yeet');
             })
             .catch(function (reject) {
                 return bot.sendMessage(msg.from.id, 'use /register to set up an account');
@@ -52,7 +55,6 @@ module.exports = function (bot) {
                     users[msg.from.username].WantsToExplore = false;
                     users[msg.from.username].exploring = false;
                     if(users[msg.from.username].hasReturned == false){
-                        bot.sendMessage(msg.from.id, 'You are already exloring or did not return yeet');
                         return;
                     }
                 }
@@ -87,9 +89,9 @@ module.exports = function (bot) {
 
     //this is the mess fix it
     function battle(player, monster, msg, map, wants) {
-        var startMessage = '', battleLog = '';
-        playerIniciative = dice(20);
-        monsterIniciative = dice(20);
+        let startMessage = '', battleLog = '';
+        let playerIniciative = dice(20);
+        let monsterIniciative = dice(20);
         let playerMaxHp = player.hp;
         let monsterMaxHp = monster.hp;
         battleLog += `🔶${monster.name} rolled a ${monsterIniciative}\n`;
@@ -126,7 +128,6 @@ module.exports = function (bot) {
                         if (wants == true) exploreWrapper(msg, map);
                         else {
                             battleLog += '\n\nYou stoped exploring!';
-                            console.log('devia virar true');
                             users[msg.from.username].hasReturned = true;
                         }
                         return startMessage + battleLog;
@@ -147,7 +148,6 @@ module.exports = function (bot) {
                         startMessage += `❌${player.name} vs. ${monster.name}!\n\n`;
                         battleLog += "You died! Use the buttons to try again B";
                         users[msg.from.username].exploring = false;
-                        console.log('devia virar true');
                         users[msg.from.username].hasReturned = true;
                         return startMessage + battleLog;
                     }
@@ -168,7 +168,6 @@ module.exports = function (bot) {
                         startMessage += `❌${player.name} vs. ${monster.name}!\n\n`;
                         battleLog += "You died! Use the buttons to try again A";
                         users[msg.from.username].exploring = false;
-                        console.log('devia virar true');
                         users[msg.from.username].hasReturned = true;
                         return startMessage + battleLog;
                     }
@@ -203,7 +202,6 @@ module.exports = function (bot) {
                         if (wants == true) exploreWrapper(msg, map);
                         else {
                             battleLog += '\n\nYou stoped exploring!';
-                            console.log('devia virar true');
                             users[msg.from.username].hasReturned = true;
                         }
                         return startMessage + battleLog;
@@ -212,9 +210,7 @@ module.exports = function (bot) {
                     battleLog += `${player.name} missed the attack\n   miss\n\n`;
                 }
             }
-
         }
-
         return startMessage + battleLog;
     }
 

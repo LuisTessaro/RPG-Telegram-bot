@@ -1,7 +1,6 @@
 function player_factory() { }
 
 player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
-    //insert skills
     let player_stats = {
         name: player.name,
         classe: player.classe,

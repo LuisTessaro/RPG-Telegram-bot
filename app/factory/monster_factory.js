@@ -16,6 +16,7 @@ player_factory.prototype.getMonster = function (map, bot) {
 
     function solver(map_by_name) {
         var possibleMonsters = map_by_name.getMonsters();
+        //this is super bad and needs to be changed
         var i;
         let r = Math.floor(Math.random() * 100);
         if (r < 30) {

@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 
-function PlayerDAO() {}
+function PlayerDAO() { }
 
 PlayerDAO.prototype.insert = function (obj) {
     new MongoClient.connect(url, function (err, db) {
@@ -70,6 +70,7 @@ PlayerDAO.prototype.searchByName = function (name) {
         });
     });
 };
+
 
 module.exports = function () {
     return PlayerDAO;

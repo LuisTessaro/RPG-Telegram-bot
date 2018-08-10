@@ -91,6 +91,7 @@ module.exports = function (bot) {
                 }
             })
             .catch(function (reject) {
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
             });
 
     });
@@ -141,6 +142,7 @@ module.exports = function (bot) {
 
     bot.on('/reborn', (msg) => {
         reborn(msg);
+        return bot.sendMessage(msg.from.id, 'Your character has been reset');
     });
 
     function handlePlayerExists(msg) {

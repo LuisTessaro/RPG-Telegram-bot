@@ -1,6 +1,11 @@
 module.exports = function (bot) {
-
     bot.on(/^\/class (.+)$/, (msg, props) => {
+        let replyMarkup = bot.keyboard([
+            ['/start'],
+            ['/explore green_woods'],
+            ['/stop_exploring', '/exp'],
+            ['/level_up', '/me']
+        ], { resize: true });
         if (msg.from.username != 'null') {
             handlePlayerExists(msg)
                 .then(function (resolve) {
@@ -9,16 +14,14 @@ module.exports = function (bot) {
                 .catch(function (reject) {
                     const classe = props.match[1];
                     var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-                    PlayerDAO.insert(playerCreator(msg.from.username, classe));
+                    if (['Warrior', 'Thief', 'Mage', 'Archer', 'Cleric'].includes(classe)) {
+                        PlayerDAO.insert(playerBase(msg.from.username, classe));
+                        return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
+                    } else {
+                        return bot.sendMessage(msg.from.id, 'Invalid class.');
+                    }
                 });
-            let replyMarkup = bot.keyboard([
-                ['/start'],
-                ['/explore green_woods'],
-                ['/stop_exploring', '/exp'],
-                ['/level_up', '/me']
-            ], { resize: true });
-            return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
-        } else bot.sendMessage(msg.from.id, 'You must set up a @ on your telegram account to play this game :c');
+        } else return bot.sendMessage(msg.from.id, 'You must set up a @ on your telegram account to play this game :c');
     });
 
     bot.on('/register', function (msg) {
@@ -29,7 +32,14 @@ module.exports = function (bot) {
             ['/class Archer'],
             ['/class Cleric']
         ], { resize: true });
-        return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup });
+        handlePlayerExists(msg)
+            .then(function (resolve) {
+                return bot.sendMessage(msg.from.id, 'You are already registered', { replyMarkup });
+            })
+            .catch(function (reject) {
+                return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup });
+            });
+
     });
 
     function handlePlayerExists(msg) {
@@ -43,7 +53,7 @@ module.exports = function (bot) {
         });
     }
 
-    function playerCreator(name, classe) {
+    function playerBase(name, classe) {
         return {
             name: name,
             classe: classe,

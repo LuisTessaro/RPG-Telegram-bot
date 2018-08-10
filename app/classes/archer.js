@@ -14,20 +14,10 @@ archer.prototype.getSkills = function (att) {
         {
             skill_name: "Double Strife",
             damage: function () {
-                return att.dex + att.lvl;
+                return att.dex;
             },
             level_required: 1,
             odds: 90,
-            cost: 0,
-            emoji: "🏹"
-        },
-        {
-            skill_name: "Pet Attack",
-            damage: function () {
-                return att.dex * 2;
-            },
-            level_required: 1,
-            odds: 20,
             cost: 0,
             emoji: "🏹"
         },

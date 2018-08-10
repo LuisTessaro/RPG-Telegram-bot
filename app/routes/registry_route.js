@@ -1,8 +1,10 @@
 module.exports = function (bot) {
     bot.on(/^\/class (.+)$/, (msg, props) => {
         let replyMarkup = bot.keyboard([
-            ['/start'],
             ['/explore green_woods'],
+            ['/explore dark_forest'],
+            ['/explore bat_cave'],
+            ['/explore deep_below'],
             ['/stop_exploring', '/exp'],
             ['/level_up', '/me']
         ], { resize: true });

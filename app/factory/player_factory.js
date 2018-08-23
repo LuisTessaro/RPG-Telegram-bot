@@ -1,6 +1,20 @@
 function player_factory() { }
 
 player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
+    /*
+    let possible_classes = {
+        Warrior: solver(new bot.classes.warrior()),
+        Thief: solver(new bot.classes.thief()),
+        Mage: solver(new bot.classes.mage()),
+        Archer: solver(new bot.classes.archer()),
+        Cleric: solver(new bot.classes.cleric())
+    };
+
+    
+    if (possible_classes[player.classe]) {
+        possible_classes[player.classe]();
+    } else console.log('something went wrong');
+    */
     let player_stats = {
         name: player.name,
         classe: player.classe,

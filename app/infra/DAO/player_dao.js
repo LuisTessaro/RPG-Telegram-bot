@@ -1,9 +1,9 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 
-function PlayerDAO() { }
+function player_dao() { }
 
-PlayerDAO.prototype.insert = function (obj) {
+player_dao.prototype.insert = function (obj) {
     new MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("telemmo");
@@ -15,7 +15,7 @@ PlayerDAO.prototype.insert = function (obj) {
     });
 };
 
-PlayerDAO.prototype.deleteByName = function (name) {
+player_dao.prototype.deleteByName = function (name) {
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
 
@@ -31,7 +31,7 @@ PlayerDAO.prototype.deleteByName = function (name) {
     });
 };
 
-PlayerDAO.prototype.update = function (query, new_values) {
+player_dao.prototype.update = function (query, new_values) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("telemmo");
@@ -42,7 +42,7 @@ PlayerDAO.prototype.update = function (query, new_values) {
     });
 };
 
-PlayerDAO.prototype.readAll = function () {
+player_dao.prototype.readAll = function () {
     return new Promise(function (resolve, reject) {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
@@ -56,7 +56,7 @@ PlayerDAO.prototype.readAll = function () {
     });
 };
 
-PlayerDAO.prototype.searchByName = function (name) {
+player_dao.prototype.searchByName = function (name) {
     return new Promise(function (resolve, reject) {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
@@ -73,5 +73,5 @@ PlayerDAO.prototype.searchByName = function (name) {
 
 
 module.exports = function () {
-    return PlayerDAO;
+    return player_dao;
 }

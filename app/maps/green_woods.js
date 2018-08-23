@@ -22,7 +22,7 @@ const possibleMonsters = [
         exp: 60
     },
     {
-        name: 'Dark Fairy',
+        name: 'Fairy',
         hp: 99,
         sp: 0,
         autoAttackDmg: 23,

@@ -1,4 +1,6 @@
 module.exports = function (bot) {
+    var player_funcs = new bot.infra.player_funcs();
+    
     bot.on(/^\/class (.+)$/, (msg, props) => {
         let replyMarkup = bot.keyboard([
             ['/explore green_woods'],
@@ -9,15 +11,15 @@ module.exports = function (bot) {
             ['/level_up', '/me']
         ], { resize: true });
         if (msg.from.username != 'null') {
-            handlePlayerExists(msg)
+            player_funcs.handlePlayerExists(msg,bot)
                 .then(function (resolve) {
                     return bot.sendMessage(msg.from.id, 'You are already registered', { replyMarkup });
                 })
                 .catch(function (reject) {
                     const classe = props.match[1];
-                    var PlayerDAO = new bot.infra.DAO.PlayerDAO();
+                    var player_dao = new bot.infra.DAO.player_dao();
                     if (['Warrior', 'Thief', 'Mage', 'Archer', 'Cleric'].includes(classe)) {
-                        PlayerDAO.insert(playerBase(msg.from.username, classe));
+                        player_dao.insert(playerBase(msg.from.username, classe));
                         return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
                     } else {
                         return bot.sendMessage(msg.from.id, 'Invalid class.');
@@ -34,26 +36,10 @@ module.exports = function (bot) {
             ['/class Archer'],
             ['/class Cleric']
         ], { resize: true });
-        handlePlayerExists(msg)
-            .then(function (resolve) {
-                return bot.sendMessage(msg.from.id, 'You are already registered', { replyMarkup });
-            })
-            .catch(function (reject) {
-                return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup });
-            });
-
+        player_funcs.handlePlayerExists(msg,bot)
+            .then(function (resolve) {return bot.sendMessage(msg.from.id, 'You are already registered');})
+            .catch(function (reject) {return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup });});
     });
-
-    function handlePlayerExists(msg) {
-        return new Promise(function (resolve, reject) {
-            var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-            PlayerDAO.searchByName(msg.from.username)
-                .then(function (resp) {
-                    if (resp[0]) resolve(resp[0]);
-                    else reject('didnt find player');
-                });
-        });
-    }
 
     function playerBase(name, classe) {
         return {

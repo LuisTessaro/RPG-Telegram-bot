@@ -1,7 +1,9 @@
 const lvlMultiplyer = 100;
 module.exports = function (bot) {
+    var player_funcs = new bot.infra.player_funcs();
+    
     bot.on(['/start', '/back'], msg => {
-        handlePlayerExists(msg)
+        player_funcs.handlePlayerExists(msg,bot)
             .then(function (resolve) {
                 let replyMarkup = bot.keyboard([
                     ['/explore green_woods'],
@@ -18,9 +20,9 @@ module.exports = function (bot) {
                 return bot.sendMessage(msg.from.id, 'use /register to set up an account');
             });
     });
-    
+
     bot.on('/level_up', function (msg) {
-        handlePlayerExists(msg)
+        player_funcs.handlePlayerExists(msg,bot)
             .then(function (resolve) {//resolve is player if found
                 let replyMarkup = bot.keyboard([
                     ['/up str'],
@@ -40,10 +42,11 @@ module.exports = function (bot) {
     });
 
     bot.on(/^\/up (.+)$/, (msg, props) => {
-        handlePlayerExists(msg)
+        player_funcs.handlePlayerExists(msg,bot)
             .then(function (resolve) {
-                var PlayerDAO = new bot.infra.DAO.PlayerDAO();
+                var PlayerDAO = new bot.infra.DAO.player_dao();
                 const statName = props.match[1];
+                //improve this 
                 if (resolve.exp > resolve.level * lvlMultiplyer) {
                     if (statName == 'str') {
                         var att = resolve.attributes.str;
@@ -51,41 +54,41 @@ module.exports = function (bot) {
                         PlayerDAO.update({
                             name: msg.from.username
                         }, { $set: { "attributes.str": att } });
-                    }else if(statName == 'dex'){
+                    } else if (statName == 'dex') {
                         var att = resolve.attributes.dex;
                         att += 1;
                         PlayerDAO.update({
                             name: msg.from.username
                         }, { $set: { "attributes.dex": att } });
-                    }else if(statName == 'agi'){
+                    } else if (statName == 'agi') {
                         var att = resolve.attributes.agi;
                         att += 1;
                         PlayerDAO.update({
                             name: msg.from.username
                         }, { $set: { "attributes.agi": att } });
-                    }else if(statName == 'con'){
+                    } else if (statName == 'con') {
                         var att = resolve.attributes.con;
                         att += 1;
                         PlayerDAO.update({
                             name: msg.from.username
                         }, { $set: { "attributes.con": att } });
-                    }else if(statName == 'int'){
+                    } else if (statName == 'int') {
                         var att = resolve.attributes.int;
                         att += 1;
                         PlayerDAO.update({
                             name: msg.from.username
                         }, { $set: { "attributes.int": att } });
-                    }else if(statName == 'wis'){
+                    } else if (statName == 'wis') {
                         var att = resolve.attributes.wis;
                         att += 1;
                         PlayerDAO.update({
                             name: msg.from.username
                         }, { $set: { "attributes.wis": att } });
-                    }else{
+                    } else {
                         return bot.sendMessage(msg.from.id, 'Invalid Stat');
                     }
-                    playerLevelUp(msg);
-                    removeExp(msg, resolve.level * lvlMultiplyer);
+                    player_funcs.playerLevelUp(msg,bot);
+                    player_funcs.removeExp(msg, resolve.level * lvlMultiplyer, bot);
                     return bot.sendMessage(msg.from.id, 'Level up!!');
                 } else {
                     return bot.sendMessage(msg.from.id, 'Not enought exp to level up  (' + resolve.level * lvlMultiplyer + ' per level) you have: ' + resolve.exp);
@@ -97,20 +100,9 @@ module.exports = function (bot) {
 
     });
 
-    function playerLevelUp(msg) {
-        var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-        PlayerDAO.searchByName(msg.from.username)
-            .then(function (resp) {
-                var level = resp[0].level;
-                level += 1;
-                PlayerDAO.update({
-                    name: msg.from.username
-                }, { $set: { "level": level } });
-            });
-    }
-
     bot.on('/me', (msg) => {
-        handlePlayerExists(msg)
+        console.log(msg.from.username);
+        player_funcs.handlePlayerExists(msg,bot)
             .then(function (resolve) {
                 let me = "";
                 me += `Name: ${resolve.name}\n`;
@@ -125,13 +117,13 @@ module.exports = function (bot) {
                 bot.sendMessage(msg.from.id, me);
             })
             .catch(function (reject) {
-                console.log(reject);
+                console.log('tgus  '+ reject);
                 return bot.sendMessage(msg.from.id, 'use /register to set up an account');
             });
     });
 
     bot.on('/exp', (msg) => {
-        handlePlayerExists(msg)
+        player_funcs.handlePlayerExists(msg,bot)
             .then(function (resolve) {//resolve is player if found
                 bot.sendMessage(msg.from.id, 'You have: ' + resolve.exp + " exp.");
             })
@@ -142,36 +134,14 @@ module.exports = function (bot) {
     });
 
     bot.on('/reborn', (msg) => {
-        reborn(msg);
-        return bot.sendMessage(msg.from.id, 'Your character has been reset');
-    });
-
-    function handlePlayerExists(msg) {
-        return new Promise(function (resolve, reject) {
-            var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-            PlayerDAO.searchByName(msg.from.username)
-                .then(function (resp) {
-                    if (resp[0]) resolve(resp[0]);
-                    else reject('didnt find player');
-                });
-        });
-    }
-
-    function reborn(msg) {
-        var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-        PlayerDAO.deleteByName(msg.from.username);
-    }
-
-    function removeExp(msg, expLosses) {
-        var PlayerDAO = new bot.infra.DAO.PlayerDAO();
-        PlayerDAO.searchByName(msg.from.username)
-            .then(function (resp) {
-                var exp = resp[0].exp;
-                exp -= expLosses;
-                PlayerDAO.update({
-                    name: msg.from.username
-                }, { $set: { "exp": exp } });
+        player_funcs.handlePlayerExists(msg,bot)
+            .then(function (resolve) {
+                player_funcs.reborn(msg,bot);
+                return bot.sendMessage(msg.from.id, 'Your character has been reset');
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
             });
-
-    }
+    });
 }

@@ -19,9 +19,9 @@ player_factory.prototype.getMonster = function (map, bot) {
         //this is super bad and needs to be changed
         var i;
         let r = Math.floor(Math.random() * 100);
-        if (r < 30) {
+        if (r < 75) {
             i = 0;
-        } else if (r < 75) {
+        } else if (r < 80) {
             i = 1;
         } else if (r < 98) {
             i = 2;

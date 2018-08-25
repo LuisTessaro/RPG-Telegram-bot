@@ -115,7 +115,8 @@ module.exports = function (bot) {
                     if (rand < player.healingSkills[i].odds) {
                         let skill_healing = player.healingSkills[i].heal();
                         battleLog += `${player.healingSkills[i].emoji} ${player.healingSkills[i].skill_name} cast for ${skill_healing} healing\n`;
-                        player.hp += skill_healing;
+                        if (player.hp + skill_healing >= playerMaxHp) player.hp = playerMaxHp;
+                        else player.hp += skill_healing;
                     }
                 }
                 battleLog += `${monster.name}'s hp: ${monster.hp}/${monsterMaxHp}\n\n`;

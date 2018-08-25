@@ -6,6 +6,7 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
         classe: player.classe,
         attributes: player.attributes,
         skills: [],
+        healingSkills: [],
         hp: 0,
         sp: 0,
         autoAttackDmg: 0,
@@ -26,6 +27,13 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
         for (i in player_skills) {
             if (player.level >= player_skills[i].level_required)
                 player_stats.skills.push(player_skills[i]);
+        }
+
+        var player_healing_skills = class_by_name.getHealingSkills(player.attributes);
+        var q;
+        for (q in player_healing_skills) {
+            if (player.level >= player_healing_skills[q].level_required)
+                player_stats.healingSkills.push(player_healing_skills[q]);
         }
     }
     if (player.classe == 'Warrior') {

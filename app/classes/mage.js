@@ -1,5 +1,4 @@
 function mage() { }
-
 mage.prototype.getSkills = function (att) {
     /*
     Strength: 10
@@ -9,7 +8,6 @@ mage.prototype.getSkills = function (att) {
     Intelligence: 5
     Wisdom: 5
     */
-    var healingSkills = [];
     var skills = [
         {
             skill_name: "Fire Bolt",
@@ -44,7 +42,7 @@ mage.prototype.getSkills = function (att) {
         {
             skill_name: "METEOR!!!!",
             damage: function () {
-                return att.int*25;
+                return att.int * 25;
             },
             level_required: 1,
             odds: 3,
@@ -54,6 +52,21 @@ mage.prototype.getSkills = function (att) {
     ];
     return skills;
 };
+
+mage.prototype.getHealingSkills = function (att) {
+    var healingSkills = [{
+        skill_name: "Cauterize Wounds",
+        heal: function () {
+            return att.int * 3;
+        },
+        level_required: 1,
+        odds: 40,
+        cost: 0,
+        emoji: "🔥"
+    }];
+
+    return healingSkills;
+}
 
 mage.prototype.hpFormula = function () {
     let formula_hp = function (con, lvl) {

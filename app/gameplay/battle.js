@@ -24,7 +24,7 @@ module.exports = function (bot) {
                 exploreWrapper(msg, map);
             }
         };
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {//resolve is player if found
                 const map = props.match[1];
                 if (!users[msg.from.username]) {//if player is not on users{}
@@ -35,7 +35,7 @@ module.exports = function (bot) {
                     };
                 } else {//if player is on users{}
                     if (users[msg.from.username].hasReturned == false) {
-                        bot.sendMessage(msg.from.id, 'You are already exloring or did not return yeet');
+                        bot.sendMessage(msg.from.id, 'You are already exloring or did not return yet');
                         return;
                     }
                     users[msg.from.username].WantsToExplore = true;
@@ -50,9 +50,10 @@ module.exports = function (bot) {
                 return bot.sendMessage(msg.from.id, 'use /register to set up an account');
             });
     });
-
+    
+    //do network version
     bot.on('/stop_exploring', (msg) => {
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {//resolve is player if found
                 if (!users[msg.from.username]) {
                     users[msg.from.username] = {
@@ -74,7 +75,7 @@ module.exports = function (bot) {
     });
 
     function exploreWrapper(msg, map) {
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {//resolve is player if found
                 let playerFactory = new bot.factory.player_factory();
                 let player = playerFactory.calculateStatsForPlayer(resolve, bot);
@@ -91,9 +92,8 @@ module.exports = function (bot) {
             });
     }
 
-    //this is the mess fix it
     function battle(player, monster, msg, map, wants) {
-        let startMessage = '', battleLog = '';
+        var startMessage = '', battleLog = '';
         let playerIniciative = dice(20);
         let monsterIniciative = dice(20);
         let playerMaxHp = player.hp;
@@ -103,116 +103,84 @@ module.exports = function (bot) {
         if (playerIniciative > monsterIniciative) battleLog += `${player.name} won the initiative!\n\n`;
         else battleLog += `${monster.name} won the initiative!\n\n`;
 
-        while (monster.hp > 0) {
-            if (playerIniciative > monsterIniciative) {
-                //player turn
-                let player_accuracy = dice(player.accuracy);
-                let monster_flee = dice(monster.flee);
-                let player_damage = dice(player.autoAttackDmg);
-                battleLog += `🔷 🎯${player_accuracy}  💢${player_damage}  ✨${monster_flee}\n`;
-                if (player_accuracy >= monster_flee) {
-                    battleLog += `${player.name} dealt ${player_damage} damage to ${monster.name}\n`;
-                    monster.hp -= player_damage;
-                    //skills
-                    var i;
-                    for (i in player.skills) {
-                        let rand = dice(100);
-                        if (rand < player.skills[i].odds) {
-                            let skill_damage = player.skills[i].damage() / 2;
-                            skill_damage += dice(player.skills[i].damage() / 2);
-                            battleLog += `${player.skills[i].emoji} ${player.skills[i].skill_name} cast for ${skill_damage} damage\n`;
-                            monster.hp -= skill_damage;
-                        }
+        function playerTurn() {
+            let player_accuracy = dice(player.accuracy);
+            let monster_flee = dice(monster.flee);
+            let player_damage = dice(player.autoAttackDmg);
+            battleLog += `🔷 🎯${player_accuracy}  💢${player_damage}  ✨${monster_flee}\n`;
+            if (player_accuracy >= monster_flee) {
+                battleLog += `${player.name} dealt ${player_damage} damage to ${monster.name}\n`;
+                monster.hp -= player_damage;
+                //skills
+                var i;
+                for (i in player.skills) {
+                    let rand = dice(100);
+                    if (rand < player.skills[i].odds) {
+                        let skill_damage = player.skills[i].damage();
+                        skill_damage += dice(player.skills[i].damage());
+                        battleLog += `${player.skills[i].emoji} ${player.skills[i].skill_name} cast for ${skill_damage} damage\n`;
+                        monster.hp -= skill_damage;
                     }
-                    battleLog += `${monster.name}'s hp: ${monster.hp}/${monsterMaxHp}\n\n`;
-                    if (monster.hp <= 0) {
-                        startMessage += `✔️${player.name} vs. ${monster.name}!\n\n`;
-                        battleLog += `🆙 Experience: ${monster.exp} \n🎲 Loot: \n🎩 Equip:`;
-                        player_funcs.addExp(msg, monster.exp,bot);
-                        if (wants == true) exploreWrapper(msg, map);
-                        else {
-                            battleLog += '\n\nYou stoped exploring!';
-                            users[msg.from.username].hasReturned = true;
-                        }
-                        return startMessage + battleLog;
-                    }
-                } else {
-                    battleLog += `${player.name} missed the attack\n   miss\n\n`;
                 }
-                //monster turn
-                let monster_accuracy = dice(monster.accuracy);
-                let player_flee = dice(player.flee);
-                let monster_damage = dice(monster.autoAttackDmg);
-                battleLog += `🔶 🎯${monster_accuracy}  💢${monster_damage}  ✨${player_flee}\n`;
-                if (monster_accuracy >= player_flee) {
-                    battleLog += `${monster.name} dealt ${monster_damage} damage to ${player.name}\n`
-                    player.hp -= monster_damage;
-                    battleLog += `${player.name} hp: ${player.hp}/${playerMaxHp}\n\n`
-                    if (player.hp <= 0) {
-                        startMessage += `❌${player.name} vs. ${monster.name}!\n\n`;
-                        battleLog += "You died! Use the buttons to try again B";
-                        users[msg.from.username].exploring = false;
-                        users[msg.from.username].hasReturned = true;
-                        return startMessage + battleLog;
+                for (i in player.healingSkills) {
+                    let rand = dice(100);
+                    if (rand < player.healingSkills[i].odds) {
+                        let skill_healing = player.healingSkills[i].heal();
+                        battleLog += `${player.healingSkills[i].emoji} ${player.healingSkills[i].skill_name} cast for ${skill_healing} healing\n`;
+                        player.hp += skill_healing;
                     }
-                } else {
-                    battleLog += `${monster.name} missed the attack\n   miss\n\n`;
+                }
+                battleLog += `${monster.name}'s hp: ${monster.hp}/${monsterMaxHp}\n\n`;
+                if (monster.hp <= 0) {
+                    startMessage += `✔️${player.name} vs. ${monster.name}!\n\n`;
+                    battleLog += `🆙 Experience: ${monster.exp} \n🎲 Loot: \n🎩 Equip:`;
+                    player_funcs.addExp(msg, monster.exp, bot);
+                    if (wants == true) exploreWrapper(msg, map);
+                    else {
+                        battleLog += '\n\nYou stoped exploring!';
+                        users[msg.from.username].hasReturned = true;
+                    }
+                    return {
+                        message: startMessage + battleLog
+                    }
                 }
             } else {
-                //monster turn
-                let monster_accuracy = dice(monster.accuracy);
-                let player_flee = dice(player.flee);
-                let monster_damage = dice(monster.autoAttackDmg);
-                battleLog += `🔶 🎯${monster_accuracy}  💢${monster_damage}  ✨${player_flee}\n`;
-                if (monster_accuracy >= player_flee) {
-                    battleLog += `${monster.name} dealt ${monster_damage} damage to ${player.name}\n`
-                    player.hp -= monster_damage;
-                    battleLog += `${player.name} hp: ${player.hp}/${playerMaxHp}\n\n`
-                    if (player.hp <= 0) {
-                        startMessage += `❌${player.name} vs. ${monster.name}!\n\n`;
-                        battleLog += "You died! Use the buttons to try again A";
-                        users[msg.from.username].exploring = false;
-                        users[msg.from.username].hasReturned = true;
-                        return startMessage + battleLog;
-                    }
-                } else {
-                    battleLog += `${monster.name} missed the attack\n   miss\n\n`;
-                }
+                battleLog += `${player.name} missed the attack\n   miss\n\n`;
+            }
+        }
 
-                //player turn
-                let player_accuracy = dice(player.accuracy);
-                let monster_flee = dice(monster.flee);
-                let player_damage = dice(player.autoAttackDmg);
-                battleLog += `🔷 🎯${player_accuracy}  💢${player_damage}  ✨${monster_flee}\n`;
-                if (player_accuracy >= monster_flee) {
-                    battleLog += `${player.name} dealt ${player_damage} damage to ${monster.name}\n`;
-                    monster.hp -= player_damage;
-                    //skills
-                    var i;
-                    for (i in player.skills) {
-                        let rand = dice(100);
-                        if (rand < player.skills[i].odds) {
-                            let skill_damage = player.skills[i].damage() / 2;
-                            skill_damage += dice(player.skills[i].damage() / 2);
-                            battleLog += `${player.skills[i].emoji} ${player.skills[i].skill_name} cast for ${skill_damage} damage\n`;
-                            monster.hp -= skill_damage;
-                        }
+        function monsterTurn() {
+            let monster_damage = dice(monster.autoAttackDmg);
+            let monster_accuracy = dice(monster.accuracy);
+            let player_flee = dice(player.flee);
+            battleLog += `🔶 🎯${monster_accuracy}  💢${monster_damage}  ✨${player_flee}\n`;
+            if (monster_accuracy >= player_flee) {
+                battleLog += `${monster.name} dealt ${monster_damage} damage to ${player.name}\n`
+                player.hp -= monster_damage;
+                battleLog += `${player.name} hp: ${player.hp}/${playerMaxHp}\n\n`
+                if (player.hp <= 0) {
+                    startMessage += `❌${player.name} vs. ${monster.name}!\n\n`;
+                    battleLog += 'You died! Use the buttons to try again';
+                    return {
+                        message: startMessage + battleLog
                     }
-                    battleLog += `${monster.name}'s hp: ${monster.hp}/${monsterMaxHp}\n\n`;
-                    if (monster.hp <= 0) {
-                        startMessage += `✔️${player.name} vs. ${monster.name}!\n\n`;
-                        battleLog += `🆙 Experience: ${monster.exp} \n🎲 Loot: \n🎩 Equip:`;
-                        player_funcs.addExp(msg, monster.exp,bot);
-                        if (wants == true) exploreWrapper(msg, map);
-                        else {
-                            battleLog += '\n\nYou stoped exploring!';
-                            users[msg.from.username].hasReturned = true;
-                        }
-                        return startMessage + battleLog;
-                    }
-                } else {
-                    battleLog += `${player.name} missed the attack\n   miss\n\n`;
                 }
+            } else battleLog += `${monster.name} missed the attack\n   miss\n\n`;
+        }
+
+        while (monster.hp > 0) {
+            if (playerIniciative > monsterIniciative) {
+                let got = playerTurn();
+                if (got) return got.message;
+
+                got = monsterTurn();
+                if (got) return got.message;
+            } else {
+                let got = monsterTurn();
+                if (got) return got.message;
+
+                got = playerTurn();
+                if (got) return got.message;
             }
         }
         return startMessage + battleLog;

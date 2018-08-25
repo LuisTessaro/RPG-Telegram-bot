@@ -1,6 +1,5 @@
 module.exports = function (bot) {
     var player_funcs = new bot.infra.player_funcs();
-    
     bot.on(/^\/class (.+)$/, (msg, props) => {
         let replyMarkup = bot.keyboard([
             ['/explore green_woods'],
@@ -39,6 +38,37 @@ module.exports = function (bot) {
         player_funcs.handlePlayerExists(msg,bot)
             .then(function (resolve) {return bot.sendMessage(msg.from.id, 'You are already registered');})
             .catch(function (reject) {return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup });});
+    });
+
+    bot.on('/reborn', (msg) => {
+        player_funcs.handlePlayerExists(msg,bot)
+            .then(function (resolve) {
+                player_funcs.reborn(msg,bot);
+                return bot.sendMessage(msg.from.id, 'Your character has been reset');
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
+    });
+
+    bot.on(['/start', '/back'], msg => {
+        player_funcs.handlePlayerExists(msg,bot)
+            .then(function (resolve) {
+                let replyMarkup = bot.keyboard([
+                    ['/explore green_woods'],
+                    ['/explore dark_forest'],
+                    ['/explore bat_cave'],
+                    ['/explore deep_below'],
+                    ['/stop_exploring', '/exp'],
+                    ['/level_up', '/me']
+                ], { resize: true });
+                return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
     });
 
     function playerBase(name, classe) {

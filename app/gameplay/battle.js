@@ -30,42 +30,30 @@ module.exports = function (bot) {
                 if (!users[msg.from.username]) {//if player is not on users{}
                     users[msg.from.username] = {
                         "WantsToExplore": true,
-                        "hasReturned": false,
                         "exploring": false
                     };
                 } else {//if player is on users{}
-                    if (users[msg.from.username].hasReturned == false) {
-                        bot.sendMessage(msg.from.id, 'You are already exloring or did not return yet');
-                        return;
+                    if (users[msg.from.username].exploring == true) {
+                        return bot.sendMessage(msg.from.id, 'You are already exploring or did not return yet');
                     }
                     users[msg.from.username].WantsToExplore = true;
                 }
-                if (users[msg.from.username].exploring == false) {
-                    if (maps[map]) {
-                        maps[map](msg, map);
-                    } else bot.sendMessage(msg.from.id, 'Invalid map, use /start to see all available maps');
-                } else bot.sendMessage(msg.from.id, 'You are already exploring or did not return yeet');
+                if (maps[map]) {
+                    maps[map](msg, map);
+                } else bot.sendMessage(msg.from.id, 'Invalid map, use /start to see all available maps');
             })
             .catch(function (reject) {
                 return bot.sendMessage(msg.from.id, 'use /register to set up an account');
             });
     });
-    
+
     //do network version
     bot.on('/stop_exploring', (msg) => {
         player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {//resolve is player if found
-                if (!users[msg.from.username]) {
-                    users[msg.from.username] = {
-                        "WantsToExplore": false,
-                        "exploring": false
-                    };
-                } else {
-                    users[msg.from.username].WantsToExplore = false;
-                    users[msg.from.username].exploring = false;
-                    if (users[msg.from.username].hasReturned == false) {
-                        return;
-                    }
+                users[msg.from.username].WantsToExplore = false;
+                if (users[msg.from.username].exploring == false) {
+                    return;
                 }
                 return bot.sendMessage(msg.from.id, 'You will stop exploring as soon as a battle happens or you die.');
             })
@@ -87,12 +75,12 @@ module.exports = function (bot) {
 
                 setImmediate(() => Promise.delay(seconds * 1000)
                     .then(() => {
-                        bot.sendMessage(msg.from.id, battle(player, monster, msg, map, users[msg.from.username].WantsToExplore));
+                        bot.sendMessage(msg.from.id, battle(player, monster, msg, map));
                     }));
             });
     }
 
-    function battle(player, monster, msg, map, wants) {
+    function battle(player, monster, msg, map) {
         var startMessage = '', battleLog = '';
         let playerIniciative = dice(20);
         let monsterIniciative = dice(20);
@@ -135,18 +123,16 @@ module.exports = function (bot) {
                     startMessage += `✔️${player.name} vs. ${monster.name}!\n\n`;
                     battleLog += `🆙 Experience: ${monster.exp} \n🎲 Loot: \n🎩 Equip:`;
                     player_funcs.addExp(msg, monster.exp, bot);
-                    if (wants == true) exploreWrapper(msg, map);
+                    if (users[msg.from.username].WantsToExplore == true) exploreWrapper(msg, map);
                     else {
+                        users[msg.from.username].exploring = false;
                         battleLog += '\n\nYou stoped exploring!';
-                        users[msg.from.username].hasReturned = true;
                     }
                     return {
                         message: startMessage + battleLog
                     }
                 }
-            } else {
-                battleLog += `${player.name} missed the attack\n   miss\n\n`;
-            }
+            } else battleLog += `${player.name} missed the attack\n   miss\n\n`;
         }
 
         function monsterTurn() {
@@ -161,6 +147,7 @@ module.exports = function (bot) {
                 if (player.hp <= 0) {
                     startMessage += `❌${player.name} vs. ${monster.name}!\n\n`;
                     battleLog += 'You died! Use the buttons to try again';
+                    users[msg.from.username].exploring = false;
                     return {
                         message: startMessage + battleLog
                     }

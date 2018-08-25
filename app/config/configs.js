@@ -2,7 +2,7 @@ var load = require('consign');
 const TeleBot = require('telebot');
 
 module.exports = function () {
-    var bot = new TeleBot('heheheexxdddd');
+    var bot = new TeleBot('REEEEEEEEE');
 
     load({ cwd: 'app' })
         .include('infra')

@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-var seconds = 10;
+var seconds = 30;
 const users = {};
 
 module.exports = function (bot) {

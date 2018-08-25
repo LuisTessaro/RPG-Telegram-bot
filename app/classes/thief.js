@@ -1,5 +1,18 @@
 function thief() { }
+thief.prototype.getHealingSkills = function (att) {
+    var healingSkills = [{
+        skill_name: "Cauterize Wounds",
+        heal: function () {
+            return att.int * 3;
+        },
+        level_required: 1,
+        odds: 40,
+        cost: 0,
+        emoji: "🔥"
+    }];
 
+    return healingSkills;
+}
 thief.prototype.getSkills = function (att) {
     /*
     Strength: 10
@@ -9,12 +22,11 @@ thief.prototype.getSkills = function (att) {
     Intelligence: 5
     Wisdom: 5
     */
-    var healingSkills = [];
     var skills = [
         {
             skill_name: "Stab",
             damage: function () {
-                return att.str + (att.dex *2);
+                return att.str + (att.dex * 2);
             },
             level_required: 1,
             odds: 40,

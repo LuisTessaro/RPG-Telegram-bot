@@ -13,6 +13,7 @@
     "bluebird": "^3.5.1",
     "consign": "^0.1.6",
     "dice": "0.0.2",
+    "eslint": "^5.4.0",
     "mongodb": "^3.0.7",
     "mysql": "^2.15.0",
     "telebot": "^1.2.6"

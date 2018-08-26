@@ -1,13 +1,41 @@
 const possibleMonsters = [
     {
-        name: 'Slime',
+        name: 'Green Slime',
         hp: 40,
         sp: 0,
         autoAttackDmg: 5,
         flee: 0,
         accuracy: 10,
         iniciative_bonus: 0,
-        occurrence: 50,
+        rarity: `common`,
+        possible_loot: [],
+        possible_equips: [],
+        exp: 35
+    },
+    {
+        name: 'Purple Slime',
+        hp: 40,
+        sp: 0,
+        autoAttackDmg: 5,
+        flee: 0,
+        accuracy: 10,
+        iniciative_bonus: 0,
+        rarity: `common`,
+        possible_loot: [],
+        possible_equips: [],
+        exp: 35
+    },
+    {
+        name: 'Blue Slime',
+        hp: 40,
+        sp: 0,
+        autoAttackDmg: 5,
+        flee: 0,
+        accuracy: 10,
+        iniciative_bonus: 0,
+        rarity: `common`,
+        possible_loot: [],
+        possible_equips: [],
         exp: 35
     },
     {
@@ -18,7 +46,22 @@ const possibleMonsters = [
         flee: 2,
         accuracy: 15,
         iniciative_bonus: 0,
-        occurrence: 40,
+        rarity: `uncommon`,
+        possible_loot: [],
+        possible_equips: [],
+        exp: 60
+    },
+    {
+        name: 'Gray Wolf',
+        hp: 65,
+        sp: 0,
+        autoAttackDmg: 15,
+        flee: 2,
+        accuracy: 15,
+        iniciative_bonus: 0,
+        rarity: `uncommon`,
+        possible_loot: [],
+        possible_equips: [],
         exp: 60
     },
     {
@@ -29,7 +72,9 @@ const possibleMonsters = [
         flee: 5,
         accuracy: 15,
         iniciative_bonus: 0,
-        occurrence: 40,
+        rarity: `rare`,
+        possible_loot: [],
+        possible_equips: [],
         exp: 180
     },
     {
@@ -40,7 +85,9 @@ const possibleMonsters = [
         flee: 0,
         accuracy: 10,
         iniciative_bonus: 0,
-        occurrence: 1,
+        rarity: `boss`,
+        possible_loot: [],
+        possible_equips: [],
         exp: 1500
     },
     {
@@ -51,8 +98,10 @@ const possibleMonsters = [
         flee: 0,
         accuracy: 0,
         iniciative_bonus: 0,
-        occurrence: 1,
-        exp: 500 
+        rarity: `secret`,
+        possible_loot: [],
+        possible_equips: [],
+        exp: 0
     }
 ];
 

@@ -14,6 +14,27 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
         accuracy: 0,
         iniciative_bonus: 0
     };
+
+    switch (player.classe) {
+        case 'Warrior':
+            solver(new bot.classes.warrior());
+            break;
+        case 'Thief':
+            solver(new bot.classes.thief());
+            break;
+        case 'Mage':
+            solver(new bot.classes.mage());
+            break;
+        case 'Archer':
+            solver(new bot.classes.archer());
+            break;
+        case 'Cleric':
+            solver(new bot.classes.cleric());
+            break;
+        default:
+            console.log('something bad happend player factory invalid class');
+    }
+
     function solver(class_by_name) {
         player_stats.hp = class_by_name.hpFormula()(player.attributes.con, player.level);
         player_stats.sp = class_by_name.spFormula()(player.attributes.int, player.attributes.wis, player.level);
@@ -35,18 +56,9 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
             if (player.level >= player_healing_skills[q].level_required)
                 player_stats.healingSkills.push(player_healing_skills[q]);
         }
+
     }
-    if (player.classe == 'Warrior') {
-        solver(new bot.classes.warrior());
-    } else if (player.classe == 'Thief') {
-        solver(new bot.classes.thief());
-    } else if (player.classe == 'Mage') {
-        solver(new bot.classes.mage());
-    } else if (player.classe == 'Archer') {
-        solver(new bot.classes.archer());
-    } else if (player.classe == 'Cleric') {
-        solver(new bot.classes.cleric());
-    }
+    
     return player_stats;
 };
 

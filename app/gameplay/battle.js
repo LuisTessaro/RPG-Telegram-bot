@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-var seconds = 30;
+const seconds = 10;
 const users = {};
 
 module.exports = function (bot) {
@@ -81,6 +81,7 @@ module.exports = function (bot) {
     }
 
     function battle(player, monster, msg, map) {
+        console.log('battle ' + player.name);
         var startMessage = '', battleLog = '';
         let playerIniciative = dice(20);
         let monsterIniciative = dice(20);
@@ -103,9 +104,9 @@ module.exports = function (bot) {
                 var i;
                 for (i in player.skills) {
                     let rand = dice(100);
-                    if (rand < player.skills[i].odds) {
-                        let skill_damage = player.skills[i].damage();
-                        skill_damage += dice(player.skills[i].damage());
+                    if (rand < player.skills[i].odds) {//half of the damage is always counted
+                        let skill_damage = player.skills[i].damage() / 2;
+                        skill_damage += dice(player.skills[i].damage()) / 2;
                         battleLog += `${player.skills[i].emoji} ${player.skills[i].skill_name} cast for ${skill_damage} damage\n`;
                         monster.hp -= skill_damage;
                     }
@@ -113,7 +114,8 @@ module.exports = function (bot) {
                 for (i in player.healingSkills) {
                     let rand = dice(100);
                     if (rand < player.healingSkills[i].odds) {
-                        let skill_healing = player.healingSkills[i].heal();
+                        let skill_healing = dice(player.healingSkills[i].heal());
+                        if (skill_healing == 0) skill_healing += 1;//if it heals it always heals at least for 1 hp
                         battleLog += `${player.healingSkills[i].emoji} ${player.healingSkills[i].skill_name} cast for ${skill_healing} healing\n`;
                         if (player.hp + skill_healing >= playerMaxHp) player.hp = playerMaxHp;
                         else player.hp += skill_healing;

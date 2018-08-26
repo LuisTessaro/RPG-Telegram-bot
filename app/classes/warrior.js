@@ -1,27 +1,6 @@
 function warrior() { }
-warrior.prototype.getHealingSkills = function (att) {
-    var healingSkills = [{
-        skill_name: "Cauterize Wounds",
-        heal: function () {
-            return att.int * 3;
-        },
-        level_required: 1,
-        odds: 40,
-        cost: 0,
-        emoji: "🔥"
-    }];
 
-    return healingSkills;
-}
 warrior.prototype.getSkills = function (att) {
-    /*
-    Strength: 10
-    Dexterity: 5
-    Agility: 5
-    Constitution: 5
-    Intelligence: 5
-    Wisdom: 5
-    */
     var healingSkills = [];
     var skills = [
         {
@@ -77,6 +56,21 @@ warrior.prototype.getSkills = function (att) {
     ];
     return skills;
 };
+
+
+warrior.prototype.getHealingSkills = function (att) {
+    var healingSkills = [{
+        skill_name: "Second wind",
+        heal: function () {
+            return att.con;
+        },
+        level_required: 1,
+        odds: 30,
+        cost: 0,
+        emoji: "💨"
+    }];
+    return healingSkills;
+}
 
 warrior.prototype.hpFormula = function () {
     let formula_hp = function (con, lvl) {

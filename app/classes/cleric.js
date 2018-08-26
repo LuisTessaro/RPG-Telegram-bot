@@ -1,31 +1,25 @@
 function cleric() { }
-cleric.prototype.getHealingSkills = function (att) {
-    var healingSkills = [{
-        skill_name: "Cauterize Wounds",
-        heal: function () {
-            return att.int * 3;
-        },
-        level_required: 1,
-        odds: 40,
-        cost: 0,
-        emoji: "🔥"
-    }];
-
-    return healingSkills;
-}
 cleric.prototype.getSkills = function (att) {
-    /*
-    Strength: 10
-    Dexterity: 5
-    Agility: 5
-    Constitution: 5
-    Intelligence: 5
-    Wisdom: 5
-    */
     var healingSkills = [];
     var skills = [];
     return skills;
 };
+
+
+cleric.prototype.getHealingSkills = function (att) {
+    var healingSkills = [{
+        skill_name: "Heal",
+        heal: function () {
+            return att.int * 3;
+        },
+        level_required: 1,
+        odds: 30,
+        cost: 0,
+        emoji: "✝️"
+    }];
+
+    return healingSkills;
+}
 
 cleric.prototype.hpFormula = function () {
     let formula_hp = function (con, lvl) {

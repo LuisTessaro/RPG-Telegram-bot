@@ -1,7 +1,6 @@
 function archer() { }
 
 archer.prototype.getSkills = function (att) {
-    var healingSkills = [];
     var skills = [
         {
             skill_name: "Double Strife",

@@ -1,6 +1,5 @@
 function cleric() { }
 cleric.prototype.getSkills = function (att) {
-    var healingSkills = [];
     var skills = [];
     return skills;
 };

@@ -1,7 +1,6 @@
 function warrior() { }
 
 warrior.prototype.getSkills = function (att) {
-    var healingSkills = [];
     var skills = [
         {
             skill_name: "Weapon Swing",

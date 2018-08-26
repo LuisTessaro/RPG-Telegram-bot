@@ -91,7 +91,7 @@ const possibleMonsters = [
         exp: 1500
     },
     {
-        name: "Pirate's lost Treasure",
+        name: "Pirate's lost Ship",
         hp: 1,
         sp: 0,
         autoAttackDmg: 0,

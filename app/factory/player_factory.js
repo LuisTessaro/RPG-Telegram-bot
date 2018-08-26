@@ -1,6 +1,7 @@
 function player_factory() { }
 
 player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
+    //do equips bonuses here
     let player_stats = {
         name: player.name,
         classe: player.classe,
@@ -43,22 +44,23 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
         player_stats.autoAttackDmg = class_by_name.autoAttackFormula()(player.attributes.str, player.attributes.dex, player.attributes.agi, player.level);
         player_stats.accuracy = class_by_name.accuracyFormula()(player.attributes.dex, player.level);
 
-        var player_skills = class_by_name.getSkills(player.attributes);
-        var i;
+        let equipment = player.equipment;
+
+        let player_skills = class_by_name.getSkills(player.attributes);
+        let i;
         for (i in player_skills) {
             if (player.level >= player_skills[i].level_required)
                 player_stats.skills.push(player_skills[i]);
         }
 
-        var player_healing_skills = class_by_name.getHealingSkills(player.attributes);
-        var q;
+        let player_healing_skills = class_by_name.getHealingSkills(player.attributes);
+        let q;
         for (q in player_healing_skills) {
             if (player.level >= player_healing_skills[q].level_required)
                 player_stats.healingSkills.push(player_healing_skills[q]);
         }
-
     }
-    
+
     return player_stats;
 };
 

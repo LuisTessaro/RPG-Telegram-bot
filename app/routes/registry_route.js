@@ -10,7 +10,7 @@ module.exports = function (bot) {
             ['/level_up', '/me']
         ], { resize: true });
         if (msg.from.username != 'null') {
-            player_funcs.handlePlayerExists(msg,bot)
+            player_funcs.handlePlayerExists(msg, bot)
                 .then(function (resolve) {
                     return bot.sendMessage(msg.from.id, 'You are already registered', { replyMarkup });
                 })
@@ -35,15 +35,33 @@ module.exports = function (bot) {
             ['/class Archer'],
             ['/class Cleric']
         ], { resize: true });
-        player_funcs.handlePlayerExists(msg,bot)
-            .then(function (resolve) {return bot.sendMessage(msg.from.id, 'You are already registered');})
-            .catch(function (reject) {return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup });});
+        player_funcs.handlePlayerExists(msg, bot)
+            .then(function (resolve) { return bot.sendMessage(msg.from.id, 'You are already registered'); })
+            .catch(function (reject) { return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup }); });
+    });
+
+
+    //test func
+    bot.on('/additem', (msg) => {
+        player_funcs.handlePlayerExists(msg, bot)
+            .then(function (resolve) {
+                let item = {
+                    item_id: 1,
+                    item_name: 'FireWhip',
+                }
+                player_funcs.addItem(msg, item, bot);
+                return bot.sendMessage(msg.from.id, item.item_name + ' has been added to your colection');
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
     });
 
     bot.on('/reborn', (msg) => {
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {
-                player_funcs.reborn(msg,bot);
+                player_funcs.reborn(msg, bot);
                 return bot.sendMessage(msg.from.id, 'Your character has been reset');
             })
             .catch(function (reject) {
@@ -53,7 +71,7 @@ module.exports = function (bot) {
     });
 
     bot.on(['/start', '/back'], msg => {
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {
                 let replyMarkup = bot.keyboard([
                     ['/explore green_woods'],

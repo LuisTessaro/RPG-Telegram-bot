@@ -1,5 +1,24 @@
 function player_funcs() { }
 
+player_funcs.prototype.addItem = function (msg, item, bot) {
+    var PlayerDAO = new bot.infra.DAO.player_dao();
+    PlayerDAO.searchByName(msg.from.username)
+        .then(function (resp) {
+            PlayerDAO.update({ name: msg.from.username }, { $push: { equipment: { $each: [{ item_id: item.item_id, item_name: item.item_name }] } } })
+        });
+}
+
+player_funcs.prototype.addExp = function (msg, expGains, bot) {
+    var PlayerDAO = new bot.infra.DAO.player_dao();
+    PlayerDAO.searchByName(msg.from.username)
+        .then(function (resp) {
+            var exp = resp[0].exp;
+            exp += expGains;
+            PlayerDAO.update({
+                name: msg.from.username
+            }, { $set: { "exp": exp } });
+        });
+}
 player_funcs.prototype.handlePlayerExists = function (msg, bot) {
     return new Promise(function (resolve, reject) {
         var PlayerDAO = new bot.infra.DAO.player_dao();
@@ -40,17 +59,7 @@ player_funcs.prototype.playerLevelUp = function (msg, bot) {
         });
 }
 
-player_funcs.prototype.addExp = function (msg, expGains,bot) {
-    var PlayerDAO = new bot.infra.DAO.player_dao();
-    PlayerDAO.searchByName(msg.from.username)
-        .then(function (resp) {
-            var exp = resp[0].exp;
-            exp += expGains;
-            PlayerDAO.update({
-                name: msg.from.username
-            }, { $set: { "exp": exp } });
-        });
-}
+
 
 module.exports = function () {
     return player_funcs;

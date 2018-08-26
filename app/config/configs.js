@@ -2,7 +2,7 @@ var load = require('consign');
 const TeleBot = require('telebot');
 
 module.exports = function () {
-    var bot = new TeleBot('REEEEEEEEE');
+    var bot = new TeleBot('token-token');
 
     load({ cwd: 'app' })
         .include('infra')
@@ -11,6 +11,7 @@ module.exports = function () {
         .then('maps')
         .then('gameplay')
         .then('routes')
+        .then('itens')
         .into(bot);
 
     return bot;

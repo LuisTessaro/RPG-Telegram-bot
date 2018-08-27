@@ -37,6 +37,7 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
     }
 
     function solver(class_by_name) {
+        //send all atributtes so i can have some leeway on balancing and cool ideas
         player_stats.hp = class_by_name.hpFormula()(player.attributes.con, player.level);
         player_stats.flee = class_by_name.fleeFormula()(player.attributes.agi, player.level);
         player_stats.iniciative_bonus = 0;

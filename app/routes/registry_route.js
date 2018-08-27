@@ -7,7 +7,8 @@ module.exports = function (bot) {
             ['/explore bat_cave'],
             ['/explore deep_below'],
             ['/stop_exploring', '/exp'],
-            ['/level_up', '/me']
+            ['/level_up', '/me'],
+            ['/bags', '/equipment']
         ], { resize: true });
         if (msg.from.username != 'null') {
             player_funcs.handlePlayerExists(msg, bot)
@@ -61,7 +62,8 @@ module.exports = function (bot) {
                     ['/explore bat_cave'],
                     ['/explore deep_below'],
                     ['/stop_exploring', '/exp'],
-                    ['/level_up', '/me']
+                    ['/level_up', '/me'],
+                    ['/bags', '/equipment']
                 ], { resize: true });
                 return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup });
             })
@@ -102,7 +104,7 @@ module.exports = function (bot) {
                     item_name: 'FireWhip',
                     amount: 1
                 }
-                player_funcs.addItemToBag(msg, item, bot);
+                player_funcs.addItemToEquipment(msg, item, bot);
                 return bot.sendMessage(msg.from.id, item.item_name + ' has been added to your colection');
             })
             .catch(function (reject) {
@@ -116,7 +118,7 @@ module.exports = function (bot) {
         player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {
                 let item = {
-                    item_id: 4
+                    item_id: 1
                 }
                 player_funcs.removeItemFromBag(msg, item.item_id, bot);
                 return bot.sendMessage(msg.from.id, ' has been removed from your colection');

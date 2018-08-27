@@ -5,31 +5,28 @@ mage.prototype.getSkills = function (att) {
         {
             skill_name: "Fire Bolt",
             damage: function () {
-                return att.int * 3;
+                return att.int + (att.wis / 2) + 5.5;
             },
             level_required: 1,
-            odds: 40,
-            cost: 0,
+            odds: 35,
             emoji: "🔥"
         },
         {
             skill_name: "Frost Bolt",
             damage: function () {
-                return att.int * 3;
+                return att.int + (att.wis / 2) + 5.5;
             },
             level_required: 1,
-            odds: 40,
-            cost: 0,
+            odds: 35,
             emoji: "❄️"
         },
         {
             skill_name: "Arcane Bolt",
             damage: function () {
-                return att.int * 3;
+                return att.int + (att.wis / 2) + 5.5;
             },
             level_required: 1,
-            odds: 40,
-            cost: 0,
+            odds: 35,
             emoji: "🔮"
         },
         {
@@ -39,7 +36,6 @@ mage.prototype.getSkills = function (att) {
             },
             level_required: 1,
             odds: 3,
-            cost: 0,
             emoji: "☄️"
         }
     ];
@@ -62,36 +58,29 @@ mage.prototype.getHealingSkills = function (att) {
 }
 
 mage.prototype.hpFormula = function () {
-    let formula_hp = function (con, lvl) {
-        return (con * 10) + lvl;
+    let formula_hp = function (att, lvl) {
+        return (att.con * 5) + 25;
     };
     return formula_hp;
 };
 
-mage.prototype.spFormula = function () {
-    let formula_sp = function (int, wis, lvl) {
-        return 0;
-    };
-    return formula_sp;
-};
-
 mage.prototype.accuracyFormula = function () {
-    let formula_acc = function (dex, lvl) {
-        return (dex * 5) + lvl;
+    let formula_acc = function (att, lvl) {
+        return att.wis + (lvl / 2);
     };
     return formula_acc;
 };
 
 mage.prototype.fleeFormula = function () {
-    let formula_flee = function (agi, lvl) {
+    let formula_flee = function (att, lvl) {
         return lvl;
     };
     return formula_flee;
 };
 
 mage.prototype.autoAttackFormula = function () {
-    let formula_autoAttack = function (str, dex, agi, lvl) {
-        return str;
+    let formula_autoAttack = function (att) {
+        return 1;
     };
     return formula_autoAttack;
 };

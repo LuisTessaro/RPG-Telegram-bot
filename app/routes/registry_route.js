@@ -81,15 +81,15 @@ module.exports = function (bot) {
             level: 1,
             exp: 0,
             attributes: {
-                str: 5,
-                dex: 5,
-                agi: 5,
-                con: 5,
-                int: 5,
-                wis: 5,
-                car: 5,
-                wil: 5,
-                luk: 5
+                str: 1,
+                dex: 1,
+                agi: 1,
+                con: 1,
+                int: 1,
+                wis: 1,
+                car: 1,
+                wil: 1,
+                luk: 1
             },
             equipment: [],
             bag: []

@@ -3,40 +3,40 @@ const possibleMonsters = [
         name: 'Green Slime',
         hp: 40,
         sp: 0,
-        autoAttackDmg: 5,
+        autoAttackDmg: 10,
         flee: 0,
         accuracy: 10,
         iniciative_bonus: 0,
         rarity: `common`,
         possible_loot: [],
         possible_equips: [],
-        exp: 35
+        exp: 1000
     },
     {
         name: 'Purple Slime',
         hp: 40,
         sp: 0,
-        autoAttackDmg: 5,
+        autoAttackDmg: 10,
         flee: 0,
         accuracy: 10,
         iniciative_bonus: 0,
         rarity: `common`,
         possible_loot: [],
         possible_equips: [],
-        exp: 35
+        exp: 1000
     },
     {
         name: 'Blue Slime',
         hp: 40,
         sp: 0,
-        autoAttackDmg: 5,
+        autoAttackDmg: 10,
         flee: 0,
         accuracy: 10,
         iniciative_bonus: 0,
         rarity: `common`,
         possible_loot: [],
         possible_equips: [],
-        exp: 35
+        exp: 1000
     },
     {
         name: 'Wolf',

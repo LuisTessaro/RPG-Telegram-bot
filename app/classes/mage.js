@@ -5,7 +5,7 @@ mage.prototype.getSkills = function (att) {
         {
             skill_name: "Fire Bolt",
             damage: function () {
-                return att.int + (att.wiz / 2) + 0.5 ;
+                return att.int + (att.wiz / 2) + 5.5 ;
             },
             level_required: 1,
             odds: 35,
@@ -14,7 +14,7 @@ mage.prototype.getSkills = function (att) {
         {
             skill_name: "Frost Bolt",
             damage: function () {
-                return att.int + (att.wiz / 2) + 0.5 ;
+                return att.int + (att.wiz / 2) + 5.5 ;
             },
             level_required: 1,
             odds: 35,
@@ -23,7 +23,7 @@ mage.prototype.getSkills = function (att) {
         {
             skill_name: "Arcane Bolt",
             damage: function () {
-                return att.int + (att.wiz / 2) + 0.5 ;
+                return att.int + (att.wiz / 2) + 5.5 ;
             },
             level_required: 1,
             odds: 35,

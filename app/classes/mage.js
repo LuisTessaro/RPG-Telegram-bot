@@ -36,7 +36,6 @@ mage.prototype.getSkills = function (att) {
             },
             level_required: 1,
             odds: 3,
-            cost: 0,
             emoji: "☄️"
         }
     ];
@@ -64,8 +63,8 @@ mage.prototype.hpFormula = function () {
 };
 
 mage.prototype.accuracyFormula = function () {
-    let formula_acc = function (wiz, lvl) {
-        return wiz + lvl;
+    let formula_acc = function (att, lvl) {
+        return att.wis + lvl;
     };
     return formula_acc;
 };

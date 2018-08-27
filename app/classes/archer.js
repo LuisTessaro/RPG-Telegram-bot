@@ -77,8 +77,8 @@ archer.prototype.spFormula = function () {
 };
 
 archer.prototype.accuracyFormula = function () {
-    let formula_acc = function (dex, lvl) {
-        return (dex * 2) + lvl;
+    let formula_acc = function (att, lvl) {
+        return (att.dex * 2) + lvl;
     };
     return formula_acc;
 };

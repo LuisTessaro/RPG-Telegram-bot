@@ -129,7 +129,7 @@ module.exports = function (bot) {
                 let equipment;
                 if (resolve.equipment[0]) {
                     equipment = 'Your equiped itens: \n';
-                    let i;
+                    let i;  
                     for (i in resolve.equipment) {
                         equipment += `${resolve.equipment[i].item_name}\n`;
                     }

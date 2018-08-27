@@ -34,7 +34,8 @@ module.exports = function (bot) {
             ['/class Thief'],
             ['/class Mage'],
             ['/class Archer'],
-            ['/class Cleric']
+            ['/class Cleric'],
+            ['/back']
         ], { resize: true });
         player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) { return bot.sendMessage(msg.from.id, 'You are already registered'); })

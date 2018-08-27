@@ -1,7 +1,13 @@
 function player_factory() { }
 
 player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
-    //do equips bonuses here
+    if (player.equipment[0]) {//if theres any equiped stuff
+        let i;
+        for (i in player.equipment) {//player.equipment[i] is all things equiped
+            console.log(player.equipment[i].item_id);
+        }
+    }
+
     let player_stats = {
         name: player.name,
         classe: player.classe,

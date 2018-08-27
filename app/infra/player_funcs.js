@@ -1,28 +1,27 @@
 function player_funcs() { }
 
-
-player_funcs.prototype.addItemToBag = function(msg, item, bot) {
+player_funcs.prototype.addItemToBag = function (msg, item, bot) {
     var PlayerDAO = new bot.infra.DAO.player_dao();
     PlayerDAO.searchByName(msg.from.username)
         .then(function (resp) {
             PlayerDAO.update({ name: msg.from.username }, { $push: { bag: { $each: [{ item_id: item.item_id, item_name: item.item_name, amount: item.amount }] } } });
         });
 }
-player_funcs.prototype.removeItemFromBag = function(msg, id, bot) {
+player_funcs.prototype.removeItemFromBag = function (msg, id, bot) {
     var PlayerDAO = new bot.infra.DAO.player_dao();
     PlayerDAO.searchByName(msg.from.username)
         .then(function (resp) {
             PlayerDAO.update({ name: msg.from.username }, { $pull: { bag: { item_id: id } } });
         });
 }
-player_funcs.prototype.addItemToEquipment = function(msg, item, bot) {
+player_funcs.prototype.addItemToEquipment = function (msg, item, bot) {
     var PlayerDAO = new bot.infra.DAO.player_dao();
     PlayerDAO.searchByName(msg.from.username)
         .then(function (resp) {
             PlayerDAO.update({ name: msg.from.username }, { $push: { equipment: { $each: [{ item_id: item.item_id, item_name: item.item_name }] } } });
         });
 }
-player_funcs.prototype.removeItemFromEquipment = function(msg, id, bot) {
+player_funcs.prototype.removeItemFromEquipment = function (msg, id, bot) {
     var PlayerDAO = new bot.infra.DAO.player_dao();
     PlayerDAO.searchByName(msg.from.username)
         .then(function (resp) {

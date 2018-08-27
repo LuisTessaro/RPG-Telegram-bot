@@ -40,24 +40,6 @@ module.exports = function (bot) {
             .catch(function (reject) { return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup }); });
     });
 
-
-    //test func
-    bot.on('/additem', (msg) => {
-        player_funcs.handlePlayerExists(msg, bot)
-            .then(function (resolve) {
-                let item = {
-                    item_id: 1,
-                    item_name: 'FireWhip',
-                }
-                player_funcs.addItem(msg, item, bot);
-                return bot.sendMessage(msg.from.id, item.item_name + ' has been added to your colection');
-            })
-            .catch(function (reject) {
-                console.log(reject);
-                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
-            });
-    });
-
     bot.on('/reborn', (msg) => {
         player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {
@@ -110,4 +92,41 @@ module.exports = function (bot) {
             bag: []
         }
     }
+
+    //test funcs
+    bot.on('/additem', (msg) => {
+        player_funcs.handlePlayerExists(msg, bot)
+            .then(function (resolve) {
+                let item = {
+                    item_id: 1,
+                    item_name: 'FireWhip',
+                    amount: 1
+                }
+                player_funcs.addItemToBag(msg, item, bot);
+                return bot.sendMessage(msg.from.id, item.item_name + ' has been added to your colection');
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
+    });
+
+
+    bot.on('/removeitem', (msg) => {
+        player_funcs.handlePlayerExists(msg, bot)
+            .then(function (resolve) {
+                let item = {
+                    item_id: 4
+                }
+                player_funcs.removeItemFromBag(msg, item.item_id, bot);
+                return bot.sendMessage(msg.from.id, ' has been removed from your colection');
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
+    });
+    //end test funcs
+
+
 }

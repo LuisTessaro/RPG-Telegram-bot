@@ -2,7 +2,7 @@ const lvlMultiplyer = 100;
 module.exports = function (bot) {
     var player_funcs = new bot.infra.player_funcs();
     bot.on('/level_up', function (msg) {
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {//resolve is player if found
                 let replyMarkup = bot.keyboard([
                     ['/up str'],
@@ -22,7 +22,7 @@ module.exports = function (bot) {
     });
 
     bot.on(/^\/up (.+)$/, (msg, props) => {
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {
                 var PlayerDAO = new bot.infra.DAO.player_dao();
                 const statName = props.match[1];
@@ -67,7 +67,7 @@ module.exports = function (bot) {
                     } else {
                         return bot.sendMessage(msg.from.id, 'Invalid Stat');
                     }
-                    player_funcs.playerLevelUp(msg,bot);
+                    player_funcs.playerLevelUp(msg, bot);
                     player_funcs.removeExp(msg, resolve.level * lvlMultiplyer, bot);
                     return bot.sendMessage(msg.from.id, 'Level up!!');
                 } else {
@@ -81,8 +81,8 @@ module.exports = function (bot) {
     });
 
     bot.on('/me', (msg) => {
-        console.log(msg.from.username);
-        player_funcs.handlePlayerExists(msg,bot)
+        console.log(msg.from.username + '/me request');
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {
                 let me = "";
                 me += `Name: ${resolve.name}\n`;
@@ -102,8 +102,48 @@ module.exports = function (bot) {
             });
     });
 
+    bot.on('/bags', (msg) => {
+        console.log(msg.from.username + '/bags request');
+        player_funcs.handlePlayerExists(msg, bot)
+            .then(function (resolve) {
+                let bags;
+                if (resolve.bag[0]) {
+                    bags = 'Your itens\n';
+                    let i;
+                    for (i in resolve.bag) {
+                        bags += `${resolve.bag[i].item_name} :  ${resolve.bag[i].amount} \n`;
+                    }
+                } else bags = 'You dont have anything on your bags';
+                bot.sendMessage(msg.from.id, bags);
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
+    });
+
+    bot.on('/equipment', (msg) => {
+        console.log(msg.from.username + '/inventory request');
+        player_funcs.handlePlayerExists(msg, bot)
+            .then(function (resolve) {
+                let equipment;
+                if (resolve.equipment[0]) {
+                    equipment = 'Your equiped itens: \n';
+                    let i;
+                    for (i in resolve.equipment) {
+                        equipment += `${resolve.equipment[i].item_name}\n`;
+                    }
+                } else equipment = 'You dont have anything equiped';
+                bot.sendMessage(msg.from.id, equipment);
+            })
+            .catch(function (reject) {
+                console.log(reject);
+                return bot.sendMessage(msg.from.id, 'use /register to set up an account');
+            });
+    });
+
     bot.on('/exp', (msg) => {
-        player_funcs.handlePlayerExists(msg,bot)
+        player_funcs.handlePlayerExists(msg, bot)
             .then(function (resolve) {//resolve is player if found
                 bot.sendMessage(msg.from.id, 'You have: ' + resolve.exp + " exp.");
             })

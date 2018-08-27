@@ -101,7 +101,7 @@ module.exports = function (bot) {
                 battleLog += `${player.name} dealt ${player_damage} damage to ${monster.name}\n`;
                 monster.hp -= player_damage;
                 //skills
-                var i;
+                let i;
                 for (i in player.skills) {
                     let rand = dice(100);
                     if (rand < player.skills[i].odds) {//half of the damage is always counted

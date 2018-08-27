@@ -79,6 +79,7 @@ mage.prototype.accuracyFormula = function () {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     let formula_acc = function (att, lvl) {
         return att.wis + lvl;
 =======
@@ -89,6 +90,10 @@ mage.prototype.accuracyFormula = function () {
     let formula_acc = function (wiz, lvl) {
         return wiz + lvl;
 >>>>>>> parent of 701c97e... bugs
+=======
+    let formula_acc = function (dex, lvl) {
+        return (dex * 5) + lvl;
+>>>>>>> parent of 26b27a3... Merge branch 'master' of https://github.com/LuisTessaro/TextbasedRPG_Telegram-bot
 =======
     let formula_acc = function (dex, lvl) {
         return (dex * 5) + lvl;

@@ -39,6 +39,7 @@ mage.prototype.getSkills = function (att) {
             },
             level_required: 1,
             odds: 3,
+            cost: 0,
             emoji: "☄️"
         }
     ];
@@ -76,12 +77,17 @@ mage.prototype.spFormula = function () {
 
 mage.prototype.accuracyFormula = function () {
 <<<<<<< HEAD
+<<<<<<< HEAD
     let formula_acc = function (att, lvl) {
         return att.wis + lvl;
 =======
     let formula_acc = function (dex, lvl) {
         return (dex * 5) + lvl;
 >>>>>>> parent of 26b27a3... Merge branch 'master' of https://github.com/LuisTessaro/TextbasedRPG_Telegram-bot
+=======
+    let formula_acc = function (wiz, lvl) {
+        return wiz + lvl;
+>>>>>>> parent of 701c97e... bugs
     };
     return formula_acc;
 };

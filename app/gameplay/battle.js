@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const seconds = 10;
+const seconds = 30;
 const users = {};
 
 module.exports = function (bot) {
@@ -103,7 +103,6 @@ module.exports = function (bot) {
                 //skills
                 let i;
                 for (i in player.skills) {
-                    console.log(player_skills[i]);
                     let rand = dice(100);
                     if (rand < player.skills[i].odds) {//half of the damage is always counted
                         let skill_damage = player.skills[i].damage() / 2;

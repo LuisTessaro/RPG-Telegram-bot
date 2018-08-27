@@ -40,7 +40,7 @@ player_factory.prototype.getMonster = function (map, bot) {
         else if (r <= 90) intendedRarity = 2;
         else if (r <= 95) intendedRarity = 3;
         else if (r <= 100) intendedRarity = 4;
-        
+
         switch (intendedRarity) {
             case 0:
                 possibleMonsters = possibleMonsters.filter(function (rarity, i) {

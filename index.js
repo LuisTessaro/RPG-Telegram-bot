@@ -1,2 +1,2 @@
-var bot = require('./app/config/configs')();
+var bot = require('./app/config/configs')()
 bot.start()

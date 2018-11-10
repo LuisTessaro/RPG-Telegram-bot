@@ -63,7 +63,7 @@ mage.prototype.getHealingSkills = function (att) {
 
 mage.prototype.hpFormula = function () {
   let hpFormula = function (att, lvl) {
-    return (att.con * 10) + lvl
+    return (att.con * 2) + lvl * 2 + 50
   }
   return hpFormula
 }

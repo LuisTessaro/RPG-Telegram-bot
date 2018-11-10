@@ -32,7 +32,7 @@ module.exports = function (bot) {
       })
   })
 
-  bot.on(/^\/newParty (.+)$/, (msg, props) => {
+  bot.on(/^\/new_party (.+)$/, (msg, props) => {
     player_funcs.handlePlayerExists(msg, bot)
       .then(function (resolve) {
         const partyName = props.match[1]
@@ -45,8 +45,6 @@ module.exports = function (bot) {
       })
   })
 }
-
-
 
 function formParty(name, leader) {
   return {

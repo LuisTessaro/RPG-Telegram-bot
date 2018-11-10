@@ -4,9 +4,45 @@ const users = {}
 
 module.exports = function (bot) {
   var playerFuncs = new bot.infra.player_funcs()
+  var partyFuncs = new bot.infra.party_funcs()
 
-  bot.on(/^\/bossFight (.+)$/, (msg, props) => {
-    bot.sendMessage(msg.chat.id, 'Starting to fight: TREANT')
+  bot.on(/^\/boss_fight (.+)$/, (msg, props) => {
+    let partyName = props.match[1]
+    partyFuncs.handlePartyExists(partyName, bot)
+      .then(function (resolve) { // resolve is party if found
+        let monster = {
+          name: 'Wolf',
+          hp: 100,
+          autoAttackDmg: 10,
+          flee: 0,
+          accuracy: 100,
+          iniciative_bonus: 0,
+          occurrence: 0,
+          exp: 0
+        }
+        let comparative = resolve.players.length
+        let party = []
+        let playerFactory = new bot.factory.player_factory()
+        resolve.players.map((player) => {
+          playerFuncs.handlePlayerExistsByName(player.name, bot)
+            .then(function (resolve) { // resolve is player if found
+              party.push(playerFactory.calculateStatsForPlayer(resolve, bot))
+              if (comparative === party.length) {
+                console.log('comparative ' + comparative)
+                console.log('party lenght ' + party.length)
+                console.log(party)
+                bot.sendMessage(msg.chat.id, bossBattle(party, monster))
+              }
+            })
+            .catch(function (reject) {
+              console.log('invalid party')
+            })
+        })
+
+      })
+      .catch(function (reject) {
+        console.log('invalid party')
+      })
   })
 
   bot.on(/^\/explore (.+)$/, (msg, props) => {
@@ -66,7 +102,7 @@ module.exports = function (bot) {
       })
   })
 
-  function exploreWrapper (msg, map) {
+  function exploreWrapper(msg, map) {
     playerFuncs.handlePlayerExists(msg, bot)
       .then(function (resolve) { // resolve is player if found
         let playerFactory = new bot.factory.player_factory()
@@ -84,7 +120,7 @@ module.exports = function (bot) {
       })
   }
 
-  function battle (player, monster, msg, map) {
+  function battle(player, monster, msg, map) {
     console.log('battle ' + player.name)
     var startMessage = ''; var battleLog = ''
     let playerIniciative = dice(20)
@@ -96,7 +132,7 @@ module.exports = function (bot) {
     if (playerIniciative > monsterIniciative) battleLog += `${player.name} won the initiative!\n\n`
     else battleLog += `${monster.name} won the initiative!\n\n`
 
-    function playerTurn () {
+    function playerTurn() {
       let playerAccuracy = dice(player.accuracy)
       let monsterFlee = dice(monster.flee)
       let playerDamage = dice(player.autoAttackDmg)
@@ -142,7 +178,7 @@ module.exports = function (bot) {
       } else battleLog += `${player.name} missed the attack\n   miss\n\n`
     }
 
-    function monsterTurn () {
+    function monsterTurn() {
       let monsterDamage = dice(monster.autoAttackDmg)
       let monsterAccuracy = dice(monster.accuracy)
       let playerFlee = dice(player.flee)
@@ -189,7 +225,7 @@ module.exports = function (bot) {
     battleLog += `🔷The party rolled a ${partyIniciative}\n\n`
     if (partyIniciative > monsterIniciative) battleLog += `The party won the initiative!\n\n`
     else battleLog += `${monster.name} won the initiative!\n\n`
-  
+
     function partyTurn() {
       players.map((key) => {
         if (monster.hp <= 0)
@@ -233,7 +269,7 @@ module.exports = function (bot) {
         } else battleLog += `${key.name} missed the attack\n   miss\n\n`
       })
     }
-  
+
     function monsterTurn() {
       if (monster.hp <= 0)
         return
@@ -243,7 +279,7 @@ module.exports = function (bot) {
       let targetPlayer = players[playerNumber]
       let playerFlee = dice(targetPlayer.flee)
       battleLog += `🔶 🎯${monsterAccuracy}  💢${monsterDamage}  ✨${playerFlee}\n`
-  
+
       if (monsterAccuracy >= playerFlee) {
         battleLog += `${monster.name} dealt ${monsterDamage} damage to ${targetPlayer.name}\n`
         targetPlayer.hp -= monsterDamage
@@ -261,18 +297,18 @@ module.exports = function (bot) {
         }
       } else battleLog += `${monster.name} missed the attack\n   miss\n\n`
     }
-  
+
     while (monster.hp > 0) {
       if (partyIniciative > monsterIniciative) {
         let got = partyTurn()
         if (got) return got.message
-  
+
         got = monsterTurn()
         if (got) return got.message
       } else {
         let got = monsterTurn()
         if (got) return got.message
-  
+
         got = partyTurn()
         if (got) return got.message
       }
@@ -280,7 +316,7 @@ module.exports = function (bot) {
     return startMessage + battleLog
   }
 
-  function dice (faces) {
+  function dice(faces) {
     return Math.floor((Math.random() * faces + 1) + 1)
   }
 }

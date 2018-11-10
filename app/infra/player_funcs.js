@@ -51,6 +51,17 @@ player_funcs.prototype.handlePlayerExists = function (msg, bot) {
   })
 }
 
+player_funcs.prototype.handlePlayerExistsByName = function (name, bot) {
+  return new Promise(function (resolve, reject) {
+    var PlayerDAO = new bot.infra.DAO.player_dao()
+    PlayerDAO.searchByName(name)
+      .then(function (resp) {
+        if (resp[0]) resolve(resp[0])
+        else reject('didnt find player')
+      })
+  })
+}
+
 player_funcs.prototype.reborn = function (msg, bot) {
   var PlayerDAO = new bot.infra.DAO.player_dao()
   PlayerDAO.deleteByName(msg.from.username)

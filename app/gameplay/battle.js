@@ -5,6 +5,10 @@ const users = {}
 module.exports = function (bot) {
   var playerFuncs = new bot.infra.player_funcs()
 
+  bot.on(/^\/bossFight (.+)$/, (msg, props) => {
+    bot.sendMessage(msg.chat.id, 'Starting to fight: TREANT')
+  })
+
   bot.on(/^\/explore (.+)$/, (msg, props) => {
     let maps = {
       green_woods: function (msg, map) {

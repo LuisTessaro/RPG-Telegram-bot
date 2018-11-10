@@ -1,10 +1,10 @@
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://localhost:27017/'
 
-function player_dao () { }
+function player_dao() { }
 
 player_dao.prototype.insert = function (obj) {
-  MongoClient.connect(url, function (err, db) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err
     var dbo = db.db('telemmo')
     dbo.collection('players').insertOne(obj, function (err, res) {
@@ -19,7 +19,7 @@ player_dao.prototype.deleteByName = function (name) {
   var MongoClient = require('mongodb').MongoClient
   var url = 'mongodb://localhost:27017/'
 
-  MongoClient.connect(url, function (err, db) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err
     var dbo = db.db('telemmo')
     var myquery = { name: name }
@@ -32,7 +32,7 @@ player_dao.prototype.deleteByName = function (name) {
 }
 
 player_dao.prototype.update = function (query, newValues) {
-  MongoClient.connect(url, function (err, db) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err
     var dbo = db.db('telemmo')
     dbo.collection('players').updateOne(query, newValues, function (err, res) {
@@ -44,7 +44,7 @@ player_dao.prototype.update = function (query, newValues) {
 
 player_dao.prototype.readAll = function () {
   return new Promise(function (resolve, reject) {
-    MongoClient.connect(url, function (err, db) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       var dbo = db.db('telemmo')
       dbo.collection('players').find({}).toArray(function (err, result) {
@@ -58,7 +58,7 @@ player_dao.prototype.readAll = function () {
 
 player_dao.prototype.searchByName = function (name) {
   return new Promise(function (resolve, reject) {
-    MongoClient.connect(url, function (err, db) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       var dbo = db.db('telemmo')
       var query = { name: name }

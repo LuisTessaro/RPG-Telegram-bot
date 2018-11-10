@@ -93,6 +93,7 @@ module.exports = function (bot) {
         me += `Constitution: ${resolve.attributes.con}\n`
         me += `Intelligence: ${resolve.attributes.int}\n`
         me += `Wisdom: ${resolve.attributes.wis}\n`
+        me += `Telegram id: ${resolve.telegramId}\n`
         bot.sendMessage(msg.from.id, me)
       })
       .catch(function (reject) {

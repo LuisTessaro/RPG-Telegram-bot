@@ -19,7 +19,7 @@ module.exports = function (bot) {
           const classe = props.match[1]
           var player_dao = new bot.infra.DAO.player_dao()
           if (['Warrior', 'Thief', 'Mage', 'Archer', 'Cleric'].includes(classe)) {
-            player_dao.insert(playerBase(msg.from.username, classe))
+            player_dao.insert(playerBase(msg.from.username, msg.from.id, classe))
             return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup })
           } else {
             return bot.sendMessage(msg.from.id, 'Invalid class.')
@@ -74,9 +74,10 @@ module.exports = function (bot) {
       })
   })
 
-  function playerBase (name, classe) {
+  function playerBase (name, id, classe) {
     return {
       name: name,
+      telegramId: id,
       classe: classe,
       level: 1,
       exp: 0,

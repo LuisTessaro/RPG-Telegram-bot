@@ -15,6 +15,7 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
     skills: [],
     healingSkills: [],
     hp: 0,
+    maxHp: 0,
     autoAttackDmg: 0,
     flee: 0,
     accuracy: 0,
@@ -43,6 +44,7 @@ player_factory.prototype.calculateStatsForPlayer = function (player, bot) {
 
   function solver (className) {
     playerStats.hp = className.hpFormula()(player.attributes, player.level)
+    playerStats.maxHp = className.hpFormula()(player.attributes, player.level)
     playerStats.flee = className.fleeFormula()(player.attributes, player.level)
     playerStats.iniciative_bonus = 0
     playerStats.autoAttackDmg = className.autoAttackFormula()(player.attributes, player.level)

@@ -1,21 +1,21 @@
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://localhost:27017/'
 
-function player_dao() { }
+function party_dao() { }
 
-player_dao.prototype.insert = function (obj) {
+party_dao.prototype.insertParty = function (obj) {
   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err
     var dbo = db.db('telemmo')
-    dbo.collection('players').insertOne(obj, function (err, res) {
+    dbo.collection('party').insertOne(obj, function (err, res) {
       if (err) throw err
-      console.log('player inserted')
+      console.log('party inserted')
       db.close()
     })
   })
 }
 
-player_dao.prototype.deleteByName = function (name) {
+party_dao.prototype.deleteByName = function (name) {
   var MongoClient = require('mongodb').MongoClient
   var url = 'mongodb://localhost:27017/'
 
@@ -23,31 +23,31 @@ player_dao.prototype.deleteByName = function (name) {
     if (err) throw err
     var dbo = db.db('telemmo')
     var myquery = { name: name }
-    dbo.collection('players').deleteOne(myquery, function (err, obj) {
+    dbo.collection('party').deleteOne(myquery, function (err, obj) {
       if (err) throw err
-      console.log('player deleted')
+      console.log('party deleted')
       db.close()
     })
   })
 }
 
-player_dao.prototype.update = function (query, newValues) {
+party_dao.prototype.update = function (query, newValues) {
   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err
     var dbo = db.db('telemmo')
-    dbo.collection('players').updateOne(query, newValues, function (err, res) {
+    dbo.collection('party').updateOne(query, newValues, function (err, res) {
       if (err) throw err
       db.close()
     })
   })
 }
 
-player_dao.prototype.readAll = function () {
+party_dao.prototype.readAll = function () {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       var dbo = db.db('telemmo')
-      dbo.collection('players').find({}).toArray(function (err, result) {
+      dbo.collection('party').find({}).toArray(function (err, result) {
         if (err) throw err
         resolve(result)
       })
@@ -56,13 +56,13 @@ player_dao.prototype.readAll = function () {
   })
 }
 
-player_dao.prototype.searchByName = function (name) {
+party_dao.prototype.searchByName = function (name) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       var dbo = db.db('telemmo')
       var query = { name: name }
-      dbo.collection('players').find(query).toArray(function (err, result) {
+      dbo.collection('party').find(query).toArray(function (err, result) {
         if (err) throw err
         resolve(result)
         db.close()
@@ -72,5 +72,5 @@ player_dao.prototype.searchByName = function (name) {
 }
 
 module.exports = function () {
-  return player_dao
+  return party_dao
 }

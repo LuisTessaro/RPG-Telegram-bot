@@ -1,5 +1,36 @@
 module.exports = function (bot) {
   var player_funcs = new bot.infra.player_funcs()
+  var partyFuncs = new bot.infra.party_funcs()
+
+  bot.on(/^\/remove_member (.+)$/, (msg, props) => {
+    let message = props.match[1]
+    message = message.split(' ')
+    let partyName = message[0]
+    let playerName = message[1]
+    partyFuncs.removePlayersFromParty(partyName, playerName, bot)
+    bot.sendMessage(msg.chat.id, playerName + ' removed from: ' + partyName)
+  })
+
+  bot.on(/^\/register_new_member (.+)$/, (msg, props) => {
+    let message = props.match[1]
+    message = message.split(' ')
+    let partyName = message[0]
+    let playerName = message[1]
+    partyFuncs.addPlayerToParty(partyName, playerName, bot)
+    bot.sendMessage(msg.chat.id, playerName + ' added to: ' + partyName)
+  })
+
+  bot.on(/^\/list_members (.+)$/, (msg, props) => {
+    let message = props.match[1]
+    let text = 'Players form party ' + message + ':\n\n'
+    partyFuncs.handlePartyExists(message, bot)
+      .then(function (resolve) {
+        resolve.players.map((plays) => {
+          text += plays.name + '\n'
+        })
+        bot.sendMessage(msg.chat.id, text)
+      })
+  })
 
   bot.on(/^\/newParty (.+)$/, (msg, props) => {
     player_funcs.handlePlayerExists(msg, bot)
@@ -14,6 +45,8 @@ module.exports = function (bot) {
       })
   })
 }
+
+
 
 function formParty(name, leader) {
   return {

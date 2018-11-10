@@ -1,19 +1,18 @@
 const Promise = require('bluebird')
-const seconds = 30
+const seconds = 5
 const users = {}
 
 module.exports = function (bot) {
   var playerFuncs = new bot.infra.player_funcs()
   var partyFuncs = new bot.infra.party_funcs()
 
-  bot.on(/^\/boss_fight (.+)$/, (msg, props) => {
-    let partyName = props.match[1]
-    partyFuncs.handlePartyExists(partyName, bot)
+  bot.on('/boss_fight', (msg) => {
+    partyFuncs.handlePartyExists(msg.chat.id, bot)
       .then(function (resolve) { // resolve is party if found
         let monster = {
           name: 'Wolf',
           hp: 100,
-          autoAttackDmg: 10,
+          autoAttackDmg: 150,
           flee: 0,
           accuracy: 100,
           iniciative_bonus: 0,
@@ -40,8 +39,8 @@ module.exports = function (bot) {
         })
 
       })
-      .catch(function (reject) {
-        console.log('invalid party')
+      .catch(function (reject) { 
+        bot.sendMessage(msg.chat.id, 'Invalid party or no party exists')
       })
   })
 

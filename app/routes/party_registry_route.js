@@ -1,55 +1,72 @@
 module.exports = function (bot) {
-  var player_funcs = new bot.infra.player_funcs()
   var partyFuncs = new bot.infra.party_funcs()
 
-  bot.on(/^\/remove_member (.+)$/, (msg, props) => {
-    let message = props.match[1]
-    message = message.split(' ')
-    let partyName = message[0]
-    let playerName = message[1]
-    partyFuncs.removePlayersFromParty(partyName, playerName, bot)
-    bot.sendMessage(msg.chat.id, playerName + ' removed from: ' + partyName)
-  })
-
-  bot.on(/^\/register_new_member (.+)$/, (msg, props) => {
-    let message = props.match[1]
-    message = message.split(' ')
-    let partyName = message[0]
-    let playerName = message[1]
-    partyFuncs.addPlayerToParty(partyName, playerName, bot)
-    bot.sendMessage(msg.chat.id, playerName + ' added to: ' + partyName)
-  })
-
-  bot.on(/^\/list_members (.+)$/, (msg, props) => {
-    let message = props.match[1]
-    let text = 'Players form party ' + message + ':\n\n'
-    partyFuncs.handlePartyExists(message, bot)
+  bot.on('/leave_party', (msg) => {
+    partyFuncs.handlePartyExists(msg.chat.id, bot)
       .then(function (resolve) {
+        partyFuncs.removePlayersFromParty(msg.chat.id, msg.from.username, bot)
+        return msg.reply.text('You left this party', { asReply: true })
+      })
+      .catch(function (reject) {
+        return bot.sendMessage(msg.chat.id, 'You dont have a party setup for this group chat.')
+      })
+  })
+
+  bot.on('/join_party', (msg) => {
+    partyFuncs.handlePartyExists(msg.chat.id, bot)
+      .then(function (resolve) {
+        partyFuncs.addPlayerToParty(msg.chat.id, msg.from.username, bot)
+        return msg.reply.text('You joined this party', { asReply: true })
+      })
+      .catch(function (reject) {
+        return bot.sendMessage(msg.chat.id, 'You dont have a party setup for this group chat.')
+      })
+  })
+
+  bot.on('/list_members', (msg) => {
+    partyFuncs.handlePartyExists(msg.chat.id, bot)
+      .then(function (resolve) {
+        let text = 'Players form party ' + msg.chat.id + ':\n\n'
         resolve.players.map((plays) => {
           text += plays.name + '\n'
         })
-        bot.sendMessage(msg.chat.id, text)
+        return bot.sendMessage(msg.chat.id, text)
+      })
+      .catch(function (reject) {
+        return bot.sendMessage(msg.chat.id, 'You dont have a party setup for this group chat.')
       })
   })
 
-  bot.on(/^\/new_party (.+)$/, (msg, props) => {
-    player_funcs.handlePlayerExists(msg, bot)
+  bot.on('/new_party', (msg) => {
+    partyFuncs.handlePartyExists(msg.chat.id, bot)
       .then(function (resolve) {
-        const partyName = props.match[1]
-        var party_dao = new bot.infra.DAO.party_dao()
-        party_dao.insertParty(formParty(partyName, resolve.name))
-        return bot.sendMessage(msg.from.id, 'Party Registerd.')
+        return bot.sendMessage(msg.chat.id, 'You already have a party setup for this group chat.')
       })
       .catch(function (reject) {
-        return bot.sendMessage(msg.from.id, 'use /register to set up an account')
+        var party_dao = new bot.infra.DAO.party_dao()
+        party_dao.insertParty(formParty(msg.chat.id, msg.from.username, msg.from.id))
+        bot.sendMessage(msg.from.id, 'Your party was registered with you as leader.')
+        return bot.sendMessage(msg.chat.id, 'Party Registerd for this chat.')
+      })
+  })
+
+  bot.on('/delete_party', (msg) => {
+    partyFuncs.handlePartyExists(msg.chat.id, bot)
+      .then(function (resolve) {
+        partyFuncs.deleteParty(msg.chat.id, bot)
+        return bot.sendMessage(msg.chat.id, 'Party deleted in this chat.')
+      })
+      .catch(function (reject) {
+        return bot.sendMessage(msg.chat.id, 'You dont have a party setup for this group chat.')
       })
   })
 }
 
-function formParty(name, leader) {
+function formParty(name, leader, id) {
   return {
     name: name,
     leader: leader,
+    id: id,
     players: [{
       name: leader
     }],

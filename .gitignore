@@ -40,6 +40,7 @@ $RECYCLE.BIN/
 .VolumeIcon.icns
 package-lock.json
 app/config/configs.js
+package-lock.js
 
 # Directories potentially created on remote AFP share
 .AppleDB
@@ -47,4 +48,4 @@ app/config/configs.js
 Network Trash Folder
 Temporary Items
 .apdisk
-app/config/configs.js
+node_modules

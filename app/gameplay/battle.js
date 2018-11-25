@@ -11,8 +11,8 @@ module.exports = function (bot) {
       .then(function (resolve) { // resolve is party if found
         let monster = {
           name: 'Wolf',
-          hp: 100,
-          autoAttackDmg: 10,
+          hp: 10,
+          autoAttackDmg: 1,
           flee: 0,
           accuracy: 100,
           iniciative_bonus: 0,
@@ -39,8 +39,8 @@ module.exports = function (bot) {
         })
 
       })
-      .catch(function (reject) { 
-        bot.sendMessage(msg.chat.id, 'Invalid party or no party exists')
+      .catch(function (reject) {
+        bot.sendMessage(msg.chat.id, 'Invalid party or no party exists: ' + reject)
       })
   })
 

@@ -12,7 +12,7 @@ module.exports = function (bot) {
         let monster = {
           name: 'Wolf',
           hp: 100,
-          autoAttackDmg: 150,
+          autoAttackDmg: 10,
           flee: 0,
           accuracy: 100,
           iniciative_bonus: 0,

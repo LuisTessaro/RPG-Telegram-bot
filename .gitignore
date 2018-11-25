@@ -38,6 +38,8 @@ $RECYCLE.BIN/
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
+package-lock.json
+app/config/configs.js
 
 # Directories potentially created on remote AFP share
 .AppleDB
@@ -45,5 +47,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-app/config/configs.js
-app/config/configs.js
+node_modules

@@ -27,7 +27,7 @@ player_factory.prototype.getMonster = function (map, bot) {
       solver(new bot.maps.deep_below())
       break
     default:
-      console.log('something bad happend monstal factory invalid map')
+      console.log('something bad happend monster factory invalid map')
   }
   // let r = Math.floor(Math.random() * 4);
   function solver (mapName) {

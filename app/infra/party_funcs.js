@@ -1,33 +1,33 @@
-function party_funcs () { }
+function party_funcs() { }
 
-party_funcs.prototype.addNewParty = function (partyName, bot) {
-  var party_dao = new bot.infra.DAO.party_dao()
+party_funcs.prototype.addNewParty = (partyName, bot) => {
+  const party_dao = new bot.infra.DAO.party_dao()
   party_dao.searchByName(partyName)
-    .then(function (resp) {
-      party_dao.update({ name: partyName }, { $push: { players: { $each: [{ name: newMember}] } } })
+    .then(() => {
+      party_dao.update({ name: partyName }, { $push: { players: { $each: [{ name: newMember }] } } })
     })
 }
 
-party_funcs.prototype.addPlayerToParty = function (partyName, newMember, bot) {
-  var party_dao = new bot.infra.DAO.party_dao()
+party_funcs.prototype.addPlayerToParty = (partyName, newMember, bot) => {
+  const party_dao = new bot.infra.DAO.party_dao()
   party_dao.searchByName(partyName)
-    .then(function (resp) {
-      party_dao.update({ name: partyName }, { $push: { players: { $each: [{ name: newMember}] } } })
+    .then(() => {
+      party_dao.update({ name: partyName }, { $push: { players: { $each: [{ name: newMember }] } } })
     })
 }
-party_funcs.prototype.removePlayersFromParty = function (partyName, name, bot) {
-  var party_dao = new bot.infra.DAO.party_dao()
+party_funcs.prototype.removePlayersFromParty = (partyName, name, bot) => {
+  const party_dao = new bot.infra.DAO.party_dao()
   party_dao.searchByName(partyName)
-    .then(function (resp) {
+    .then(() => {
       party_dao.update({ name: partyName }, { $pull: { players: { name: name } } })
     })
 }
 
-party_funcs.prototype.handlePartyExists = function (partyName, bot) {
-  return new Promise(function (resolve, reject) {
-    var party_dao = new bot.infra.DAO.party_dao()
+party_funcs.prototype.handlePartyExists = (partyName, bot) => {
+  return new Promise((resolve, reject) => {
+    const party_dao = new bot.infra.DAO.party_dao()
     party_dao.searchByName(partyName)
-      .then(function (resp) {
+      .then((resp) => {
         if (resp[0]) resolve(resp[0])
         else reject('didnt find party')
       })
@@ -36,8 +36,8 @@ party_funcs.prototype.handlePartyExists = function (partyName, bot) {
 
 //delete party
 
-party_funcs.prototype.deleteParty = function (partyName, bot) {
-  var party_dao = new bot.infra.DAO.party_dao()
+party_funcs.prototype.deleteParty = (partyName, bot) => {
+  const party_dao = new bot.infra.DAO.party_dao()
   party_dao.deleteByName(partyName)
 }
 

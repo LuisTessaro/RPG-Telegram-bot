@@ -1,9 +1,10 @@
 const lvlMultiplyer = 100
-module.exports = function (bot) {
-  var player_funcs = new bot.infra.player_funcs()
-  bot.on('/level_up', function (msg) {
+
+module.exports = (bot) => {
+  const player_funcs = new bot.infra.player_funcs()
+  bot.on('/level_up', (msg) => {
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) { // resolve is player if found
+      .then((resolve) => { // resolve is player if found
         let replyMarkup = bot.keyboard([
           ['/up str'],
           ['/up dex'],
@@ -15,15 +16,14 @@ module.exports = function (bot) {
         ], { resize: true })
         return bot.sendMessage(msg.from.id, 'You have: ' + resolve.exp + ' exp.', { replyMarkup })
       })
-      .catch(function (reject) {
-        console.log(reject)
+      .catch(() => {
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
   })
 
   bot.on(/^\/up (.+)$/, (msg, props) => {
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) {
+      .then((resolve) => {
         var PlayerDAO = new bot.infra.DAO.player_dao()
         const statName = props.match[1]
         // improve this
@@ -74,7 +74,7 @@ module.exports = function (bot) {
           return bot.sendMessage(msg.from.id, 'Not enought exp to level up  (' + resolve.level * lvlMultiplyer + ' per level) you have: ' + resolve.exp)
         }
       })
-      .catch(function (reject) {
+      .catch(() => {
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
   })
@@ -82,7 +82,7 @@ module.exports = function (bot) {
   bot.on('/me', (msg) => {
     console.log(msg.from.username + '/me request')
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) {
+      .then((resolve) => {
         let me = ''
         me += `Name: ${resolve.name}\n`
         me += `Class: ${resolve.classe}\n`
@@ -96,8 +96,7 @@ module.exports = function (bot) {
         me += `Telegram id: ${resolve.telegramId}\n`
         bot.sendMessage(msg.from.id, me)
       })
-      .catch(function (reject) {
-        console.log(reject)
+      .catch(() => {
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
   })
@@ -105,7 +104,7 @@ module.exports = function (bot) {
   bot.on('/bags', (msg) => {
     console.log(msg.from.username + '/bags request')
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) {
+      .then((resolve) => {
         let bags
         if (resolve.bag[0]) {
           bags = 'Your itens\n'
@@ -116,7 +115,7 @@ module.exports = function (bot) {
         } else bags = 'You dont have anything on your bags'
         bot.sendMessage(msg.from.id, bags)
       })
-      .catch(function (reject) {
+      .catch((reject) => {
         console.log(reject)
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
@@ -125,7 +124,7 @@ module.exports = function (bot) {
   bot.on('/equipment', (msg) => {
     console.log(msg.from.username + '/inventory request')
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) {
+      .then((resolve) => {
         let equipment
         if (resolve.equipment[0]) {
           equipment = 'Your equiped itens: \n'
@@ -136,7 +135,7 @@ module.exports = function (bot) {
         } else equipment = 'You dont have anything equiped'
         bot.sendMessage(msg.from.id, equipment)
       })
-      .catch(function (reject) {
+      .catch((reject) => {
         console.log(reject)
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
@@ -144,11 +143,10 @@ module.exports = function (bot) {
 
   bot.on('/exp', (msg) => {
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) { // resolve is player if found
+      .then((resolve) => {
         bot.sendMessage(msg.from.id, 'You have: ' + resolve.exp + ' exp.')
       })
-      .catch(function (reject) {
-        console.log(reject)
+      .catch(() => {
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
   })

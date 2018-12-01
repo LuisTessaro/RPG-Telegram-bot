@@ -1,13 +1,13 @@
-var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb://localhost:27017/'
+const MongoClient = require('mongodb').MongoClient
+const url = 'mongodb://localhost:27017/'
 
 function party_dao() { }
 
-party_dao.prototype.insertParty = function (obj) {
-  MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+party_dao.prototype.insertParty = (obj) => {
+  MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
-    var dbo = db.db('telemmo')
-    dbo.collection('party').insertOne(obj, function (err, res) {
+    const dbo = db.db('telemmo')
+    dbo.collection('party').insertOne(obj, (err, res) => {
       if (err) throw err
       console.log('party inserted')
       db.close()
@@ -15,15 +15,15 @@ party_dao.prototype.insertParty = function (obj) {
   })
 }
 
-party_dao.prototype.deleteByName = function (name) {
-  var MongoClient = require('mongodb').MongoClient
-  var url = 'mongodb://localhost:27017/'
+party_dao.prototype.deleteByName = (name) => {
+  const MongoClient = require('mongodb').MongoClient
+  const url = 'mongodb://localhost:27017/'
 
-  MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+  MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
-    var dbo = db.db('telemmo')
-    var myquery = { name: name }
-    dbo.collection('party').deleteOne(myquery, function (err, obj) {
+    const dbo = db.db('telemmo')
+    const myquery = { name: name }
+    dbo.collection('party').deleteOne(myquery, (err, obj) => {
       if (err) throw err
       console.log('party deleted')
       db.close()
@@ -31,23 +31,23 @@ party_dao.prototype.deleteByName = function (name) {
   })
 }
 
-party_dao.prototype.update = function (query, newValues) {
-  MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+party_dao.prototype.update = (query, newValues) => {
+  MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
-    var dbo = db.db('telemmo')
-    dbo.collection('party').updateOne(query, newValues, function (err, res) {
+    const dbo = db.db('telemmo')
+    dbo.collection('party').updateOne(query, newValues, (err, res) => {
       if (err) throw err
       db.close()
     })
   })
 }
 
-party_dao.prototype.readAll = function () {
-  return new Promise(function (resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+party_dao.prototype.readAll = () => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
       if (err) throw err
-      var dbo = db.db('telemmo')
-      dbo.collection('party').find({}).toArray(function (err, result) {
+      const dbo = db.db('telemmo')
+      dbo.collection('party').find({}).toArray((err, result) => {
         if (err) throw err
         resolve(result)
       })
@@ -56,13 +56,13 @@ party_dao.prototype.readAll = function () {
   })
 }
 
-party_dao.prototype.searchByName = function (name) {
-  return new Promise(function (resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+party_dao.prototype.searchByName = (name) => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
       if (err) throw err
-      var dbo = db.db('telemmo')
-      var query = { name: name }
-      dbo.collection('party').find(query).toArray(function (err, result) {
+      const dbo = db.db('telemmo')
+      const query = { name: name }
+      dbo.collection('party').find(query).toArray((err, result) => {
         if (err) throw err
         resolve(result)
         db.close()

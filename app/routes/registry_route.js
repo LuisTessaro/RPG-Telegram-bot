@@ -1,7 +1,9 @@
 module.exports = function (bot) {
-  var player_funcs = new bot.infra.player_funcs()
+  const player_funcs = new bot.infra.player_funcs()
+  const player_dao = new bot.infra.DAO.player_dao()
+
   bot.on(/^\/class (.+)$/, (msg, props) => {
-    let replyMarkup = bot.keyboard([
+    const replyMarkup = bot.keyboard([
       ['/explore green_woods'],
       ['/explore dark_forest'],
       ['/explore bat_cave'],
@@ -12,24 +14,21 @@ module.exports = function (bot) {
     ], { resize: true })
     if (msg.from.username != 'null') {
       player_funcs.handlePlayerExists(msg, bot)
-        .then(function (resolve) {
+        .then(() => {
           return bot.sendMessage(msg.from.id, 'You are already registered', { replyMarkup })
         })
-        .catch(function (reject) {
+        .catch(() => {
           const classe = props.match[1]
-          var player_dao = new bot.infra.DAO.player_dao()
           if (['Warrior', 'Thief', 'Mage', 'Archer', 'Cleric'].includes(classe)) {
             player_dao.insert(playerBase(msg.from.username, msg.from.id, classe))
             return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup })
-          } else {
-            return bot.sendMessage(msg.from.id, 'Invalid class.')
-          }
+          } else return bot.sendMessage(msg.from.id, 'Invalid class.')
         })
     } else return bot.sendMessage(msg.from.id, 'You must set up a @ on your telegram account to play this game :c')
   })
 
-  bot.on('/register', function (msg) {
-    let replyMarkup = bot.keyboard([
+  bot.on('/register', (msg) => {
+    const replyMarkup = bot.keyboard([
       ['/class Warrior'],
       ['/class Thief'],
       ['/class Mage'],
@@ -38,43 +37,41 @@ module.exports = function (bot) {
       ['/back']
     ], { resize: true })
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) { return bot.sendMessage(msg.from.id, 'You are already registered') })
-      .catch(function (reject) { return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup }) })
+      .then(() => { return bot.sendMessage(msg.from.id, 'You are already registered') })
+      .catch(() => { return bot.sendMessage(msg.from.id, 'Use the buttons to pick a class.', { replyMarkup }) })
   })
 
   bot.on('/reborn', (msg) => {
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) {
+      .then(() => {
         player_funcs.reborn(msg, bot)
         return bot.sendMessage(msg.from.id, 'Your character has been reset')
       })
-      .catch(function (reject) {
-        console.log(reject)
+      .catch(() => {
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
   })
 
-  bot.on(['/start', '/back'], msg => {
+  bot.on(['/start', '/back'], (msg) => {
+    const replyMarkup = bot.keyboard([
+      ['/explore green_woods'],
+      ['/explore dark_forest'],
+      ['/explore bat_cave'],
+      ['/explore deep_below'],
+      ['/stop_exploring', '/exp'],
+      ['/level_up', '/me'],
+      ['/bags', '/equipment']
+    ], { resize: true })
     player_funcs.handlePlayerExists(msg, bot)
-      .then(function (resolve) {
-        let replyMarkup = bot.keyboard([
-          ['/explore green_woods'],
-          ['/explore dark_forest'],
-          ['/explore bat_cave'],
-          ['/explore deep_below'],
-          ['/stop_exploring', '/exp'],
-          ['/level_up', '/me'],
-          ['/bags', '/equipment']
-        ], { resize: true })
+      .then(() => {
         return bot.sendMessage(msg.from.id, 'Use the buttons to explore maps,level up or sell your things.', { replyMarkup })
       })
-      .catch(function (reject) {
-        console.log(reject)
+      .catch(() => {
         return bot.sendMessage(msg.from.id, 'use /register to set up an account')
       })
   })
 
-  function playerBase (name, id, classe) {
+  function playerBase(name, id, classe) {
     return {
       name: name,
       telegramId: id,

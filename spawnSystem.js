@@ -1,11 +1,3 @@
-const common = []
-const uncommon = []
-const rare = []
-const ultraRare = []
-const epic = []
-const legendary = []
-
-
 const monsters = [
     {
         name: 'wolf',

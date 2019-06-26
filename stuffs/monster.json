@@ -1,0 +1,12 @@
+{ name: 'Strange Bat',
+    hp: 65,
+    sp: 0,
+    autoAttackDmg: 15,
+    flee: 2,
+    accuracy: 15,
+    iniciative_bonus: 0,
+    rarity: 'uncommon',
+    possible_loot: [],
+    possible_equips: [],
+    exp: 60
+}

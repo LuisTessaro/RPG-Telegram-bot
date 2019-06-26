@@ -1,20 +1,20 @@
 {
-  "name": "mud",
+  "name": "Drachengard",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^3.5.3",
-    "consign": "^0.1.6",
-    "mongodb": "^3.1.9",
-    "telebot": "^1.2.6"
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0",
+    "telegraf": "^3.30.1"
   }
 }

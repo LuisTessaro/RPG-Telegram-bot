@@ -1,0 +1,77 @@
+{ username: 'bunda_mole',
+    classe: 'mage',
+    attributes: { str: 5,
+       dex: 5,
+       agi: 5,
+       con: 5,
+       int: 5,
+       wis: 5,
+       car: 5,
+       wil: 5,
+       luk: 5
+    },
+    skills: [
+        { skillName: 'Fire Bolt',
+         damage: [Function: damage
+            ],
+         levelRequired: 1,
+         odds: 40,
+         cost: 0,
+         emoji: '🔥'
+        },
+        { skillName: 'Frost Bolt',
+         damage: [Function: damage
+            ],
+         levelRequired: 1,
+         odds: 40,
+         cost: 0,
+         emoji: '❄️'
+        },
+        { skillName: 'Arcane Bolt',
+         damage: [Function: damage
+            ],
+         levelRequired: 1,
+         odds: 40,
+         cost: 0,
+         emoji: '🔮'
+        },
+        { skillName: 'METEOR!!!!',
+         damage: [Function: damage
+            ],
+         levelRequired: 1,
+         odds: 3,
+         cost: 0,
+         emoji: '☄️'
+        }
+    ],
+    healingSkills: [
+        { skillName: 'Cauterize Wounds',
+         heal: [Function: heal
+            ],
+         levelRequired: 1,
+         odds: 30,
+         cost: 0,
+         emoji: '🔥'
+        }
+    ],
+    hp: 162,
+    maxHp: 162,
+    autoAttackDmg: 5,
+    flee: 1,
+    accuracy: 26,
+    iniciativeBonus: 0,
+    defense: 100,
+    equipmentBonus: { str: 0,
+       dex: 0,
+       agi: 0,
+       con: 50,
+       int: 0,
+       wis: 0,
+       car: 0,
+       wil: 0,
+       luk: 0,
+       defense: 100
+    },
+    playerAttributes: { str: 5, dex: 5, agi: 5, con: 55, int: 5, wis: 5, wil: 5, luk: 5
+    }
+}

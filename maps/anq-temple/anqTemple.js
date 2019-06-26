@@ -1,5 +1,4 @@
-module.exports.imgUrl = (index) => `https://raw.githubusercontent.com/LuisTessaro/RPG-Telegram-bot/master/maps/anq-temple/anq_temple.${index}.png`
-
+module.exports.imgUrl = (index) => `https://raw.githubusercontent.com/LuisTessaro/RPG-Telegram-bot/master/maps/anq-temple/images/anq_temple.${index}.png`
 /**
  * encouterTypes 
  * explorational

@@ -1,29 +1,118 @@
-const { buildPlayer } = require('../../model/factories/player-factory')
-const { buildMonster } = require('../../model/factories/monster-factory')
+const { buildPlayer } = require('../factories/player-factory')
+const { buildMonster } = require('../factories/monster-factory')
+const AdventureProgress = require('../mongoose-models/AdventureProgress')
+const Telegraf = require('Telegraf')
+const { addExp } = require('../../helpers/levelExp')
+const { addItensToBag } = require('../../helpers/addItensToBag')
 
-const seconds = 10
+const anqTemple = require('../../maps/anq-temple/anqTemple')
 
-module.exports.battle = (ctx, map) => {
-    ctx.reply('You started Exploring!')
-    ctx.session.wantsToExplore = true
-    if (!ctx.session.exploring) {
-        ctx.session.exploring = true
-        setTimeout(() => exploreWrapper(ctx, map), seconds * 1000)
-    }
-    else
-        ctx.reply('You are already Exploring!')
+const seconds = 1
+
+module.exports.explore = async (ctx, map) => {
+    await exploreWrapper(ctx, map)
 }
 
-const exploreWrapper = (ctx, map) => {
-    const builtPlayer = buildPlayer(ctx.session.player)
-    const builtMonster = buildMonster(map)
-    const returnObject = battle(builtPlayer, builtMonster, ctx, map)
-    if (returnObject.intent) {
-        ctx.reply(returnObject.log)
-        setTimeout(() => exploreWrapper(ctx, map), seconds * 1000)
+const exploreWrapper = async (ctx, map) => {
+    const progress = await getProgress(ctx.session.player.telegramId, map)
+    // console.log(progress)
+    setTimeout(async () => {
+        ctx.session.needsAction = true
+        await ctx.replyWithPhoto({
+            url: anqTemple.imgUrl(progress.progress)
+        })
+        return ctx.reply(anqTemple.nots[progress.progress].textMessage, actionMenu)
+    }, 1000 * seconds)
+}
+
+const death = async (ctx) => {
+    ctx.session.needsAction = undefined
+    ctx.session.adventuring = undefined
+    resetProgress(ctx.session.progress)
+    ctx.session.progress = undefined
+    ctx.session.map = undefined
+    return ctx.reply('You failed an got sent back to the city')
+}
+
+const back = async (ctx) => {
+    ctx.session.needsAction = undefined
+    ctx.session.adventuring = false
+    resetProgress(ctx.session.progress)
+    ctx.session.progress = undefined
+    ctx.session.map = undefined
+    return ctx.reply('You got back from your adventure')
+}
+
+const actionMenu = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.keyboard([
+        m.callbackButton('/inspect'),
+        m.callbackButton('/fight'),
+        m.callbackButton('/bargain'),
+        m.callbackButton('/sneak'),
+        m.callbackButton('/colect'),
+        m.callbackButton('/flee'),
+        m.callbackButton('/back'),
+    ]).resize())
+
+
+
+const getProgress = async (id, map) => {
+    const progress = await AdventureProgress.find({ telegramId: id })
+    if (progress && progress.length > 0) {
+        return progress[0]
     } else {
-        ctx.reply(returnObject.log)
+        const newProgress = new AdventureProgress(
+            {
+                telegramId: id,
+                map: map,
+                progress: 0
+            })
+        await newProgress.save()
+        return newProgress
     }
+}
+
+module.exports.encounterFunctions = {
+    explorational: async (ctx, action) => {
+        if (action.after === 'back')
+            return back(ctx)
+        const roll = dice(20)
+        ctx.session.needsAction = false
+        if (roll > action.odds) {
+            await ctx.reply(action.message)
+            await ctx.reply('Moving to the next position')
+            await addExp(ctx, action.reward.xp)
+            await addItensToBag(ctx, action.reward.loot)
+            await nextKnot(ctx, ctx.session.player.telegramId)
+            return exploreWrapper(ctx, ctx.session.map)
+        } else if (action.after === 'next') {
+            ctx.reply('You dint find anything out of the ordinary')
+            ctx.reply('Moving to the next position')
+            return exploreWrapper(ctx, ctx.session.map)
+        }
+    },
+    combative: async (ctx, action) => { },
+    bossFight: async (ctx, action) => { },
+    trap: async (ctx, action) => { },
+}
+
+
+const nextKnot = async (ctx, telegramId) => {
+    const progress = await getProgress(telegramId)
+    const newProgress = progress.progress + 1
+    ctx.session.progress = newProgress
+    await AdventureProgress.findByIdAndUpdate(progress._id, {
+        $set: { progress: newProgress }
+    }, {
+            new: true
+        })
+    return 'done'
+}
+
+const resetProgress = async (progressOld) => {
+    console.log(progressOld._id)
+    console.log(await AdventureProgress.findByIdAndDelete(progressOld._id))
 }
 
 const battle = (player, monster, ctx, map) => {
@@ -140,79 +229,6 @@ const battle = (player, monster, ctx, map) => {
                     }
                 }
         }
-    }
-}
-
-module.exports.bananaNanica = function (bot) {
-    bot.on(/^\/explore (.+)$/, (msg, props) => {
-        let maps = {
-            green_woods: (msg, map, resolve) => {
-                bot.sendMessage(msg.from.id, 'You started exploring the Green Woods')
-                exploreWrapper(msg, map, resolve)
-            },
-            dark_forest: (msg, map, resolve) => {
-                bot.sendMessage(msg.from.id, 'You started exploring the Dark Forest')
-                exploreWrapper(msg, map, resolve)
-            },
-            bat_cave: (msg, map, resolve) => {
-                bot.sendMessage(msg.from.id, 'You started exploring the Bat Cave')
-                exploreWrapper(msg, map, resolve)
-            },
-            deep_below: (msg, map, resolve) => {
-                bot.sendMessage(msg.from.id, 'You started exploring the Deep Below')
-                exploreWrapper(msg, map, resolve)
-            }
-        }
-
-        playerFuncs.handlePlayerExists(msg, bot)
-            .then((resolve) => { // resolve is player if found
-                const map = props.match[1]
-                if (!users[msg.from.username]) { // if player is not on users{}
-                    users[msg.from.username] = {
-                        'WantsToExplore': true,
-                        'exploring': false
-                    }
-                } else { // if player is on users{}
-                    if (users[msg.from.username].exploring === true) {
-                        return bot.sendMessage(msg.from.id, 'You are already exploring or did not return yet')
-                    }
-                    users[msg.from.username].WantsToExplore = true
-                }
-                if (maps[map]) {
-                    maps[map](msg, map, resolve)
-                } else bot.sendMessage(msg.from.id, 'Invalid map, use /start to see all available maps')
-            })
-            .catch(() => {
-                return bot.sendMessage(msg.from.id, 'use /register to set up an account')
-            })
-    })
-
-    bot.on('/stop_exploring', (msg) => {
-        playerFuncs.handlePlayerExists(msg, bot)
-            .then(() => {
-                users[msg.from.username].WantsToExplore = false
-                if (users[msg.from.username].exploring === false) {
-                    return
-                }
-                return bot.sendMessage(msg.from.id, 'You will stop exploring as soon as a battle happens or you die.')
-            })
-            .catch(() => {
-                return bot.sendMessage(msg.from.id, 'use /register to set up an account')
-            })
-    })
-
-    function exploreWrapper(msg, map, resolve) {
-        let player = playerFactory.calculateStatsForPlayer(resolve, bot)
-
-        let monster = monsterFactory.getMonster(map, bot)
-
-        users[msg.from.username].exploring = true
-
-        setImmediate(() => Promise.delay(seconds * 1000)
-            .then(() => {
-                bot.sendMessage(msg.from.id, battle(player, monster, msg, map, resolve))
-            }))
-
     }
 }
 

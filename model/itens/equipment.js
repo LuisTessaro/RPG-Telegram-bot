@@ -1,4 +1,39 @@
 module.exports = {
+  OldRags: {
+    name: 'Old rags',
+    description: `Old rags.`,
+    type: 'armor',
+    bonuses: {
+      str: 0,
+      dex: 0,
+      agi: 0,
+      con: 1,
+      int: 0,
+      wis: 0,
+      car: 0,
+      wil: 0,
+      luk: 0,
+      defense: 0
+    }
+  },
+  TornPriestAttire: {
+    name: 'Torn Priest Attire',
+    description: `Torn Priest Attire.`,
+    type: 'armor',
+    bonuses: {
+      str: 0,
+      dex: 0,
+      agi: 0,
+      con: 0,
+      int: 1,
+      wis: 0,
+      car: 0,
+      wil: 0,
+      luk: 0,
+      defense: 0
+    }
+  },
+
   FireWhip: {
     name: 'Fire Whip',
     description: `A whip made of pure blue fire, for some reason it doesn't seem to burn you.`,
@@ -152,5 +187,5 @@ module.exports = {
       defense: 0
     }
   },
-  
+
 }

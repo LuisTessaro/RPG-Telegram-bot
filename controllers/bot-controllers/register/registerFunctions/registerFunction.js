@@ -14,6 +14,6 @@ module.exports = async (ctx) => {
             ctx.reply('Please, setup a Telegram username first!')
         }
     } else {
-        ctx.reply('Invalid class! Use /classes to check all available clases')
+        ctx.reply('Use /classes to check all available clases')
     }
 }

@@ -16,7 +16,7 @@ module.exports = (bot) => {
 
     helperFunctions.helpRoute(bot)
 
-    // bot.use(authMiddleware)
-    // playerController.playerControllerRoute(bot)
-    // gameplayController.gameplayRoute(bot)
+    bot.use(authMiddleware)
+    playerController.playerControllerRoute(bot)
+    gameplayController.gameplayRoute(bot)
 }

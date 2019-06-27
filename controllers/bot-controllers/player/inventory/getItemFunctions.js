@@ -25,7 +25,7 @@ module.exports.getEquipments = async (ctx) => {
             `${slotName}: ${itemName}\nBonus:${bonus}
             \n`
     }, '')
-    return ctx.reply('You equiped Itens\n' + msg)
+    return ctx.reply('Your equiped Itens\n' + msg)
 }
 
 const calculateBonus = (bonuses) => {

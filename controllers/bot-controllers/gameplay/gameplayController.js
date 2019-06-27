@@ -12,7 +12,6 @@ module.exports.gameplayRoute = (bot) => {
     bot.command('grind', grindFunctions.grind)
 
     bot.use(adventureMiddleware)
-
     bot.use(needsActionMiddleware)
     bot.command('adventureMenu', ctx => ctx.reply('Pick your action', menus.actionsMenu))
 

@@ -6,6 +6,6 @@ module.exports = async (ctx, next) => {
         ctx.session.progress = progress[0]
         return next()
     } else {
-        return ctx.reply('Choose an adventure use /adventures to start!')
+        return ctx.reply('Choose an adventure or start grinding. Use /adventures /grindSpots to start!')
     }
 }

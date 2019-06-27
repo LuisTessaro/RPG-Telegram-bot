@@ -19,5 +19,5 @@ module.exports = (bot) => {
     })
 
     playerController.playerControllerRoute(bot)
-    // gameplayController.gameplayRoute(bot)
+    gameplayController.gameplayRoute(bot)
 }

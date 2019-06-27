@@ -27,7 +27,8 @@ module.exports.mainMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
         m.callbackButton('/adventures'),
-        m.callbackButton('/grind'),
+        m.callbackButton('/grindSpots'),
+        m.callbackButton('/adventureMenu'),
         m.callbackButton('/bags'),
         m.callbackButton('/equipments'),
         m.callbackButton('/levelUp'),
@@ -47,5 +48,26 @@ module.exports.levelUpMenu = Telegraf.Extra
         m.callbackButton('/levelup car'),
         m.callbackButton('/levelup wil'),
         m.callbackButton('/levelup luk'),
+        m.callbackButton('/back'),
+    ]).resize())
+
+
+module.exports.adventuresMenu = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.keyboard([
+        m.callbackButton('/explore aq_temple'),
+        m.callbackButton('/explore moten_core'),
+        m.callbackButton('/explore drachengard'),
+        m.callbackButton('/explore olimpus'),
+        m.callbackButton('/back'),
+    ]).resize())
+
+module.exports.grindSpots = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.keyboard([
+        m.callbackButton('/grind aq_temple'),
+        m.callbackButton('/grind moten_core'),
+        m.callbackButton('/grind drachengard'),
+        m.callbackButton('/grind olimpus'),
         m.callbackButton('/back'),
     ]).resize())

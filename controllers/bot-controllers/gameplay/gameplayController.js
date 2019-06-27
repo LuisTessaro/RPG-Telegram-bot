@@ -1,18 +1,18 @@
-const menu = require('./backMenu')
 const adventureMiddleware = require('../../../middlewares/adventureMiddleware')
 const needsActionMiddleware = require('../../../middlewares/needsActionMiddleware')
 const exploreFunctions = require('./explore/exploreFunctions')
+const menus = require('../../../menus/menus')
 
 module.exports.gameplayRoute = (bot) => {
-    bot.command(['back', 'start'], menu)
+    bot.command('adventures', ctx => ctx.reply('Pick an adventure from the ones below:', menus.adventuresMenu))
+    bot.command('grindSpots', ctx => ctx.reply('Pick a grind spot', menus.grindSpots))
 
-    bot.command('adventures', exploreFunctions.adventures)
+    bot.command('explore', exploreFunctions.explore)
 
-    bot.command('expwlore', exploreFunctions.explore)
+    bot.use(adventureMiddleware)
 
-    // bot.use(adventureMiddleware)
+    bot.use(needsActionMiddleware)
+    bot.command('adventureMenu', ctx => ctx.reply('Pick your action', menus.actionsMenu))
 
-    // bot.use(needsActionMiddleware)
-
-    // bot.command(['inspect', 'fight', 'bargain', 'sneak', 'colect', 'flee'], exploreFunctions.action)
+    bot.command(['inspect', 'fight', 'bargain', 'sneak', 'colect', 'flee'], exploreFunctions.action)
 }

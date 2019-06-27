@@ -4,21 +4,20 @@ const playerController = require('./bot-controllers/player/playerController')
 const gameplayController = require('./bot-controllers/gameplay/gameplayController')
 
 const authMiddleware = require('../middlewares/authMiddleware')
+const responseTimeMiddleware = require('../middlewares/responseTimeMiddleware')
 
 module.exports = (bot) => {
-    bot.use(async (ctx, next) => {
-        const start = new Date()
-        await next()
-        const ms = new Date() - start
-        console.log('Response time %sms', ms)
-    })
-
-    registerController.registerRoute(bot)
+    bot.use(responseTimeMiddleware)
 
     helperFunctions.helpRoute(bot)
+    registerController.registerRoute(bot)
 
     bot.use(authMiddleware)
 
+    bot.command('resetSession', async (ctx) => {
+        ctx.session = undefined
+    })
+
     playerController.playerControllerRoute(bot)
-    gameplayController.gameplayRoute(bot)
+    // gameplayController.gameplayRoute(bot)
 }

@@ -24,6 +24,7 @@ module.exports = mongoose.model('Player', {
     },
     exp: {
         type: Number,
+        default: 0
     },
     bag: {
         type: Array,

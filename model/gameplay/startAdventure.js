@@ -21,7 +21,7 @@ const exploreWrapper = async (ctx, map) => {
         await ctx.replyWithPhoto({
             url: anqTemple.imgUrl(progress.progress)
         })
-        return ctx.reply(anqTemple.nots[progress.progress].textMessage, actionMenu)
+        return ctx.reply(anqTemple.nots[progress.progress].textMessage + ctx.progress, actionMenu)
     }, 1000 * seconds)
 }
 
@@ -87,8 +87,8 @@ module.exports.encounterFunctions = {
             await nextKnot(ctx, ctx.session.player.telegramId)
             return exploreWrapper(ctx, ctx.session.map)
         } else if (action.after === 'next') {
-            ctx.reply('You dint find anything out of the ordinary')
-            ctx.reply('Moving to the next position')
+            await ctx.reply('You dint find anything out of the ordinary')
+            await ctx.reply('Moving to the next position')
             return exploreWrapper(ctx, ctx.session.map)
         }
     },

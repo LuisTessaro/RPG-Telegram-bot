@@ -1,8 +1,17 @@
 const Player = require('../model/mongoose-models/Player')
+const levelExp = require('./levelExp')
 
 module.exports.addLevel = async (ctx, stat, amount) => {
-    amount = amount || 1
+    const player = await Player.findById(ctx.session.player._id)
+    const requiredXp = player.level * 100
+    if (requiredXp > player.exp)
+        return ctx.reply('Not enought xp, you have ' + player.exp + 'xp, but you need ' + requiredXp + 'xp to levelup')
+
+    await levelExp.removeExp(ctx, requiredXp)
+    await levelExp.addLevel(ctx)
     
+    amount = amount || 1
+
     const statUp = {
         str: { 'attributes.str': ctx.session.player.attributes.str + amount },
         dex: { 'attributes.dex': ctx.session.player.attributes.dex + amount },
@@ -22,5 +31,7 @@ module.exports.addLevel = async (ctx, stat, amount) => {
     }, {
             new: true
         })
+
+    return ctx.reply(stat + ' leved up')
 }
 

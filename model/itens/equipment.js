@@ -107,16 +107,16 @@ module.exports = {
     description: `A literal cursed hand, why would anyone even pick this up?.`,
     type: 'trinket',
     bonuses: {
-      str: 0,
-      dex: 0,
-      agi: 0,
-      con: 0,
-      int: 0,
-      wis: 0,
-      car: 0,
-      wil: 0,
-      luk: 0,
-      defense: 0
+      str: 1,
+      dex: 1,
+      agi: 1,
+      con: 1,
+      int: 1,
+      wis: 1,
+      car: 1,
+      wil: 1,
+      luk: 1,
+      defense: 1
     }
   },
   WoodenArmor: {

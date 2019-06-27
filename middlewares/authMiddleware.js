@@ -8,8 +8,6 @@ module.exports = async (ctx, next) => {
         else {
             ctx.session.authed = true
             ctx.session.player = player[0]
-            ctx.session.player.inventory = player[0].inventory || []
-            ctx.session.player.bag = player[0].bag || []
             console.log('[INFO]', ctx.session.player.username, 'was authed to session...')
             return next()
         }

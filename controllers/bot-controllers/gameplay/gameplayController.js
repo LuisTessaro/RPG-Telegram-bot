@@ -8,11 +8,11 @@ module.exports.gameplayRoute = (bot) => {
 
     bot.command('adventures', exploreFunctions.adventures)
 
-    bot.command('explore', exploreFunctions.explore)
+    bot.command('expwlore', exploreFunctions.explore)
 
-    bot.use(adventureMiddleware)
+    // bot.use(adventureMiddleware)
 
-    bot.use(needsActionMiddleware)
+    // bot.use(needsActionMiddleware)
 
-    bot.command(['inspect', 'fight', 'bargain', 'sneak', 'colect', 'flee'], exploreFunctions.action)
+    // bot.command(['inspect', 'fight', 'bargain', 'sneak', 'colect', 'flee'], exploreFunctions.action)
 }

@@ -11,7 +11,8 @@ const bot = configBot.setUpBot(token)
 const app = configServer.setUpServer()
 
 app.listen(port, () => {
-    console.log('Listening on port ' + port + '!')
+    console.log('[INFO] Server setupListening on port: ' + port)
 })
 
 bot.launch()
+console.log('[INFO] Bot started.')

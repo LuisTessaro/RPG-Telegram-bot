@@ -9,8 +9,8 @@ module.exports.me = async (ctx) => {
     me += `Hp: ${builtPlayer.maxHp}\n`
     me += `Level: ${ctx.session.player.level}\n`
     me += `Skills: ${builtPlayer.skills.map(s => s.skillName + ': ' + s.emoji + ' ')}\n`
-    me += `Inventory: ${JSON.stringify(ctx.session.player.inventory)}\n`
-    me += `Bag: ${ctx.session.player.bag}\n`
+    me += `Inventory: ${Object.keys(ctx.session.player.inventory).reduce((inventory, itenSlot) => inventory + itenSlot + ': ' + ctx.session.player.inventory[itenSlot].name + ', ', '')}\n`
+    me += `Bags: ${ctx.session.player.bag}\n`
     me += `Attributes: ${JSON.stringify(builtPlayer.playerAttributes)}\n`
     ctx.reply(me)
 }

@@ -1,7 +1,7 @@
 const { buildPlayer } = require('../factories/player-factory')
 const { buildMonster } = require('../factories/monster-factory')
 const AdventureProgress = require('../mongoose-models/AdventureProgress')
-const Telegraf = require('Telegraf')
+const Telegraf = require('telegraf')
 const { addExp } = require('../../helpers/levelExp')
 const { addItensToBag } = require('../../helpers/addItensToBag')
 
@@ -31,7 +31,7 @@ const death = async (ctx) => {
     resetProgress(ctx.session.progress)
     ctx.session.progress = undefined
     ctx.session.map = undefined
-    return ctx.reply('You failed an got sent back to the city')
+    return ctx.reply('You died an got sent back to the city')
 }
 
 const back = async (ctx) => {

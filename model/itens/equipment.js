@@ -1,4 +1,38 @@
 module.exports = {
+  BatWing: {
+    name: 'Bag Wings',
+    description: `Creppy stuff.`,
+    type: 'armor',
+    bonuses: {
+      str: 0,
+      dex: 0,
+      agi: 2,
+      con: 2,
+      int: 0,
+      wis: 0,
+      car: 0,
+      wil: 0,
+      luk: 0,
+      defense: 5
+    }
+  },
+  BatScepter: {
+    name: 'Bat Scepter',
+    description: `Just a Bat head on a long stick, disgusting.`,
+    type: 'weapon',
+    bonuses: {
+      str: 0,
+      dex: 0,
+      agi: 0,
+      con: 0,
+      int: 3,
+      wis: 1,
+      car: 0,
+      wil: 0,
+      luk: 1,
+      defense: 0
+    }
+  },
   OldRags: {
     name: 'Old rags',
     description: `Old rags.`,
@@ -33,17 +67,16 @@ module.exports = {
       defense: 0
     }
   },
-
   FireWhip: {
     name: 'Fire Whip',
     description: `A whip made of pure blue fire, for some reason it doesn't seem to burn you.`,
     type: 'weapon',
     bonuses: {
-      str: 5,
+      str: 15,
       dex: 0,
       agi: 0,
       con: 0,
-      int: 10000,
+      int: 0,
       wis: 0,
       car: 0,
       wil: 0,
@@ -133,7 +166,7 @@ module.exports = {
       car: 10,
       wil: 0,
       luk: 0,
-      defense: 100
+      defense: 10
     }
   },
   IronArmor: {
@@ -150,12 +183,12 @@ module.exports = {
       car: 10,
       wil: 0,
       luk: 0,
-      defense: 100
+      defense: 20
     }
   },
   GoldenArmor: {
     name: 'Golden Armor',
-    description: `Fancy and heavy, but it looks like a fucking Saint Seya's knight`,
+    description: `Fancy and heavy, also not very practical.`,
     type: 'armor',
     bonuses: {
       str: 0,
@@ -164,10 +197,10 @@ module.exports = {
       con: 0,
       int: 0,
       wis: 0,
-      car: 10,
+      car: 99,
       wil: 0,
       luk: 0,
-      defense: 100
+      defense: 0
     }
   },
   BronzeDagger: {
@@ -175,11 +208,11 @@ module.exports = {
     description: `A Bronze Dagger.`,
     type: 'weapon',
     bonuses: {
-      str: 5,
+      str: 1,
       dex: 0,
-      agi: 0,
+      agi: 3,
       con: 0,
-      int: 10000,
+      int: 0,
       wis: 0,
       car: 0,
       wil: 0,
@@ -187,5 +220,4 @@ module.exports = {
       defense: 0
     }
   },
-
 }

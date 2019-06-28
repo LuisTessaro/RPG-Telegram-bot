@@ -2,7 +2,12 @@ const Telegraf = require('telegraf')
 const Itens = require('../../../../model/itens/equipment')
 
 module.exports.getItens = async (ctx) => {
-    const msg = (ctx.session.player.bag.reduce((inventoryMessage, equipName) => {
+    const parsedBags = []
+    ctx.session.player.bag.forEach((item) => {
+        if (!parsedBags.includes(item))
+            parsedBags.push(item)
+    })
+    const msg = (parsedBags.reduce((inventoryMessage, equipName) => {
         const equip = Itens[equipName]
         inventoryMessage += `Name: ${equip.name}\n`
         inventoryMessage += `Type: ${equip.type.charAt(0).toUpperCase() + equip.type.slice(1)}\n`
@@ -11,7 +16,7 @@ module.exports.getItens = async (ctx) => {
         return inventoryMessage
     }, 'Bags: \n'))
 
-    return ctx.reply(msg, buildInventoryMenu(ctx.session.player.bag))
+    return ctx.reply(msg, buildInventoryMenu(parsedBags))
 }
 
 module.exports.getEquipments = async (ctx) => {

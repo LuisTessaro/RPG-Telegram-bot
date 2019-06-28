@@ -70,6 +70,5 @@ module.exports.grindSpots = Telegraf.Extra
         m.callbackButton('/grind bat_cave'),
         m.callbackButton('/grind dark_forest'),
         m.callbackButton('/grind dragons_cave_entrance'),
-        m.callbackButton('/grind snowy_peaks'),
         m.callbackButton('/back 🔙'),
     ]).resize())

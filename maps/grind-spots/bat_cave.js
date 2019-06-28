@@ -1,7 +1,9 @@
 module.exports = {
-    name: '',
-    exploreTime: 1,
+    name: 'Bat Cave',
+    grindTime: 50,
     mininumReqiredLevel: 1,
-    odds: 5,
-    possibleRewards: []
+    odds: 60,
+    possibleExp: 500,
+    possibleRewards: ['BatWing', 'BatScepter'],
+    trash: ['BatGuano']
 }

@@ -32,6 +32,6 @@ module.exports.addLevel = async (ctx, stat, amount) => {
             new: true
         })
 
-    return ctx.reply(stat + ' leved up')
+    return ctx.reply('Leved up '+ stat + ' by one!')
 }
 

@@ -57,17 +57,19 @@ module.exports.adventuresMenu = Telegraf.Extra
     .markup((m) => m.keyboard([
         m.callbackButton('/explore aq_temple'),
         m.callbackButton('/explore moten_core'),
-        m.callbackButton('/explore drachengard'),
         m.callbackButton('/explore olimpus'),
+        m.callbackButton('/explore drachengard'),
         m.callbackButton('/back 🔙'),
     ]).resize())
 
 module.exports.grindSpots = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/grind aq_temple'),
-        m.callbackButton('/grind moten_core'),
-        m.callbackButton('/grind drachengard'),
-        m.callbackButton('/grind olimpus'),
+        m.callbackButton('/grind outskirts_of_town'),
+        m.callbackButton('/grind green_woods'),
+        m.callbackButton('/grind bat_cave'),
+        m.callbackButton('/grind dark_forest'),
+        m.callbackButton('/grind dragons_cave_entrance'),
+        m.callbackButton('/grind snowy_peaks'),
         m.callbackButton('/back 🔙'),
     ]).resize())

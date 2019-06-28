@@ -43,7 +43,7 @@ const buildInventoryMenu = (bag) => {
     const inventoryButtons = (m) => {
         return [...bag.reduce((inventoryButtons, equipName) => {
             return [...inventoryButtons, m.callbackButton('/equip ' + equipName)]
-        }, []), m.callbackButton('/back ')]
+        }, []), m.callbackButton('/back 🔙')]
     }
     const inventoryMenu = Telegraf.Extra
         .markdown()

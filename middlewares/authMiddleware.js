@@ -3,8 +3,10 @@ const Player = require('../model/mongoose-models/Player')
 module.exports = async (ctx, next) => {
     const player = await Player.find({ telegramId: ctx.message.from.id })
     if (player && player.length > 0) {
-        if (ctx.session.authed)
+        if (ctx.session.authed){
+            ctx.session.player = player[0]
             return next()
+        }
         else {
             ctx.session.authed = true
             ctx.session.player = player[0]

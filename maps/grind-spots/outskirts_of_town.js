@@ -1,6 +1,6 @@
 module.exports = {
     name: 'Outskirts of Terra Nova',
-    grindTime: 30,
+    grindTime: 5,
     mininumReqiredLevel: 1,
     odds: 10,
     possibleExp: 250,

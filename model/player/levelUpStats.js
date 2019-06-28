@@ -3,13 +3,13 @@ const levelExp = require('./levelExp')
 
 module.exports.addLevel = async (ctx, stat, amount) => {
     const player = await Player.findById(ctx.session.player._id)
-    const requiredXp = player.level * 100
+    const requiredXp = Math.pow(player.level * 10, 2)
     if (requiredXp > player.exp)
         return ctx.reply('Not enought xp, you have ' + player.exp + 'xp, but you need ' + requiredXp + 'xp to levelup')
 
     await levelExp.removeExp(ctx, requiredXp)
     await levelExp.addLevel(ctx)
-    
+
     amount = amount || 1
 
     const statUp = {

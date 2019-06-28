@@ -1,5 +1,5 @@
-const grindTime = 2 * 60 * 60 * 1000
-// const grindTime = 30 * 1000
+// const grindTime = 2 * 60 * 60 * 1000
+const grindTime = 60 * 30 * 1000
 const xp = require('../../model/player/levelExp')
 const { addItensToBag } = require('../../model/player/addItensToBag')
 
@@ -11,7 +11,7 @@ module.exports.grind = async (ctx, map) => {
         await xp.addExp(ctx, exp)
         const itens = ['HylianShield']
         await addItensToBag(ctx, itens)
-        ctx.reply(`You finished grinding on ${map}: you got ${exp}exp and got these itens:${itens}`)
+        return await ctx.reply(`You finished grinding on ${map}: you got ${exp}exp and got these itens:${itens}`)
     }, grindTime)
 }
 

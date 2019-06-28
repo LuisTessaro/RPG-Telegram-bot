@@ -1,4 +1,4 @@
-const Player = require('../model/mongoose-models/Player')
+const Player = require('../mongoose-models/Player')
 
 module.exports.addItensToBag = async (ctx, newItens) => {
     const newBag = [...ctx.session.player.bag, ...newItens]

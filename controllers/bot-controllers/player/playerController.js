@@ -5,7 +5,7 @@ const playerInfo = require('./player-routes/playerInfo')
 const { levelup } = require('./stats/statsController')
 const menus = require('../../../menus/menus')
 
-const levelExp = require('../../../helpers/levelExp')
+const levelExp = require('../../../model/player/levelExp')
 
 module.exports.playerControllerRoute = (bot) => {
     bot.command('me', playerInfo.me)

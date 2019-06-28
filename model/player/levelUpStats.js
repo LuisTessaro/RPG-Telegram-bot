@@ -1,4 +1,4 @@
-const Player = require('../model/mongoose-models/Player')
+const Player = require('../mongoose-models/Player')
 const levelExp = require('./levelExp')
 
 module.exports.addLevel = async (ctx, stat, amount) => {

@@ -14,12 +14,12 @@ module.exports = async (ctx) => {
         const player = await new Player(starterPlayer)
         try {
             await player.save()
-            ctx.reply('Welcome to Drachengard, ' + starterPlayer.classe.charAt(0).toUpperCase() + starterPlayer.classe.slice(1) + ' ' + starterPlayer.firstName + '!')
-            return ctx.reply('Use the menu to play the game', menus.mainMenu)
+            await ctx.reply('Welcome to Drachengard, ' + starterPlayer.classe.charAt(0).toUpperCase() + starterPlayer.classe.slice(1) + ' ' + starterPlayer.firstName + '!')
+            return await ctx.reply('Use the menu to play the game', menus.mainMenu)
         } catch {
-            ctx.reply('Please, setup a Telegram username first!')
+            return ctx.reply('Please, setup a Telegram username first!')
         }
     } else {
-        ctx.reply('Use /classes to check all available clases')
+        return ctx.reply('Use /classes to check all available clases')
     }
 }

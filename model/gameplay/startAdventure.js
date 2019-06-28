@@ -1,9 +1,9 @@
 const { buildPlayer } = require('../factories/player-factory')
-const { buildMonster } = require('../factories/monster-factory')
+// const { buildMonster } = require('../factories/monster-factory')
 const AdventureProgress = require('../mongoose-models/AdventureProgress')
 const Telegraf = require('telegraf')
-const { addExp } = require('../../helpers/levelExp')
-const { addItensToBag } = require('../../helpers/addItensToBag')
+const { addExp } = require('../../model/player/levelExp')
+const { addItensToBag } = require('../../model/player/addItensToBag')
 
 const anqTemple = require('../../maps/anq-temple/anqTemple')
 

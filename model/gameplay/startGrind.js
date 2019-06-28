@@ -1,7 +1,7 @@
-// const grindTime = 2 * 60 * 60 * 1000
-const grindTime = 30 * 1000
-const xp = require('../../helpers/levelExp')
-const { addItensToBag } = require('../../helpers/addItensToBag')
+const grindTime = 2 * 60 * 60 * 1000
+// const grindTime = 30 * 1000
+const xp = require('../../model/player/levelExp')
+const { addItensToBag } = require('../../model/player/addItensToBag')
 
 module.exports.grind = async (ctx, map) => {
     ctx.session.grinding = true

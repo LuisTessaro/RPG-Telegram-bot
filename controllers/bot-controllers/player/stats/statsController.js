@@ -1,4 +1,4 @@
-const levelUpStats = require('../../../../helpers/levelUpStats')
+const levelUpStats = require('../../../../model/player/levelUpStats')
 const validStats = ['str', 'dex', 'agi', 'con', 'int', 'wis', 'car', 'wil', 'luk']
 
 module.exports.levelup = async (ctx) => {

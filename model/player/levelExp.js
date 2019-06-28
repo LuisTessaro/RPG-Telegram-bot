@@ -1,4 +1,4 @@
-const Player = require('../model/mongoose-models/Player')
+const Player = require('../mongoose-models/Player')
 
 module.exports.addExp = async (ctx, exp) => {
     const newExp = ctx.session.player.exp + exp

@@ -3,53 +3,53 @@ const Telegraf = require('telegraf')
 module.exports.actionsMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/inspect'),
-        m.callbackButton('/fight'),
-        m.callbackButton('/bargain'),
-        m.callbackButton('/sneak'),
-        m.callbackButton('/colect'),
-        m.callbackButton('/flee'),
-        m.callbackButton('/back'),
-    ]).resize())
+        ['/inspect 🕵️', '/colect 💰', '/sneak 🚶'],
+        ['/fight ⚔️', '/bargain 😄', '/flee 🏃'],
+        ['/back 🔙'],
+    ]))
 
 module.exports.classMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/register warrior'),
-        m.callbackButton('/register mage'),
-        m.callbackButton('/register archer'),
-        m.callbackButton('/register thief'),
-        m.callbackButton('/register cleric'),
-        m.callbackButton('/back'),
+        m.callbackButton('/register warrior ⚔️'),
+        m.callbackButton('/register mage 🧙'),
+        m.callbackButton('/register archer 🏹'),
+        m.callbackButton('/register thief 🗡️'),
+        m.callbackButton('/register cleric ✝️'),
+        m.callbackButton('/back 🔙'),
     ]).resize())
 
 module.exports.mainMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/adventures'),
-        m.callbackButton('/grindSpots'),
-        m.callbackButton('/adventureMenu'),
-        m.callbackButton('/bags'),
-        m.callbackButton('/equipments'),
-        m.callbackButton('/levelUp'),
-        m.callbackButton('/resetSession'),
-        m.callbackButton('/me'),
-    ]).resize())
+        ['/adventures 🏕️', '/grindSpots ⏱️'],
+        ['/adventureMenu ⚔️'],
+        ['/bags 💰', '/equipments 🛡️'],
+        ['/levelUp 🆙', '/me 😄'],
+        ['/resetSession']
+    ]))
+
+// module.exports.levelUpMenu = Telegraf.Extra
+//     .HTML()
+//     .markup((m) => m.inlineKeyboard([
+//         m.callbackButton('Add 1', 'add:1'),
+//         m.callbackButton('Add 10', 'add:10'),
+//         m.callbackButton('Add 100', 'add:100'),
+//         m.callbackButton('Subtract 1', 'sub:1'),
+//         m.callbackButton('Subtract 10', 'sub:10'),
+//         m.callbackButton('Subtract 100', 'sub:100'),
+//         m.callbackButton('🐈', Math.random().toString(36).slice(2)),
+//         m.callbackButton('Clear', 'clear')
+//     ], { columns: 3 }))
 
 module.exports.levelUpMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/levelup str'),
-        m.callbackButton('/levelup dex'),
-        m.callbackButton('/levelup agi'),
-        m.callbackButton('/levelup con'),
-        m.callbackButton('/levelup int'),
-        m.callbackButton('/levelup wis'),
-        m.callbackButton('/levelup car'),
-        m.callbackButton('/levelup wil'),
-        m.callbackButton('/levelup luk'),
-        m.callbackButton('/back'),
-    ]).resize())
+        ['/levelup str', '/levelup dex', '/levelup agi'],
+        ['/levelup con', '/levelup int', '/levelup wis'],
+        ['/levelup car', '/levelup wil', '/levelup luk'],
+        ['/back 🔙']
+    ]))
 
 
 module.exports.adventuresMenu = Telegraf.Extra
@@ -59,7 +59,7 @@ module.exports.adventuresMenu = Telegraf.Extra
         m.callbackButton('/explore moten_core'),
         m.callbackButton('/explore drachengard'),
         m.callbackButton('/explore olimpus'),
-        m.callbackButton('/back'),
+        m.callbackButton('/back 🔙'),
     ]).resize())
 
 module.exports.grindSpots = Telegraf.Extra
@@ -69,5 +69,5 @@ module.exports.grindSpots = Telegraf.Extra
         m.callbackButton('/grind moten_core'),
         m.callbackButton('/grind drachengard'),
         m.callbackButton('/grind olimpus'),
-        m.callbackButton('/back'),
+        m.callbackButton('/back 🔙'),
     ]).resize())

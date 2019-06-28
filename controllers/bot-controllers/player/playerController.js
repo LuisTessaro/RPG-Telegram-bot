@@ -14,7 +14,7 @@ module.exports.playerControllerRoute = (bot) => {
     bot.command('bags', getItems.getItens)
     bot.command('equipments', getItems.getEquipments)
     bot.command('levelup', levelup)
-    bot.command('levelUp', (ctx) => ctx.reply('Main menu:', menus.levelUpMenu))
+    bot.command('levelUp', (ctx) => ctx.reply('Pick a stat to levelup', menus.levelUpMenu))
     bot.command('back', (ctx) => ctx.reply('Main menu:', menus.mainMenu))
 
     bot.command('addExp', async (ctx) => {

@@ -22,7 +22,8 @@ module.exports.classMenu = Telegraf.Extra
 module.exports.mainMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        ['/adventures 🏕️', '/grindSpots ⏱️'],
+        // ['/adventures 🏕️', '/grindSpots ⏱️'],
+        ['/grindSpots ⏱️'],
         ['/adventureMenu ⚔️'],
         ['/bags 💰', '/equipments 🛡️'],
         ['/levelUp 🆙', '/me 😄'],

@@ -14,10 +14,6 @@ module.exports = (bot) => {
 
     bot.use(authMiddleware)
 
-    bot.command('resetSession', async (ctx) => {
-        ctx.session = undefined
-    })
-
     playerController.playerControllerRoute(bot)
     gameplayController.gameplayRoute(bot)
 }

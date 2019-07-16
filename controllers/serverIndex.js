@@ -6,7 +6,7 @@ const AdventureProgress = require('../model/mongoose-models/AdventureProgress')
 
 router.get('/', async (req, res) => {
     const registeredPlayers = await Player.find()
-    res.status(200).send(registeredPlayers)
+    res.status(200).send(registeredPlayers.map(p => p.username))
 })
 
 router.get('/dropPlayers', async (req, res) => {

@@ -1,106 +1,166 @@
-const { buildPlayer } = require('../../factories/player-factory')
-// const { buildMonster } = require('../factories/monster-factory')
+const getProgress = require('../../../util/getProgress')
+const menus = require('../../../menus/menus')
+const anq_temple = require('../../../maps/anq-temple/anqTemple')
 const AdventureProgress = require('../../mongoose-models/AdventureProgress')
-const Telegraf = require('telegraf')
+
+const { buildPlayer } = require('../../factories/player-factory')
+const { buildMonster } = require('../../factories/monster-factory')
 const { addExp } = require('../../player/levelExp')
 const { addItensToBag } = require('../../player/addItensToBag')
 
-const anqTemple = require('../../../maps/anq-temple/anqTemple')
+const encounters = require('./encounters')
+
 
 const seconds = 1
 
-module.exports.explore = async (ctx, map) => {
-    await ctx.reply('DONE')
-    // await exploreWrapper(ctx, map)
+module.exports.adventure = async (ctx, map) => {
+    ctx.session.adventuring = true
+    ctx.session.map = map
+    await exploreWrapper(ctx, map)
 }
 
-const exploreWrapper = async (ctx, map) => {
-    const progress = await getProgress(ctx.session.player.telegramId, map)
-    // console.log(progress)
+const exploreWrapper = async (ctx, mapName) => {
+    const map = getMap[mapName]
+    ctx.session.mapOjb = map
+    const progress = await getProgress(ctx.session.player.telegramId, mapName)
+
+    if (progress.progress > map.limit) {
+        ctx.session.adventuring = undefined
+        await resetProgress(progress)
+        return ctx.reply(map.endReply, menus.mainMenu)
+    }
+
     setTimeout(async () => {
-        ctx.session.needsAction = true
-        await ctx.replyWithPhoto({
-            url: anqTemple.imgUrl(progress.progress)
-        })
-        return ctx.reply(anqTemple.nots[progress.progress].textMessage + ctx.progress, actionMenu)
+        try {
+            ctx.session.needsAction = true
+            await ctx.replyWithPhoto({
+                url: map.imgUrl(progress.progress)
+            })
+            return ctx.reply(map.knots[progress.progress].startMessage, menus.actionsMenu)
+        } catch (err) {
+            ctx.session.adventuring = undefined
+            return ctx.reply(err)
+        }
     }, 1000 * seconds)
 }
 
-const death = async (ctx) => {
-    ctx.session.needsAction = undefined
-    ctx.session.adventuring = undefined
-    resetProgress(ctx.session.progress)
-    ctx.session.progress = undefined
-    ctx.session.map = undefined
-    return ctx.reply('You died an got sent back to the city')
+const getMap = {
+    'anq_temple': anq_temple
 }
 
-const back = async (ctx) => {
-    ctx.session.needsAction = undefined
-    ctx.session.adventuring = false
-    resetProgress(ctx.session.progress)
-    ctx.session.progress = undefined
-    ctx.session.map = undefined
-    return ctx.reply('You got back from your adventure')
-}
+module.exports.encounters = async (ctx, actionUnparsed) => {
+    const map = ctx.session.mapOjb
+    const [action] = actionUnparsed.split(' ')
+    const curKnot = map.knots[ctx.session.progress.progress]
+    const curActionObj = curKnot.possibleActions[action]
+    ctx.session.needsAction = false
 
-const actionMenu = Telegraf.Extra
-    .markdown()
-    .markup((m) => m.keyboard([
-        m.callbackButton('/inspect'),
-        m.callbackButton('/fight'),
-        m.callbackButton('/bargain'),
-        m.callbackButton('/sneak'),
-        m.callbackButton('/colect'),
-        m.callbackButton('/flee'),
-        m.callbackButton('/back'),
-    ]).resize())
+    console.log(curActionObj)
 
-
-
-const getProgress = async (id, map) => {
-    const progress = await AdventureProgress.find({ telegramId: id })
-    if (progress && progress.length > 0) {
-        return progress[0]
-    } else {
-        const newProgress = new AdventureProgress(
-            {
-                telegramId: id,
-                map: map,
-                progress: 0
-            })
-        await newProgress.save()
-        return newProgress
-    }
-}
-
-module.exports.encounterFunctions = {
-    explorational: async (ctx, action) => {
-        if (action.after === 'back')
-            return back(ctx)
-        const roll = dice(20)
-        ctx.session.needsAction = false
-        if (roll > action.odds) {
-            await ctx.reply(action.message)
-            await ctx.reply('Moving to the next position')
-            await addExp(ctx, action.reward.xp)
-            await addItensToBag(ctx, action.reward.loot)
-            await nextKnot(ctx, ctx.session.player.telegramId)
-            return exploreWrapper(ctx, ctx.session.map)
-        } else if (action.after === 'next') {
+    const actionsBasedOnMapClosure = {
+        explorational: async () => {
+            if (curActionObj.after === 'back') return reset(ctx, 'You got back from your adventure')
+            const roll = dice(20)
+            if (roll > curActionObj.odds) {
+                if (curActionObj.reward.xp > 0) await addExp(ctx, curActionObj.reward.xp)
+                if (curActionObj.reward.loot.length > 0) await addItensToBag(ctx, curActionObj.reward.loot)
+                await ctx.reply(curActionObj.message)
+                await ctx.reply('Moving to the next position')
+                await nextKnot(ctx)
+                return exploreWrapper(ctx, ctx.session.map)
+            }
             await ctx.reply('You dint find anything out of the ordinary')
             await ctx.reply('Moving to the next position')
+            await nextKnot(ctx)
             return exploreWrapper(ctx, ctx.session.map)
-        }
-    },
-    combative: async (ctx, action) => { },
-    bossFight: async (ctx, action) => { },
-    trap: async (ctx, action) => { },
+        },
+        combative: async () => {
+            if (curActionObj.after === 'back') return reset(ctx, 'You got back from your adventure')
+            const roll = dice(20)
+
+            if (curActionObj.after === 'fight') {
+                const monsterName = curKnot.monsters[Math.floor(Math.random() * curKnot.monsters.length)]
+                const monster = buildMonster(monsterName)
+                const player = buildPlayer(ctx.session.player, ctx.session.player.classe)
+                const encaunter = encounters(player, monster)
+                console.log(encaunter)
+                await ctx.reply(encaunter.log)
+                if (!encaunter.status)
+                    return await reset(ctx, `You died fighting ${monster.name}, you will have to start the adventure again.`)
+
+                await ctx.reply('Moving to the next position')
+                await nextKnot(ctx)
+                return exploreWrapper(ctx, ctx.session.map)
+
+            }
+
+            if (roll > curActionObj.odds) {
+                if (curActionObj.reward.xp > 0) await addExp(ctx, curActionObj.reward.xp)
+                if (curActionObj.reward.loot.length > 0) await addItensToBag(ctx, curActionObj.reward.loot)
+                await ctx.reply(curActionObj.message)
+                await ctx.reply('Moving to the next position')
+                await nextKnot(ctx)
+                return exploreWrapper(ctx, ctx.session.map)
+            }
+
+            await ctx.reply('Moving to the next position')
+            await nextKnot(ctx)
+            return exploreWrapper(ctx, ctx.session.map)
+        },
+        bossFight: async () => {
+            if (curActionObj.after === 'back') return reset(ctx, 'You got back from your adventure')
+            const roll = dice(20)
+
+            await ctx.reply('Moving to the next position')
+            await nextKnot(ctx)
+            return exploreWrapper(ctx, ctx.session.map)
+        },
+        trap: async () => {
+            if (curActionObj.after === 'back') return reset(ctx, 'You got back from your adventure')
+            if (curActionObj.after === 'dead') {
+                await ctx.reply(curActionObj.message)
+                return reset(ctx, 'You died an got sent back to the city')
+            }
+
+            const roll = dice(20)
+
+            if (roll > curActionObj.odds) {
+                if (curActionObj.reward.xp > 0) await addExp(ctx, curActionObj.reward.xp)
+                if (curActionObj.reward.loot.length > 0) await addItensToBag(ctx, curActionObj.reward.loot)
+                await ctx.reply(curActionObj.message)
+                await ctx.reply('Moving to the next position')
+                await nextKnot(ctx)
+                return exploreWrapper(ctx, ctx.session.map)
+            }
+
+            await ctx.reply('Nothing Happens')
+            await ctx.reply('Moving to the next position')
+            await nextKnot(ctx)
+            return exploreWrapper(ctx, ctx.session.map)
+        },
+        sanctuary: async () => {
+            if (curActionObj.after === 'back') return reset(ctx, 'You got back from your adventure')
+
+            const roll = dice(20)
+            if (roll > curActionObj.odds) {
+                if (curActionObj.reward.xp > 0) await addExp(ctx, curActionObj.reward.xp)
+                if (curActionObj.reward.loot.length > 0) await addItensToBag(ctx, curActionObj.reward.loot)
+                await ctx.reply(curActionObj.message)
+                await ctx.reply('Moving to the next position')
+                await nextKnot(ctx)
+                return exploreWrapper(ctx, ctx.session.map)
+            }
+            await ctx.reply('You dint find anything out of the ordinary')
+            await ctx.reply('Moving to the next position')
+            await nextKnot(ctx)
+            return exploreWrapper(ctx, ctx.session.map)
+        },
+    }
+    await actionsBasedOnMapClosure[curKnot.encounterType]()
 }
 
-
-const nextKnot = async (ctx, telegramId) => {
-    const progress = await getProgress(telegramId)
+const nextKnot = async (ctx) => {
+    const [progress] = await AdventureProgress.find({ telegramId: ctx.session.player.telegramId })
     const newProgress = progress.progress + 1
     ctx.session.progress = newProgress
     await AdventureProgress.findByIdAndUpdate(progress._id, {
@@ -111,128 +171,12 @@ const nextKnot = async (ctx, telegramId) => {
     return 'done'
 }
 
-const resetProgress = async (progressOld) => {
-    console.log(progressOld._id)
-    console.log(await AdventureProgress.findByIdAndDelete(progressOld._id))
+const reset = async (ctx, message) => {
+    await AdventureProgress.findByIdAndDelete(ctx.session.progress._id)
+    Object.keys(ctx.session).forEach(key => ctx.session[key] = undefined)
+    return ctx.reply(message, menus.mainMenu)
 }
 
-const battle = (player, monster, ctx, map) => {
-    let battleLog = ''
-    const playerIniciative = dice(20)
-    const monsterIniciative = dice(20)
-
-    const playerMaxHp = player.maxHp
-    const monsterMaxHp = monster.hp
-    battleLog += `🔶${monster.name} rolled a ${monsterIniciative}\n`
-    battleLog += `🔷${player.username} rolled a ${playerIniciative}\n\n`
-
-    if (playerIniciative > monsterIniciative) battleLog += `${player.username} won the initiative!\n\n`
-    else battleLog += `${monster.name} won the initiative!\n\n`
-
-    const monsterTurn = () => {
-        const monsterDamage = dice(monster.autoAttackDmg)
-        const playerFlee = dice(player.flee)
-        const monsterAccuracy = dice(monster.accuracy)
-        battleLog += `🔶 🎯${monsterAccuracy}  💢${monsterDamage}  ✨${playerFlee}\n`
-        if (monsterAccuracy >= playerFlee) {
-            battleLog += `${monster.name} dealt ${monsterDamage} damage to ${player.username}\n`
-            player.hp -= monsterDamage
-            battleLog += `${player.username} hp: ${player.hp}/${playerMaxHp}\n\n`
-            if (player.hp <= 0) {
-                ctx.session.exploring = false
-                battleLog += 'You died! Use the buttons to try again'
-                return 'end'
-            }
-        } else battleLog += `${monster.name} missed the attack\n   miss\n\n`
-    }
-
-    const playerTurn = () => {
-        const playerDamage = dice(player.autoAttackDmg)
-        const monsterFlee = dice(monster.flee)
-        const playerAccuracy = dice(player.accuracy)
-        battleLog += `🔷 🎯${playerAccuracy}  💢${playerDamage}  ✨${monsterFlee}\n`
-        if (playerAccuracy >= monsterFlee) {
-            battleLog += `${player.username} dealt ${playerDamage} damage to ${monster.name}\n`
-            monster.hp -= playerDamage
-
-            player.skills.forEach((skill) => {
-                const rand = dice(100)
-                if (rand < skill.odds) {
-                    let skillDamage = skill.damage(player.playerAttributes) / 2
-                    skillDamage += dice(skill.damage(player.playerAttributes)) / 2
-                    battleLog += `${skill.emoji} ${skill.skillName} cast for ${skillDamage} damage\n`
-                    monster.hp -= skillDamage
-                }
-            })
-
-            player.healingSkills.forEach((skill) => {
-                const rand = dice(100)
-                if (rand < skill.odds) {
-                    let skillHealing = dice(skill.heal(player.playerAttributes))
-                    if (skillHealing === 0) skillHealing += 1
-                    battleLog += `${skill.emoji} ${skill.skillName} cast for ${skillHealing} healing\n`
-                    if (player.hp + skillHealing >= playerMaxHp) player.hp = playerMaxHp
-                    else player.hp += skillHealing
-                }
-            })
-
-            battleLog += `${monster.name} hp: ${monster.hp}/${monsterMaxHp}\n\n`
-
-            if (monster.hp <= 0) {
-                battleLog += `🆙 Experience: ${monster.exp} \n🎲 Loot: \n🎩 Equip:`
-                return 'end'
-            }
-        } else {
-            battleLog += `${player.username} missed the attack\n   miss\n\n`
-            return battleLog
-        }
-    }
-
-    while (monster.hp > 0) {
-        if (playerIniciative > monsterIniciative) {
-            if (playerTurn(ctx, battleLog, player, monster, map, playerMaxHp, monsterMaxHp) === 'end')
-                if (ctx.session.wantsToExplore) {
-                    return {
-                        log: `✔️${player.username} vs. ${monster.name}!\n\n` + battleLog,
-                        intent: true
-                    }
-                } else {
-                    ctx.session.exploring = false
-                    return {
-                        log: `✔️${player.username} vs. ${monster.name}!\n\n` + battleLog + '\n\nYou stoped exploring!',
-                        intent: false
-                    }
-                }
-
-            if (monsterTurn(ctx, battleLog, player, monster, map, playerMaxHp, monsterMaxHp) === 'end')
-                return {
-                    log: `❌${player.username} vs. ${monster.name}!\n\n` + battleLog,
-                    intent: false
-                }
-        } else {
-            if (monsterTurn(ctx, battleLog, player, monster, map, playerMaxHp, monsterMaxHp) === 'end')
-                return {
-                    log: `❌${player.username} vs. ${monster.name}!\n\n` + battleLog,
-                    intent: false
-                }
-
-            if (playerTurn(ctx, battleLog, player, monster, map, playerMaxHp, monsterMaxHp) === 'end')
-                if (ctx.session.wantsToExplore) {
-                    return {
-                        log: `✔️${player.username} vs. ${monster.name}!\n\n` + battleLog,
-                        intent: true
-                    }
-                } else {
-                    ctx.session.exploring = false
-                    return {
-                        log: `✔️${player.username} vs. ${monster.name}!\n\n` + battleLog + '\n\nYou stoped exploring!',
-                        intent: false
-                    }
-                }
-        }
-    }
-}
-
-function dice(faces) {
+const dice = (faces) => {
     return Math.floor((Math.random() * faces + 1) + 1)
 }

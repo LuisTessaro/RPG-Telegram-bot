@@ -9,6 +9,16 @@ router.get('/', async (req, res) => {
     res.status(200).send(registeredPlayers.map(p => p.username))
 })
 
+router.get('/players', async (req, res) => {
+    const registeredPlayers = await Player.find()
+    res.status(200).send(registeredPlayers)
+})
+
+router.get('/progress', async (req, res) => {
+    const progross = await AdventureProgress.find()
+    res.status(200).send(progross)
+})
+
 router.get('/dropPlayers', async (req, res) => {
     await Player.deleteMany({})
     console.log('[INFO] Registered Players dropped')

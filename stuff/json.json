@@ -1,0 +1,43 @@
+{
+    "name": "bunda_mole",
+    "skills": [
+        {
+            "skillName": "Fire Bolt",
+            "levelRequired": 1,
+            "odds": 40,
+            "emoji": ":fire:"
+        },
+        {
+            "skillName": "Frost Bolt",
+            "levelRequired": 1,
+            "odds": 40,
+            "emoji": ":snowflake:"
+        },
+        {
+            "skillName": "Arcane Bolt",
+            "levelRequired": 1,
+            "odds": 40,
+            "emoji": ":crystal_ball:"
+        },
+        {
+            "skillName": "METEOR!!!!",
+            "levelRequired": 1,
+            "odds": 3,
+            "emoji": ":stars:"
+        }
+    ],
+    "healingSkills": [
+        {
+            "skillName": "Cauterize Wounds",
+            "levelRequired": 1,
+            "odds": 30,
+            "emoji": ":fire:"
+        }
+    ],
+    "hp": 58,
+    "maxHp": 58,
+    "autoAttackDmg": 2,
+    "flee": 3,
+    "accuracy": 8,
+    "defense": 0
+}

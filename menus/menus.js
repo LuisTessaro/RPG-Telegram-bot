@@ -26,7 +26,8 @@ module.exports.mainMenu = Telegraf.Extra
         ['/adventureMenu ⚔️'],
         ['/bags 💰', '/equipments 🛡️'],
         ['/levelUp 🆙', '/me 😄'],
-        ['/getplayers']
+        ['/getplayers'],
+        ['/showCompleteStats'],
     ]))
 
 // module.exports.levelUpMenu = Telegraf.Extra
@@ -55,7 +56,7 @@ module.exports.levelUpMenu = Telegraf.Extra
 module.exports.adventuresMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/explore aq_temple'),
+        m.callbackButton('/explore anq_temple'),
         m.callbackButton('/explore moten_core'),
         m.callbackButton('/explore olimpus'),
         m.callbackButton('/explore drachengard'),

@@ -33,7 +33,7 @@ module.exports.getSkills = [
     },
     levelRequired: 1,
     odds: 3,
-    emoji: '☄️'
+    emoji: '🌠'
   }
 ]
 module.exports.getHealingSkills = [

@@ -30,7 +30,7 @@ module.exports.buildStarterPlayer = (data, classe) => {
 
 module.exports.buildPlayer = (player) => {
   const classObject = getClassObject(player.classe)
-  const equipedItens = Object.keys(player.inventory).map(position => player.inventory[position])
+  const equipedItens = player.inventory ? Object.keys(player.inventory).map(position => player.inventory[position]) : []
   const equipmentBonus = equipedItens.reduce((bonus, equip) => {
     Object.keys(equip.bonuses).forEach(key => {
       if (equip.bonuses[key] > 0)

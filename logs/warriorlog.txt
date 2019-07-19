@@ -1,0 +1,1400 @@
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 10
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1,Rage!!! 😤 damage:3
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 5
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Furious Slash 😤 damage:2
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 10
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2,Rage!!! 😤 damage:2.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 3
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 5
+Skills:Poison Fang ☣️ damage:2.5
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:Poison Fang ☣️ damage:2.5
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 10
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 2
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 2
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 12
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Rage!!! 😤 damage:4
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 10
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 5
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 11
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 10
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 10
+Skills:Poison Fang ☣️ damage:2.5
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 1
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 14
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 5
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:Poison Fang ☣️ damage:2.5
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 5
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:Poison Fang ☣️ damage:2
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 14
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 11
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 2
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 1
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:Poison Fang ☣️ damage:2.5
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 1
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 12
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 4
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 12
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:Poison Fang ☣️ damage:2.5
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 2
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 14
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5,Rage!!! 😤 damage:2.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 11
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 11
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 4
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 8
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 10
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:Poison Fang ☣️ damage:3
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 3
+Skills:Poison Fang ☣️ damage:3
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:Poison Fang ☣️ damage:2
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 15
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Furious Slash 😤 damage:1.5
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 3
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 1
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 1
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 12
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:Poison Fang ☣️ damage:2
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 2
+Skills:Poison Fang ☣️ damage:3
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:1.5
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 14
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 4
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 4
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Infinity Rampage ☠️ damage:15
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 13
+Skills:Poison Fang ☣️ damage:2
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 7
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 1
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 4
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 6
+Skills:Poison Fang ☣️ damage:2.5
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 5
+Skills:
+Healing: Life Steal ☣️ healing:1, 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 4
+Skills:Weapon Swing 😤 damage:1
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 14
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 3
+Skills:Weapon Swing 😤 damage:1,Furious Slash 😤 damage:2
+Healing: 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 9
+Skills:
+Healing: 
+
+
+
+bunda_mole:
+Player hp: 11
+PlayerDamage: 2
+Skills:Weapon Swing 😤 damage:1
+Healing: Second wind 💨 healing:1, 
+
+Spider:
+Monster hp: 54
+MonsterDamage: 4
+Skills:
+Healing: 
+

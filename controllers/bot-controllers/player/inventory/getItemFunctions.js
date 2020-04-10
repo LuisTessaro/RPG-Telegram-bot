@@ -1,14 +1,14 @@
 const Telegraf = require('telegraf')
-const Itens = require('../../../../model/itens/equipment')
+const Items = require('../../../../model/items/equipment')
 
-module.exports.getItens = async (ctx) => {
+module.exports.getItems = async (ctx) => {
     const parsedBags = []
     ctx.session.player.bag.forEach((item) => {
         if (!parsedBags.includes(item))
             parsedBags.push(item)
     })
     const msg = (parsedBags.reduce((inventoryMessage, equipName) => {
-        const equip = Itens[equipName]
+        const equip = Items[equipName]
         inventoryMessage += `Name: ${equip.name}\n`
         inventoryMessage += `Type: ${equip.type.charAt(0).toUpperCase() + equip.type.slice(1)}\n`
         inventoryMessage += `Description: ${equip.description}\n`
@@ -22,15 +22,15 @@ module.exports.getItens = async (ctx) => {
 module.exports.getEquipments = async (ctx) => {
     const inventory = ctx.session.player.inventory
 
-    const msg = Object.keys(inventory).reduce((inventoryText, itenSlot) => {
-        const slotName = itenSlot.charAt(0).toUpperCase() + itenSlot.slice(1)
-        const itemName = inventory[itenSlot].name
-        const bonus = calculateBonus(inventory[itenSlot].bonuses)
+    const msg = Object.keys(inventory).reduce((inventoryText, itemSlot) => {
+        const slotName = itemSlot.charAt(0).toUpperCase() + itemSlot.slice(1)
+        const itemName = inventory[itemSlot].name
+        const bonus = calculateBonus(inventory[itemSlot].bonuses)
         return inventoryText +
             `${slotName}: ${itemName}\nBonus:${bonus}
             \n`
     }, '')
-    return ctx.reply('Your equiped Itens\n' + msg)
+    return ctx.reply('Your equiped Items\n' + msg)
 }
 
 const calculateBonus = (bonuses) => {

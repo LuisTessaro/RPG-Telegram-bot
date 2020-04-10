@@ -17,7 +17,7 @@ module.exports.grind = async ctx => {
             return await ctx.reply(`Your companion cant grind on an area that has a higher level than you.`)
         const message = `Grinding on ${mapObj.name} will take about ${mapObj.grindTime} minutes, you will get some xp and maybe some itens, fun :D`
         await ctx.reply(message + '\nYou can do other things while your companion is griding, like checking your itens or going into an adventure.', menus.mainMenu)
-        grind(ctx, mapObj)
+        return grind(ctx, mapObj)
     } else if (ctx.session.grinding)
         return ctx.reply('Your companion is aready grinding!')
     else

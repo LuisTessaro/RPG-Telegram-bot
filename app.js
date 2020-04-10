@@ -15,4 +15,5 @@ app.listen(port, () => {
 })
 
 bot.launch()
+
 console.log('[INFO] Bot started.')

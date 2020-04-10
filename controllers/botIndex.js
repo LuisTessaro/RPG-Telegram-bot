@@ -8,7 +8,7 @@ const responseTimeMiddleware = require('../middlewares/responseTimeMiddleware')
 
 module.exports = (bot) => {
     bot.use(responseTimeMiddleware)
-
+    
     bot.command('sessh', ctx => {
         ctx.reply(Object.keys(ctx.session))
     })

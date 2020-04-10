@@ -13,7 +13,7 @@ module.exports.playerControllerRoute = (bot) => {
     bot.command('me', playerInfo.me)
     bot.command('addItensToBag', testFunctions.addItensToBag)
     bot.command('equip', equipItem)
-    bot.command('bags', getItems.getItens)
+    bot.command('bags', getItems.getItems)
     bot.command('equipments', getItems.getEquipments)
     bot.command('levelup', levelup)
     bot.command('levelUp', (ctx) => ctx.reply('Pick a stat to levelup', menus.levelUpMenu))

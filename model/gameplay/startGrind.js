@@ -1,4 +1,3 @@
-// const grindTime = 2 * 60 * 60 * 1000
 const xp = require('../../model/player/levelExp')
 const { addItensToBag } = require('../../model/player/addItensToBag')
 
@@ -8,6 +7,7 @@ module.exports.grind = async (ctx, map) => {
         ctx.session.grinding = false
         const exp = Math.floor((dice(map.possibleExp) / 2) + (map.possibleExp / 2))
         await xp.addExp(ctx, exp)
+
         const grindDrop = async (possibleRewards, trash, odds) => {
             const lootRoll = dice(100)
             if (lootRoll > odds) {
@@ -20,6 +20,7 @@ module.exports.grind = async (ctx, map) => {
                 return `you got ${exp}exp and got these itens:${tra}`
             }
         }
+        
         return await ctx.reply(`Your companion finished grinding on ${map.name}:${await grindDrop(map.possibleRewards, map.trash, map.odds)}`)
     }, map.grindTime * 60 * 1000)
 }

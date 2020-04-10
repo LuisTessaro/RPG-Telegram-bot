@@ -15,11 +15,11 @@ module.exports.grind = async ctx => {
         const mapObj = require('../../../../maps/grind-spots/' + map)
         if (ctx.session.player.level < mapObj.mininumReqiredLevel)
             return await ctx.reply(`Your companion cant grind on an area that has a higher level than you.`)
-        const message = `Grinding on ${mapObj.name} will take about ${mapObj.grindTime} minutes, you will get some xp and maybe some itens, fun :D`
+        const message = `Grinding on ${mapObj.name} will take about ${mapObj.grindTime} minutes, you will get some xp and maybe some itens!`
         await ctx.reply(message + '\nYou can do other things while your companion is griding, like checking your itens or going into an adventure.', menus.mainMenu)
         return grind(ctx, mapObj)
     } else if (ctx.session.grinding)
-        return ctx.reply('Your companion is aready grinding!')
+        return ctx.reply('Your companion is aready grinding!', menus.mainMenu)
     else
         return ctx.reply('Invalid map, try again!')
 }

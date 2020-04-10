@@ -53,7 +53,7 @@ module.exports.buildPlayer = (player) => {
     })
 
   const composedBonuses = composeBonuses(player.attributes, equipmentBonus)
-
+  
   return {
     username: player.username,
     classe: player.classe,
@@ -71,9 +71,7 @@ module.exports.buildPlayer = (player) => {
     autoAttackDmg: classObject.autoAttackFormula(composedBonuses, player.level),
     flee: classObject.fleeFormula(composedBonuses, player.level),
     accuracy: classObject.accuracyFormula(composedBonuses, player.level),
-    sneaky: classObject.sneakyFormula(composedBonuses, player.level),
-    bargainLevel: classObject.bargainFormula(composedBonuses, player.level),
-    iniciativeBonus: 0,
+    iniciativeBonus: composedBonuses.wil,
     defense: equipmentBonus.defense,
     equipmentBonus: equipmentBonus,
     playerAttributes: composedBonuses,

@@ -1,11 +1,11 @@
 const Player = require('../../../../model/mongoose-models/Player')
-const Itens = require('../../../../model/itens/equipment')
+const Items = require('../../../../model/items/equipment')
 
 module.exports = async (ctx) => {
     const item = ctx.message.text.split(' ')[1]
     const flag = await validItem(item, ctx.session.player._id)
     if (flag === true) {
-        const equip = Itens[item]
+        const equip = Items[item]
         ctx.session.player.inventory[equip.type] = equip
         const newInventory = ctx.session.player.inventory
         await Player.findByIdAndUpdate(ctx.session.player._id,

@@ -6,6 +6,14 @@ const {
   cleric,
 } = require('../classes')
 
+const classesObj = {
+  archer,
+  thief,
+  mage,
+  warrior,
+  cleric,
+}
+
 const buildStarterPlayer = (data, classe) => {
   return {
     username: data.username,
@@ -30,29 +38,29 @@ const buildStarterPlayer = (data, classe) => {
   }
 }
 
-const buildPlayer = (player) => {
-  const classObject = getClassObject(player.classe)
+const buildPlayer = player => {
+  const classObject = classesObj[player.classe]
   const equipedItens = player.inventory ? Object.keys(player.inventory).map(position => player.inventory[position]) : []
-  const equipmentBonus = equipedItens.reduce((bonus, equip) => {
-    Object.keys(equip.bonuses).forEach(key => {
-      if (equip.bonuses[key] > 0)
-        bonus[key] += equip.bonuses[key]
-    })
-
-    return bonus
-  },
-    {
-      str: 0,
-      dex: 0,
-      agi: 0,
-      con: 0,
-      int: 0,
-      wis: 0,
-      car: 0,
-      wil: 0,
-      luk: 0,
-      defense: 0
-    })
+  const equipmentBonus = equipedItens
+    .reduce((bonus, equip) => {
+      Object.keys(equip.bonuses).forEach(key => {
+        if (equip.bonuses[key] > 0)
+          bonus[key] += equip.bonuses[key]
+      })
+      return bonus
+    },
+      {
+        str: 0,
+        dex: 0,
+        agi: 0,
+        con: 0,
+        int: 0,
+        wis: 0,
+        car: 0,
+        wil: 0,
+        luk: 0,
+        defense: 0
+      })
 
   const composedBonuses = composeBonuses(player.attributes, equipmentBonus)
 
@@ -61,14 +69,8 @@ const buildPlayer = (player) => {
     classe: player.classe,
     level: player.level,
     attributes: player.attributes,
-    skills: classObject.getSkills.filter((skill) => {
-      if (player.level >= skill.levelRequired)
-        return skill
-    }),
-    healingSkills: classObject.getHealingSkills.filter((skill) => {
-      if (player.level >= skill.levelRequired)
-        return skill
-    }),
+    skills: classObject.getSkills.filter(skill => player.level >= skill.levelRequired),
+    healingSkills: classObject.getHealingSkills.filter(skill => player.level >= skill.levelRequired),
     hp: classObject.hpFormula(composedBonuses, player.level),
     maxHp: classObject.hpFormula(composedBonuses, player.level),
     autoAttackDmg: classObject.autoAttackFormula(composedBonuses, player.level),
@@ -81,33 +83,15 @@ const buildPlayer = (player) => {
   }
 }
 
-const getClassObject = (playerClass) => {
-  switch (playerClass) {
-    case 'archer':
-      return archer
-    case 'thief':
-      return thief
-    case 'mage':
-      return mage
-    case 'warrior':
-      return warrior
-    case 'cleric':
-      return cleric
-  }
-}
-
 const composeBonuses = (playerAttributes, bonusAttributes) => {
-  const composed = {
-    str: playerAttributes.str + bonusAttributes.str,
-    dex: playerAttributes.dex + bonusAttributes.dex,
-    agi: playerAttributes.agi + bonusAttributes.agi,
-    con: playerAttributes.con + bonusAttributes.con,
-    int: playerAttributes.int + bonusAttributes.int,
-    wis: playerAttributes.wis + bonusAttributes.wis,
-    wil: playerAttributes.wil + bonusAttributes.wil,
-    luk: playerAttributes.luk + bonusAttributes.luk,
-  }
-  return composed
+  const atts = ['str', 'dex', 'agi', 'con', 'int', 'wis', 'wil', 'luk',]
+
+  return atts.reduce((composed, att) => {
+    return {
+      ...composed,
+      [att]: playerAttributes[att] + bonusAttributes[att]
+    }
+  }, {})
 }
 
 module.exports = {

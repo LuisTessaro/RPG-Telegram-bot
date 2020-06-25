@@ -1,10 +1,10 @@
-const register = require('./registerFunctions/registerFunction')
+const register = require('./registerFunction')
 
-const menus = require('../../../menus/menus')
+const { classMenu } = require('../../../menus/menus')
 
 module.exports.registerRoute = (bot) => {
     bot.command('classes', (ctx) => {
-        ctx.reply('Pick a class using the popup menu:', menus.classMenu)
+        ctx.reply('Pick a class using the popup menu:', classMenu)
     })
 
     bot.command('register', register)

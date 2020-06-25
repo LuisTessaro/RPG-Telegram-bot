@@ -1,17 +1,17 @@
 const Telegraf = require('telegraf')
 
-module.exports.classMenu = Telegraf.Extra
+const classMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/register warrior ⚔️'),
-        m.callbackButton('/register mage 🧙'),
-        m.callbackButton('/register archer 🏹'),
-        m.callbackButton('/register thief 🗡️'),
-        m.callbackButton('/register cleric ✝️'),
-        m.callbackButton('/back 🔙'),
-    ]).resize())
+        ['/register warrior ⚔️'],
+        ['/register mage 🧙'],
+        ['/register archer 🏹'],
+        ['/register thief 🗡️'],
+        ['/register cleric ✝️'],
+        ['/back 🔙'],
+    ]))
 
-module.exports.mainMenu = Telegraf.Extra
+const mainMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
         ['/grindSpots ⏱️'],
@@ -22,7 +22,7 @@ module.exports.mainMenu = Telegraf.Extra
     ]))
 
 
-module.exports.levelUpMenu = Telegraf.Extra
+const levelUpMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
         ['/levelup str', '/levelup dex', '/levelup agi'],
@@ -32,13 +32,20 @@ module.exports.levelUpMenu = Telegraf.Extra
     ]))
 
 
-module.exports.grindSpots = Telegraf.Extra
+const grindSpots = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        m.callbackButton('/grind outskirts_of_town'),
-        m.callbackButton('/grind green_woods'),
-        m.callbackButton('/grind bat_cave'),
-        m.callbackButton('/grind dark_forest'),
-        m.callbackButton('/grind dragons_cave_entrance'),
-        m.callbackButton('/back 🔙'),
-    ]).resize())
+        ['/grind outskirts_of_town'],
+        ['/grind green_woods'],
+        ['/grind bat_cave'],
+        ['/grind dark_forest'],
+        ['/grind dragons_cave_entrance'],
+        ['/back 🔙'],
+    ]))
+
+module.exports = {
+    classMenu,
+    mainMenu,
+    levelUpMenu,
+    grindSpots
+}

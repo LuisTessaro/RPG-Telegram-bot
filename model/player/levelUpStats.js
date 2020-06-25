@@ -1,14 +1,18 @@
 const Player = require('../mongoose-models/Player')
-const levelExp = require('./levelExp')
+const {
+    removeExp,
+    addLevel,
+} = require('./levelExp')
 
-module.exports.addLevel = async (ctx, stat, amount) => {
-    const player = await Player.findById(ctx.session.player._id)
+module.exports = async (ctx, stat, amount) => {
+    const player = ctx.session.player
     const requiredXp = Math.pow(player.level * 10, 2)
-    if (requiredXp > player.exp)
-        return ctx.reply('Not enought xp, you have ' + player.exp + 'xp, but you need ' + requiredXp + 'xp to levelup')
 
-    await levelExp.removeExp(ctx, requiredXp)
-    await levelExp.addLevel(ctx)
+    if (requiredXp > player.exp)
+        return ctx.reply(`Not enought exp, you have ${player.exp}exp, but you need ${requiredXp}exp to levelup`)
+
+    await removeExp(ctx, requiredXp)
+    await addLevel(ctx)
 
     amount = amount || 1
 
@@ -29,9 +33,9 @@ module.exports.addLevel = async (ctx, stat, amount) => {
     await Player.findByIdAndUpdate(ctx.session.player._id, {
         $set: statUp[stat]
     }, {
-            new: true
-        })
+        new: true
+    })
 
-    return ctx.reply('Leved up '+ stat + ' by one!')
+    return ctx.reply('Leved up ' + stat + ' by one!')
 }
 

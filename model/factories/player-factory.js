@@ -1,10 +1,12 @@
-const archer = require('../classes/archer')
-const thief = require('../classes/thief')
-const mage = require('../classes/mage')
-const warrior = require('../classes/warrior')
-const cleric = require('../classes/cleric')
+const {
+  archer,
+  thief,
+  mage,
+  warrior,
+  cleric,
+} = require('../classes')
 
-module.exports.buildStarterPlayer = (data, classe) => {
+const buildStarterPlayer = (data, classe) => {
   return {
     username: data.username,
     firstName: data.first_name,
@@ -28,7 +30,7 @@ module.exports.buildStarterPlayer = (data, classe) => {
   }
 }
 
-module.exports.buildPlayer = (player) => {
+const buildPlayer = (player) => {
   const classObject = getClassObject(player.classe)
   const equipedItens = player.inventory ? Object.keys(player.inventory).map(position => player.inventory[position]) : []
   const equipmentBonus = equipedItens.reduce((bonus, equip) => {
@@ -53,10 +55,11 @@ module.exports.buildPlayer = (player) => {
     })
 
   const composedBonuses = composeBonuses(player.attributes, equipmentBonus)
-  
+
   return {
     username: player.username,
     classe: player.classe,
+    level: player.level,
     attributes: player.attributes,
     skills: classObject.getSkills.filter((skill) => {
       if (player.level >= skill.levelRequired)
@@ -105,4 +108,9 @@ const composeBonuses = (playerAttributes, bonusAttributes) => {
     luk: playerAttributes.luk + bonusAttributes.luk,
   }
   return composed
+}
+
+module.exports = {
+  buildStarterPlayer,
+  buildPlayer
 }

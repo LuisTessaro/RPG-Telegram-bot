@@ -1,25 +1,26 @@
 const Telegraf = require('telegraf')
 const Items = require('../../../../model/items/equipment')
 
-module.exports.getItems = async (ctx) => {
-    const parsedBags = []
-    ctx.session.player.bag.forEach((item) => {
-        if (!parsedBags.includes(item))
-            parsedBags.push(item)
-    })
-    const msg = (parsedBags.reduce((inventoryMessage, equipName) => {
+const getBagItems = async (ctx) => {
+    const parsedBags = ctx.session.player.bag.reduce((parsed, item) => {
+        if (!parsed.includes(item))
+            return [...parsed, item]
+        return parsed
+    }, [])
+
+    const msg = parsedBags.reduce((inventoryMessage, equipName) => {
         const equip = Items[equipName]
         inventoryMessage += `Name: ${equip.name}\n`
         inventoryMessage += `Type: ${equip.type.charAt(0).toUpperCase() + equip.type.slice(1)}\n`
         inventoryMessage += `Description: ${equip.description}\n`
         inventoryMessage += `Bonus: ${calculateBonus(equip.bonuses)}\n\n`
         return inventoryMessage
-    }, 'Bags: \n'))
+    }, 'Bags: \n')
 
     return ctx.reply(msg, buildInventoryMenu(parsedBags))
 }
 
-module.exports.getEquipments = async (ctx) => {
+const getEquipmentItems = async (ctx) => {
     const inventory = ctx.session.player.inventory
 
     const msg = Object.keys(inventory).reduce((inventoryText, itemSlot) => {
@@ -27,14 +28,13 @@ module.exports.getEquipments = async (ctx) => {
         const itemName = inventory[itemSlot].name
         const bonus = calculateBonus(inventory[itemSlot].bonuses)
         return inventoryText +
-            `${slotName}: ${itemName}\nBonus:${bonus}
-            \n`
+            `${slotName}: ${itemName}\nBonus:${bonus}\n`
     }, '')
     return ctx.reply('Your equiped Items\n' + msg)
 }
 
 const calculateBonus = (bonuses) => {
-    const bonusParsed = Object.keys(bonuses).reduce((bonusesAcc, stat, i) => {
+    const bonusParsed = Object.keys(bonuses).reduce((bonusesAcc, stat) => {
         if (bonuses[stat] > 0)
             return bonusesAcc + `\n${stat}: +${bonuses[stat]}`
         return bonusesAcc
@@ -57,4 +57,9 @@ const buildInventoryMenu = (bag) => {
         ).resize())
 
     return inventoryMenu
+}
+
+module.exports = {
+    getBagItems,
+    getEquipmentItems,
 }

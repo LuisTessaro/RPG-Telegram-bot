@@ -1,28 +1,35 @@
-const getItems = require('./inventory/getItemFunctions')
-const testFunctions = require('./inventory/inventoryTestFunctions')
-const equipItem = require('./inventory/equipItem')
+const {
+    getBagItems,
+    getEquipmentItems,
+} = require('./inventory/getItemFunctions')
+
+const levelup = require('./stats/statsController')
 const playerInfo = require('./player-routes/playerInfo')
-const { levelup } = require('./stats/statsController')
-const menus = require('../../../menus/menus')
+
+const { addItensToBag } = require('./inventory/inventoryTestFunctions')
+const equipItem = require('./inventory/equipItem')
+const { levelUpMenu, mainMenu } = require('../../../menus/menus')
 
 const { buildPlayer } = require('../../../model/factories/player-factory')
 
-const levelExp = require('../../../model/player/levelExp')
+const { addExp } = require('../../../model/player/levelExp')
 
 module.exports.playerControllerRoute = (bot) => {
-    bot.command('me', playerInfo.me)
-    bot.command('addItensToBag', testFunctions.addItensToBag)
+    bot.command('me', playerInfo)
     bot.command('equip', equipItem)
-    bot.command('bags', getItems.getItems)
-    bot.command('equipments', getItems.getEquipments)
+    bot.command('bags', getBagItems)
+    bot.command('equipments', getEquipmentItems)
     bot.command('levelup', levelup)
-    bot.command('levelUp', (ctx) => ctx.reply('Pick a stat to levelup', menus.levelUpMenu))
-    bot.command('back', (ctx) => ctx.reply('Main menu:', menus.mainMenu))
+    bot.command('levelUp', (ctx) => ctx.reply('Pick a stat to levelup', levelUpMenu))
 
-    bot.command('showCompleteStats', (ctx) => ctx.reply(buildPlayer(ctx.session.player, ctx.session.player.classe)))
+    bot.command('back', (ctx) => ctx.reply('Main menu:', mainMenu))
 
-    bot.command('addExp', async (ctx) => {
-        await levelExp.addExp(ctx, 500)
-        ctx.reply('500 added')
+    bot.command('info_as_json', (ctx) => ctx.reply(buildPlayer(ctx.session.player, ctx.session.player.classe)))
+
+    bot.command('add_items', addItensToBag)
+
+    bot.command('add_exp', async (ctx) => {
+        await addExp(ctx, 500)
+        ctx.reply('500exp added')
     })
 }

@@ -1,37 +1,13 @@
 const Player = require('../mongoose-models/Player')
 
-module.exports.addExp = async (ctx, exp) => {
-    const newExp = ctx.session.player.exp + exp
-    ctx.session.player.exp = newExp
-    await Player.findByIdAndUpdate(ctx.session.player._id, {
-        $set: {
-            exp: newExp
-        }
-    }, {
-            new: true
-        })
-}
+const addExp = async (ctx, exp) => await Player.findByIdAndUpdate(ctx.session.player._id, { exp: ctx.session.player.exp + exp })
 
-module.exports.removeExp = async (ctx, exp) => {
-    const newExp = ctx.session.player.exp - exp
-    ctx.session.player.exp = newExp
-    await Player.findByIdAndUpdate(ctx.session.player._id, {
-        $set: {
-            exp: newExp
-        }
-    }, {
-            new: true
-        })
-}
+const removeExp = async (ctx, exp) => await Player.findByIdAndUpdate(ctx.session.player._id, { exp: ctx.session.player.exp - exp })
 
-module.exports.addLevel = async (ctx) => {
-    const newLevel = ctx.session.player.level + 1
-    ctx.session.player.level = newLevel
-    await Player.findByIdAndUpdate(ctx.session.player._id, {
-        $set: {
-            level: newLevel
-        }
-    }, {
-            new: true
-        })
+const addLevel = async (ctx) => await Player.findByIdAndUpdate(ctx.session.player._id, { level: ctx.session.player.level + 1 })
+
+module.exports = {
+    addExp,
+    removeExp,
+    addLevel,
 }

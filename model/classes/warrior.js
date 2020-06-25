@@ -40,7 +40,7 @@ module.exports.getSkills = [
     damage: (att) => {
       return att.str * 25
     },
-    levelRequired: 1,
+    levelRequired: 5,
     odds: 3,
     emoji: '☠️'
   }

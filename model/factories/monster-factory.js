@@ -1,4 +1,4 @@
-module.exports.buildMonster = (monster, partySize) => {
+const buildMonster = (monster, partySize) => {
     return {
         name: monster.name,
         attributes: monster.attributes,
@@ -15,4 +15,8 @@ module.exports.buildMonster = (monster, partySize) => {
         defense: monster.defenseFormula(monster.attributes),
         monsterMagicalDefense: monster.magicalDefenseFormula(monster.attributes),
     }
+}
+
+module.exports = {
+    buildMonster,
 }

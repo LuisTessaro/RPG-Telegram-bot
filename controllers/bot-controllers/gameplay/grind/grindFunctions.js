@@ -36,7 +36,7 @@ const startGrind = async ctx => {
             return await ctx.reply(`Your companion cant grind on an area that has a higher level than you.`)
 
         const message = `Grinding on ${mapObj.name} will take about ${mapObj.grindTime} minutes, you will get some xp and maybe some itens!\nYou can do other things while your companion is griding, like checking your itens or going into an adventure.`
-        
+
         await ctx.reply(message, menus.mainMenu)
 
         return grind(ctx, mapObj)

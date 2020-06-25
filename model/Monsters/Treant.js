@@ -1,4 +1,3 @@
-
 module.exports = {
   name: 'Treant',
   attributes: {
@@ -13,14 +12,24 @@ module.exports = {
     luk: 1
   },
 
-  skills: [{
-    skillName: 'StumpSmash',
-    damage: (att) => {
-      return att.str
+  skills: [
+    {
+      skillName: 'StumpSmash',
+      damage: (att) => {
+        return att.str * 5
+      },
+      odds: 70,
+      emoji: '🌳'
     },
-    odds: 70,
-    emoji: '🌳'
-  }],
+    {
+      skillName: 'ROOT',
+      damage: (att) => {
+        return att.str * 2
+      },
+      odds: 30,
+      emoji: '🌲'
+    },
+  ],
 
   healingSkills: [{
     skillName: 'Regrowth',

@@ -1,8 +1,9 @@
-const grindFunctions = require('./grind/grindFunctions')
-const menus = require('../../../menus/menus')
+const { grindSpots } = require('../../../menus/menus')
+
+const { startGrind } = require('./grind/grindFunctions')
 
 module.exports.gameplayRoute = (bot) => {
-    bot.command('grindSpots', ctx => ctx.reply('Pick a grind spot', menus.grindSpots))
+    bot.command('grindSpots', ctx => ctx.reply('Pick a grind spot', grindSpots))
 
-    bot.command('grind', grindFunctions.grind)
+    bot.command('grind', startGrind)
 }

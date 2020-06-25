@@ -1,7 +1,7 @@
 const express = require('express'),
     router = express.Router()
 
-const Player = require('../model/mongoose-models/Player')
+const Player = require('../../model/mongoose-models/Player')
 
 router.get('/', async (req, res) => {
     const registeredPlayers = await Player.find()
@@ -14,14 +14,13 @@ router.get('/players', async (req, res) => {
 })
 
 router.get('/dropPlayers', async (req, res) => {
-    await Player.deleteMany({})
+    await Player.deleteMany()
     console.log('[INFO] Registered Players dropped')
     res.status(200).send('Registered Players dropped')
 })
 
-
 router.use('*', (req, res) => {
-    res.status(404).send('Page Not Found')
+    res.status(404).send('Recourse not found')
 })
 
 module.exports = router

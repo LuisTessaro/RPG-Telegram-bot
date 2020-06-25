@@ -1,19 +1,28 @@
 require('dotenv').config()
-require('./model/mongoose')
 
-const configServer = require('./config/configServer')
 const configBot = require('./config/configBot')
+const serverConfig = require('./config/configServer')
 
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 const token = process.env.BOT_TOKEN
 
-const bot = configBot.setUpBot(token)
-const app = configServer.setUpServer()
+const botControllers = require('./controllers/bot-controllers')
+const serverControllers = require('./controllers/server-controllers')
 
-app.listen(port, () => {
-    console.log('[INFO] Server setupListening on port: ' + port)
-})
+const startBot = async () => {
+    const app = await serverConfig()
+    app.use(serverControllers)
 
-bot.launch()
+    const bot = configBot(token)
+    botControllers(bot)
 
-console.log('[INFO] Bot started.')
+    bot.launch()
+    console.log('[INFO] Telegraf started.')
+    
+    app.listen(port, () => {
+        console.log(`[INFO] Listening on port ${port}!`)
+        console.log('[INFO] Bot Ready.')
+    })
+}
+
+startBot()

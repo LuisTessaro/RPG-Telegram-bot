@@ -20,7 +20,7 @@ router.get('/dropPlayers', async (req, res) => {
 })
 
 router.use('*', (req, res) => {
-    res.status(404).send('Recourse not found')
+    res.status(404).send('Resource not found')
 })
 
 module.exports = router

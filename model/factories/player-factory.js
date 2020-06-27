@@ -65,10 +65,13 @@ const buildPlayer = player => {
   const composedBonuses = composeBonuses(player.attributes, equipmentBonus)
 
   return {
+    id: player._id,
     username: player.username,
     classe: player.classe,
     level: player.level,
     attributes: player.attributes,
+    resource: player.resource,
+    maxResource: player.maxResource,
     skills: classObject.getSkills.filter(skill => player.level >= skill.levelRequired),
     healingSkills: classObject.getHealingSkills.filter(skill => player.level >= skill.levelRequired),
     hp: classObject.hpFormula(composedBonuses, player.level),

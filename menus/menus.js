@@ -14,11 +14,11 @@ const classMenu = Telegraf.Extra
 const mainMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        ['/grindSpots ⏱️'],
+        ['/adventure 🌇', '/grindSpots ⏱️'],
         ['/bags 💰', '/equipments 🛡️'],
         ['/levelUp 🆙', '/me 😄'],
         ['/getplayers'],
-        ['/showCompleteStats'],
+        ['/info_as_json'],
     ]))
 
 

@@ -9,6 +9,14 @@ module.exports = mongoose.model('Player', {
         type: String,
         required: true,
     },
+    maxResource: {
+        type: Number,
+        default: 100,
+    },
+    resource: {
+        type: Number,
+        default: 100,
+    },
     classe: {
         type: String,
     },

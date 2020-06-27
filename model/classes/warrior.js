@@ -6,7 +6,8 @@ module.exports.getSkills = [
     },
     levelRequired: 1,
     odds: 70,
-    emoji: '😤'
+    emoji: '😤',
+    cost: 10,
   },
   {
     skillName: 'Furious Slash',
@@ -15,7 +16,8 @@ module.exports.getSkills = [
     },
     levelRequired: 1,
     odds: 40,
-    emoji: '😤'
+    emoji: '😤',
+    cost: 20,
   },
   {
     skillName: 'Rage!!!',
@@ -24,7 +26,8 @@ module.exports.getSkills = [
     },
     levelRequired: 1,
     odds: 5,
-    emoji: '😤'
+    emoji: '😤',
+    cost: 35,
   },
   {
     skillName: 'Cross Slash',
@@ -33,7 +36,8 @@ module.exports.getSkills = [
     },
     levelRequired: 15,
     odds: 10,
-    emoji: '⚔️'
+    emoji: '⚔️',
+    cost: 50,
   },
   {
     skillName: 'Infinity Rampage',
@@ -42,7 +46,8 @@ module.exports.getSkills = [
     },
     levelRequired: 5,
     odds: 3,
-    emoji: '☠️'
+    emoji: '☠️',
+    cost: 100,
   }
 ]
 
@@ -53,7 +58,8 @@ module.exports.getHealingSkills = [{
   },
   levelRequired: 1,
   odds: 30,
-  emoji: '💨'
+  emoji: '💨',
+  cost: 5,
 }]
 
 module.exports.hpFormula = (att, lvl) => {
@@ -62,7 +68,6 @@ module.exports.hpFormula = (att, lvl) => {
 module.exports.accuracyFormula = (att, lvl) => {
   return (att.dex * 2) + lvl
 }
-
 module.exports.fleeFormula = (att, lvl) => {
   return att.agi + lvl
 }

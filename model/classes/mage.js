@@ -38,14 +38,14 @@ module.exports.getSkills = [
 ]
 module.exports.getHealingSkills = [
   {
-  skillName: 'Cauterize Wounds',
-  heal: (att) => {
-    return att.int
-  },
-  levelRequired: 1,
-  odds: 30,
-  emoji: '🔥'
-}]
+    skillName: 'Cauterize Wounds',
+    heal: (att) => {
+      return att.int
+    },
+    levelRequired: 1,
+    odds: 30,
+    emoji: '🔥'
+  }]
 
 module.exports.hpFormula = (att, lvl) => {
   return (att.con * 2) + lvl * 2 + 50

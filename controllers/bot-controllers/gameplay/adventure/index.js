@@ -60,7 +60,7 @@ const monsterTurn = async ctx => {
 
   if (ctx.session.playerInstance.hp <= 0) {
     ctx.session.isOnAdventure = false
-    return await ctx.reply(`YOU DEAD MEN`)
+    return await ctx.reply(`You were defeated!`, mainMenu)
   }
 
   ctx.session.playerTurn = true
@@ -108,7 +108,12 @@ const playersTurn = async (ctx, spell) => {
   console.log('autoDamage', autoDamage)
 
   if (finalMonsterHp <= 0) {
-    return ctx.reply('Monster is DEAD')
+    const mName = ctx.session.monster.name
+    ctx.session.monster = {}
+    ctx.session.playerInstance = {}
+    ctx.session.isOnAdventure = false
+    ctx.session.playerTurn = false
+    return await ctx.reply(`You defeated ${mName}`, mainMenu)
   }
 
   await ctx.reply(`Monsters turn`)

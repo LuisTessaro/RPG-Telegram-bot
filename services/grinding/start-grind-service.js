@@ -41,18 +41,19 @@ const startGrind = async ({ telegramId }, mapObj, ctx) => {
 
       const grindDrop = async (possibleRewards, trash, odds) => {
         const lootRoll = dice(100)
-        if (lootRoll > odds) {
+
+        if (lootRoll < odds) {
           const reward = possibleRewards[Math.floor(Math.random() * possibleRewards.length)]
           const name = await addEquipment(ctx.session.userInfo, reward)
-          return `you got ${exp}exp and a: ${name}`
+          return `✅ gained: ${exp}exp\n🎲 ${name}`
         }
         else {
-          const tra = trash[Math.floor(Math.random() * trash.length)]
-          return `you got ${exp}exp and got this item: ${tra}`
+          // const tra = trash[Math.floor(Math.random() * trash.length)]
+          return `✅ gained: ${exp}exp\n🎲 no drops`
         }
       }
 
-      return ctx.reply(`Your companion finished grinding on ${map.name}: ${await grindDrop(map.possibleRewards, map.trash, map.odds)}`)
+      return ctx.reply(`Your companion finished grinding on ${map.name}\n\n${await grindDrop(map.possibleRewards, map.trash, map.odds)}`)
     }, map.grindTime * 60 * 10)
   } catch (err) {
     throw err

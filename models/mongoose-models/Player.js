@@ -14,6 +14,32 @@ const AttributesSchema = new Schema({
     luk: { type: Number, default: 0 },
 })
 
+const BagItemSchema = new Schema({
+    name: String,
+    amount: Number,
+    modifier: String,
+})
+
+const GrindingSchema = new Schema({
+    isGrinding: {
+        type: Boolean,
+        default: false,
+    },
+    map: {
+        name: String,
+        grindTime: Number,
+        minimumRequiredLevel: Number,
+        odds: Number,
+        possibleExp: Number,
+        possibleRewards: [String],
+        trash: [String],
+
+    },
+    lastGrindStarted: {
+        type: Date,
+        default: Date.now(),
+    },
+})
 
 module.exports = mongoose.model('Player', {
     firstName: {
@@ -48,7 +74,7 @@ module.exports = mongoose.model('Player', {
         type: AttributesSchema
     },
     bag: {
-        type: [String],
+        type: [BagItemSchema],
     },
     equipment: {
         head: {
@@ -79,5 +105,21 @@ module.exports = mongoose.model('Player', {
             type: String,
             default: ''
         },
+    },
+    grindingObj: {
+        type: GrindingSchema,
+        default: {
+            isGrinding: false,
+            map: {
+                name: '',
+                grindTime: 0,
+                minimumRequiredLevel: 0,
+                odds: 0,
+                possibleExp: 0,
+                possibleRewards: [],
+                trash: [],
+            },
+            lastGrindStarted: Date.now(),
+        }
     },
 })

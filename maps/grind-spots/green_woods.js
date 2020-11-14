@@ -1,7 +1,7 @@
 module.exports = {
     name: 'Green Woods',
     grindTime: 3,
-    mininumReqiredLevel: 2,
+    minimumRequiredLevel: 2,
     odds: 5,
     possibleExp: 450,
     possibleRewards: ['BronzeDagger', 'WoodenArmor'],

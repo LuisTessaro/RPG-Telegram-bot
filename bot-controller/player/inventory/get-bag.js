@@ -1,26 +1,36 @@
 const Telegraf = require('telegraf')
 const Items = require('../../../models/items/equipment')
 const { getBags } = require('../../../services/player/inventory-service')
+const { parseItemWithMod } = require('../../../util/item-utils')
 
 module.exports = async (ctx) => {
   const bag = await getBags(ctx.session.userInfo)
 
-  const msg = bag.reduce((inventoryMessage, equipName) => {
-    const equip = Items[equipName]
-    inventoryMessage += `Name: ${equip.name}\n`
-    inventoryMessage += `Type: ${equip.type.charAt(0).toUpperCase() + equip.type.slice(1)}\n`
-    inventoryMessage += `Description: ${equip.description}\n`
-    inventoryMessage += `Bonus: ${calculateBonus(equip.bonuses)}\n\n`
-    return inventoryMessage
-  }, 'Bags: \n')
+  try {
+    const msg = bag.reduce((inventoryMessage, equipObj) => {
+      const itemName = equipObj.name.replace(/ /g, '')
 
-  return ctx.reply(msg, buildInventoryMenu(bag))
+      const parsedItem = parseItemWithMod(Items[itemName], equipObj.modifier)
+
+      inventoryMessage += `Name: ${parsedItem.name}\n`
+      inventoryMessage += `Type: ${parsedItem.type.charAt(0).toUpperCase() + parsedItem.type.slice(1)}\n`
+      inventoryMessage += `Description: ${parsedItem.description}\n`
+      inventoryMessage += `Bonus: ${calculateBonus(parsedItem.bonuses)}\n\n`
+      return inventoryMessage
+    }, 'Bags: \n')
+
+    return ctx.reply(msg, buildInventoryMenu(bag))
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const buildInventoryMenu = bag => {
   const inventoryButtons = (m) => {
-    return [...bag.reduce((inventoryButtons, equipName) => {
-      return [...inventoryButtons, m.callbackButton('/equip ' + equipName)]
+    return [...bag.reduce((inventoryButtons, equipObj) => {
+      const itemName = equipObj.name.replace(/ /g, '')
+
+      return [...inventoryButtons, m.callbackButton(`/equip ${equipObj.modifier} ${itemName}`)]
     }, []), m.callbackButton('/back 🔙')]
   }
   const inventoryMenu = Telegraf.Extra

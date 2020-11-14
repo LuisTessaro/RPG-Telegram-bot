@@ -1,2 +1,2 @@
-# Textbased RPG Dungeon crawler Telegram-bot
-Textbased RPG Dungeon crawler Telegram-bot loosely based on https://github.com/telemmo/telemmo
+# Textbased RPG Telegram-bot
+Textbased RPG Telegram-bot loosely based on https://github.com/telemmo/telemmo and Pokemon

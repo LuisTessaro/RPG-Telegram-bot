@@ -1,15 +1,22 @@
 const { equipItem } = require('../../../services/player/inventory-service')
 const Items = require('../../../models/items/equipment')
 
-module.exports = async ctx => {
-  const [_, mod, itemName] = ctx.message.text.split(' ')
+module.exports = async (ctx) => {
+  try {
+    const [mod, itemName] = ctx.match.input.replace(/equip /g, '').split(' ')
 
-  const item = Items[itemName]
+    const item = Items[itemName]
 
-  if (!item)
-    throw 'Item does not exist'
+    if (!item)
+      throw 'Item does not exist'
 
-  await equipItem(ctx.session.userInfo, mod, itemName, item.type, item.name)
+    await equipItem(ctx.session.userInfo, mod, itemName, item.type, item.name)
 
-  return ctx.reply(`${mod} ${itemName} was added to your equipments`)
+    await ctx.answerCbQuery()
+
+    return ctx.reply(`${mod} ${itemName} was added to your equipments`)
+  } catch (err) {
+    throw (err)
+  }
+
 }

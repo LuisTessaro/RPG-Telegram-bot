@@ -17,7 +17,9 @@ module.exports = (bot) => {
 
     bot.command('bags', getBag)
     bot.command('equipments', getEquipment)
-    bot.command('equip', equipItem)
+
+    
+    bot.action(/equip (.*?)/, equipItem)
 
     bot.command('item_helper', testHelper)
 

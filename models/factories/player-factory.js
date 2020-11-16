@@ -14,12 +14,13 @@ const classesObj = {
   cleric,
 }
 
-const buildStarterPlayer = (data, selectedClassName) => {
+const buildStarterPlayer = (classId, specId, username, first_name, id) => {
   return {
-    firstName: data.first_name,
-    username: data.username,
-    telegramId: data.id,
-    className: selectedClassName,
+    firstName: first_name,
+    username: username,
+    telegramId: id,
+    classId: classId,
+    specId: specId,
     attributes: {
       str: 1,
       dex: 1,
@@ -36,8 +37,8 @@ const buildStarterPlayer = (data, selectedClassName) => {
 
 const buildPlayer = player => {
   const classObject = classesObj[player.classe]
-  const equipedItens = player.inventory ? Object.keys(player.inventory).map(position => player.inventory[position]) : []
-  const equipmentBonus = equipedItens
+  const equippedItems = player.inventory ? Object.keys(player.inventory).map(position => player.inventory[position]) : []
+  const equipmentBonus = equippedItems
     .reduce((bonus, equip) => {
       Object.keys(equip.bonuses).forEach(key => {
         if (equip.bonuses[key] > 0)

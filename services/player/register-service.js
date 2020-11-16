@@ -1,14 +1,14 @@
 const Player = require('../../models/mongoose-models/Player')
 const { buildStarterPlayer } = require('../../models/factories/player-factory')
 
-const registerPlayer = async (selectedClassName, telegramId, data) => {
-    const p = await Player.findOne({ telegramId })
+const registerPlayer = async ({ classId, specId, username, first_name, id }) => {
+    const p = await Player.findOne({ telegramId: id })
 
     if (p)
         return { err: 'You are already registered, if you want to change classes you can reborn with /reborn' }
 
     try {
-        const starterPlayer = buildStarterPlayer(data, selectedClassName)
+        const starterPlayer = buildStarterPlayer(classId, specId, username, first_name, id)
 
         const player = new Player(starterPlayer)
         await player.save()

@@ -1,4 +1,4 @@
-const { levelUpMenu, mainMenu } = require('../../menus')
+const { levelUpMenu, mainMenu, playerMenu, petMenu } = require('../../models/menus')
 const playerInfo = require('./info')
 
 const {
@@ -13,12 +13,14 @@ const levelup = require('./stats/')
 const { addExp, removeExp } = require('../../services/player/exp-service')
 
 module.exports = (bot) => {
-    bot.command('me', playerInfo)
+    bot.command('player', (ctx) => ctx.reply('Player menu:', playerMenu))
+
+    bot.command('show_player_stats', playerInfo)
 
     bot.command('bags', getBag)
     bot.command('equipments', getEquipment)
 
-    
+
     bot.action(/equip (.*?)/, equipItem)
 
     bot.command('item_helper', testHelper)
@@ -26,7 +28,7 @@ module.exports = (bot) => {
     bot.command('levelup', levelup)
     bot.command('levelup_stats', (ctx) => ctx.reply('Pick a stat to levelup', levelUpMenu))
 
-    bot.command('back', (ctx) => ctx.reply('Main menu:', mainMenu))
+    bot.command('back_to_player', (ctx) => ctx.reply('Player menu:', playerMenu))
 
     bot.command('add_exp', async (ctx) => {
         await addExp(ctx.session.userInfo, 500)

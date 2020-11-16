@@ -1,4 +1,4 @@
-const { grindSpots, mainMenu } = require('../../menus')
+const { grindSpots, mainMenu } = require('../../models/menus')
 const grind = require('./grind')
 // const { adventure, cast } = require('./adventure')
 

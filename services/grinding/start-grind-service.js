@@ -4,7 +4,7 @@ const Player = require('../../models/mongoose-models/Player')
 const { addExp } = require('../player/exp-service')
 const { addEquipment } = require('../player/inventory-service')
 
-const { mainMenu } = require('../../menus')
+const { mainMenu } = require('../../models/menus')
 
 const startGrind = async ({ telegramId }, mapObj, ctx) => {
   try {
@@ -54,7 +54,7 @@ const startGrind = async ({ telegramId }, mapObj, ctx) => {
       }
 
       return ctx.reply(`Your companion finished grinding on ${map.name}\n\n${await grindDrop(map.possibleRewards, map.trash, map.odds)}`)
-    }, map.grindTime * 60 * 10)
+    }, map.grindTime * 60 * process.env.GRIND_MULTIPLIER)
   } catch (err) {
     throw err
   }

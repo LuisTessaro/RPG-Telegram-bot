@@ -11,7 +11,9 @@ module.exports = async (ctx) => {
       const itemName = equipObj.name.replace(/ /g, '')
 
       const parsedItem = parseItemWithMod(Items[itemName], equipObj.modifier)
-      console.log(equipObj)
+
+      console.log(parsedItem)
+
       const message =
         `Name: ${parsedItem.name}\n\n` +
         `Type: ${parsedItem.type.charAt(0).toUpperCase() + parsedItem.type.slice(1)}\n` +
@@ -25,7 +27,7 @@ module.exports = async (ctx) => {
         ])))
     })
   } catch (err) {
-    console.log(err)
+    throw err
   }
 }
 

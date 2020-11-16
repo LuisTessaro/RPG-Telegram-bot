@@ -4,6 +4,6 @@ module.exports = {
     minimumRequiredLevel: 1,
     odds: 25,
     possibleExp: 250,
-    possibleRewards: ['BronzeDagger'],
+    possibleRewards: ['BronzeDagger', 'WoodenArmor'],
     trash: ['BlueHerb', 'GreenHerb', 'WhiteHerb',]
 }

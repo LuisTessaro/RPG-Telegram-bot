@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const PetSchema = require('./PetSchema')
 
 const Schema = mongoose.Schema
 
@@ -32,7 +33,7 @@ const GrindingSchema = new Schema({
         odds: Number,
         possibleExp: Number,
         possibleRewards: [String],
-        trash: [String],
+        commonRewards: [String],
 
     },
     lastGrindStarted: {
@@ -54,11 +55,11 @@ module.exports = mongoose.model('Player', {
         type: Number,
         required: true,
     },
-    spec: {
+    specId: {
         type: String,
         default: 'none',
     },
-    className: {
+    classId: {
         type: String,
         required: true,
     },
@@ -122,4 +123,17 @@ module.exports = mongoose.model('Player', {
             lastGrindStarted: Date.now(),
         }
     },
+    has_registered_pet: {
+        type: Boolean,
+        default: false,
+    },
+    pet: {
+        type: PetSchema,
+        default: {
+            name: '',
+            id: 0,
+            level: 1,
+            exp: 0,
+        },
+    }
 })

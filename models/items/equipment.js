@@ -207,6 +207,7 @@ module.exports = {
     name: 'Bronze Dagger',
     description: `A beatup Bronze Dagger.`,
     type: 'weapon',
+    availableClasses: [0, 1, 2, 3, 4],
     baseBonuses: {
       str: 1,
       dex: 0,
@@ -214,7 +215,6 @@ module.exports = {
       con: 0,
       int: 0,
       wis: 0,
-      car: 0,
       wil: 0,
       luk: 0,
       defense: 0
@@ -263,6 +263,7 @@ module.exports = {
     name: 'Wooden Armor',
     description: `Looks like a stump with arms slots, cant be that bad, right?.`,
     type: 'body',
+    availableClasses: [0, 2, 3, 4],
     baseBonuses: {
       str: 1,
       dex: 0,
@@ -270,7 +271,6 @@ module.exports = {
       con: 0,
       int: 0,
       wis: 0,
-      car: 0,
       wil: 0,
       luk: 0,
       defense: 3

@@ -19,7 +19,6 @@ const addLevel = async ({ telegramId }, statName) => {
     const player = await Player.findOne({ telegramId })
     const cost = Math.pow(player.level * process.env.LEVEL_WEIGHT, 2)
 
-    console.log('cost:', cost, '/exp', player.exp)
     if (cost > player.exp)
       throw `You dont have enough exp ${player.exp}/${cost}`
 

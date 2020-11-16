@@ -28,9 +28,9 @@ const buildStarterPlayer = (classId, specId, username, first_name, id) => {
       con: 1,
       int: 1,
       wis: 1,
-      car: 1,
       wil: 1,
-      luk: 1
+      luk: 1,
+      defense: 1
     },
   }
 }

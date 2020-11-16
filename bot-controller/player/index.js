@@ -1,4 +1,4 @@
-const { levelUpMenu, mainMenu, playerMenu, petMenu } = require('../../models/menus')
+const { levelUpMenu, mainMenu, playerMenu, petMenu, bagMenu } = require('../../models/menus')
 const playerInfo = require('./info')
 
 const {
@@ -17,7 +17,9 @@ module.exports = (bot) => {
 
     bot.command('show_player_stats', playerInfo)
 
-    bot.command('bags', getBag)
+    bot.command('bags', (ctx) => ctx.reply('Choose a slot:', bagMenu))
+    bot.command('bag', getBag)
+
     bot.command('equipments', getEquipment)
 
 

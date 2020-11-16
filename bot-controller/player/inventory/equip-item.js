@@ -10,7 +10,7 @@ module.exports = async (ctx) => {
     if (!item)
       throw 'Item does not exist'
 
-    await equipItem(ctx.session.userInfo, mod, itemName, item.type, item.name)
+    await equipItem(ctx.session.userInfo, mod, itemName, item.type, item.name, item.availableClasses)
 
     await ctx.answerCbQuery()
 
@@ -18,5 +18,4 @@ module.exports = async (ctx) => {
   } catch (err) {
     throw (err)
   }
-
 }

@@ -1,4 +1,5 @@
 const { weightedRandom } = require('./weighted-random')
+const Item = require('../models/items/equipment')
 
 const calcWeaponModifier = (baseBonus, modifier) => {
   if (!modifier)
@@ -24,12 +25,22 @@ const parseItemWithMod = (item, modifierName) => {
     id_name: item.name,
     description: item.description,
     type: item.type,
+    availableClasses: item.availableClasses,
     bonuses: calcWeaponModifier(item.baseBonuses, mods.modifier)
   }
+}
+
+const itemStringToItemObject = itemString => {
+  const foundItem = Item[itemString]
+  if (!foundItem)
+    throw 'Item not found'
+
+  return foundItem
 }
 
 module.exports = {
   calcWeaponModifier,
   giveAnItemAModifier,
   parseItemWithMod,
+  itemStringToItemObject,
 }

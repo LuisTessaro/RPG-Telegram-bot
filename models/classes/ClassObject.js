@@ -43,12 +43,12 @@ module.exports = [
       {
         name: 'Protection',
         implemented: '✅',
-        id: '0',
+        id: 0,
       },
       {
         name: 'Arms Master',
         implemented: '❌',
-        id: '1'
+        id: 1
       },
     ],
     id: 0,
@@ -61,22 +61,22 @@ module.exports = [
       {
         name: 'Water',
         implemented: '❌',
-        id: '0',
+        id: 0,
       },
       {
         name: 'Fire',
         implemented: '✅',
-        id: '1'
+        id: 1
       },
       {
         name: 'Earth',
         implemented: '❌',
-        id: '2'
+        id: 2
       },
       {
         name: 'Wind',
         implemented: '❌',
-        id: '3'
+        id: 3
       },
     ],
     id: 1,
@@ -89,12 +89,12 @@ module.exports = [
       {
         name: 'Marksman',
         implemented: '❌',
-        id: '0'
+        id: 0
       },
       {
         name: 'Beast Master',
         implemented: '❌',
-        id: '1'
+        id: 1
       },
     ],
     id: 2,
@@ -107,17 +107,17 @@ module.exports = [
       {
         name: 'Assassin',
         implemented: '❌',
-        id: '0'
+        id: 0
       },
       {
         name: 'Poison Master',
         implemented: '❌',
-        id: '1'
+        id: 1
       },
       {
         name: 'Pirate',
         implemented: '❌',
-        id: '3'
+        id: 2
       },
     ],
     id: 3,
@@ -130,17 +130,17 @@ module.exports = [
       {
         name: 'Healer',
         implemented: '✅',
-        id: '0'
+        id: 0
       },
       {
         name: 'Paladin',
         implemented: '❌',
-        id: '1'
+        id: 1
       },
       {
         name: 'Holy Warrior',
         implemented: '❌',
-        id: '3'
+        id: 2
       },
     ],
     id: 4,

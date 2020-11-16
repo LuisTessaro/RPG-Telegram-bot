@@ -10,18 +10,23 @@ const AttributesSchema = new Schema({
     con: { type: Number, default: 0 },
     int: { type: Number, default: 0 },
     wis: { type: Number, default: 0 },
-    car: { type: Number, default: 0 },
     wil: { type: Number, default: 0 },
     luk: { type: Number, default: 0 },
+    defense: { type: Number, default: 0 },
 })
 
 const BagItemSchema = new Schema({
     name: String,
     amount: Number,
     modifier: String,
+    type: String,
 })
 
 const GrindingSchema = new Schema({
+    rewardsCollected: {
+        type: Boolean,
+        default: true,
+    },
     isGrinding: {
         type: Boolean,
         default: false,
@@ -56,11 +61,11 @@ module.exports = mongoose.model('Player', {
         required: true,
     },
     specId: {
-        type: String,
-        default: 'none',
+        type: Number,
+        default: 0,
     },
     classId: {
-        type: String,
+        type: Number,
         required: true,
     },
     level: {
@@ -110,6 +115,7 @@ module.exports = mongoose.model('Player', {
     grindingObj: {
         type: GrindingSchema,
         default: {
+            rewardsCollected: true,
             isGrinding: false,
             map: {
                 name: '',

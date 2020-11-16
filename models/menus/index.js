@@ -1,22 +1,21 @@
 const Telegraf = require('telegraf')
 
-const classMenu = Telegraf.Extra
-    .markdown()
-    .markup((m) => m.keyboard([
-        ['/register warrior ⚔️'],
-        ['/register mage 🧙'],
-        ['/register archer 🏹'],
-        ['/register thief 🗡️'],
-        ['/register cleric ✝️'],
-        ['/back 🔙'],
-    ]))
-
 const mainMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
         // ['/adventure 🌇', '/grindSpots ⏱️'],
-        ['/adventure 🌇'],
-        ['/player', '/pet 🐾'],
+        ['/adventure 🌇', '/pet_expedition ⏱️'],
+        ['/player 😄', '/pet 🐾'],
+    ]))
+
+const bagMenu = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.keyboard([
+        ['/bag head', '/bag legs'],
+        ['/bag body', '/bag weapon'],
+        ['/bag shield', '/bag trinket'],
+        ['/bag ring', '/bag trash'],
+        ['/back_to_player 🔙'],
     ]))
 
 const playerMenu = Telegraf.Extra
@@ -32,27 +31,18 @@ const playerMenu = Telegraf.Extra
 const petMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        ['/pet_info'],
+        ['/collect 🥇', '/pet_info 🐾'],
         ['/back 🔙'],
     ]))
-
-const registerPetMenu = Telegraf.Extra
-    .markdown()
-    .markup((m) => m.keyboard([
-        ['/create_pet'],
-        ['/back 🔙'],
-    ]))
-
 
 const levelUpMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
         ['/levelup str', '/levelup dex', '/levelup agi'],
         ['/levelup con', '/levelup int', '/levelup wis'],
-        ['/levelup car', '/levelup wil', '/levelup luk'],
+        ['/levelup wil', '/levelup luk'],
         ['/back_to_player 🔙']
     ]))
-
 
 const grindSpots = Telegraf.Extra
     .markdown()
@@ -66,11 +56,10 @@ const grindSpots = Telegraf.Extra
     ]))
 
 module.exports = {
-    classMenu,
     mainMenu,
     levelUpMenu,
     grindSpots,
     playerMenu,
     petMenu,
-    registerPetMenu,
+    bagMenu,
 }

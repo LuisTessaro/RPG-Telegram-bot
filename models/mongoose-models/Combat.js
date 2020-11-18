@@ -1,13 +1,16 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-module.exports = new Schema({
-  playerObjects: Object,
-  monsterObjects: Object,
+const CombatSchema = new Schema({
+  participants: Array,
+  playerObjects: Array,
+  monsterObjects: Array,
   areaBuffsPlayers: Array,
   areaBuffsMonsters: Array,
   areaDebuffsPlayers: Array,
   areaDebuffsMonsters: Array,
-  monsterTurn: Boolean,
   playerTurn: String,
+  monsterTurn: String,
 })
+
+module.exports = mongoose.model('Combat', CombatSchema)

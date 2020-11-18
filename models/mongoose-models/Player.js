@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const { PetSchema } = require('./PetSchema')
 const { AttributesSchema } = require('./AttributtesSchema')
 const { GrindingSchema } = require('./GrindingSchema')
-
 const Schema = mongoose.Schema
 
 const BagItemSchema = new Schema({
@@ -106,5 +105,13 @@ module.exports = mongoose.model('Player', {
             level: 1,
             exp: 0,
         },
+    },
+    isParticipatingInSPCombat: {
+        type: Boolean,
+        default: false
+    },
+    isParticipatingInMPCombat: {
+        type: Boolean,
+        default: false
     }
 })

@@ -60,10 +60,10 @@ const buildPlayer = async player => {
     level: player.level,
 
     allowedEquipmentTypes: classObject.allowedEquipmentTypes,
-    protected: true,
+    protected: false,
     protection: {
       turns: -1,
-      factor: 10,
+      factor: 0,
     },
     damageSkills: avlDamageSkills.map(setCooldowns),
     healingSkills: avlHealingSkills.map(setCooldowns),
@@ -80,45 +80,43 @@ const buildPlayer = async player => {
     compoundedAttributes: compoundedFullNoNegativesBonus,
 
     baseAgro: classObject.baseAgro(compoundedFullNoNegativesBonus, player.level),
-    agroModifier: {
-      values: {
-        con: 1,
-      },
-      duration: 1,
-    },
 
-    buffs: [
-      {
-        values: {
-          con: 15,
-          str: 1,
-          agi: 1,
-          int: 10,
-          defense: 1,
-        },
-        duration: 3,
-      },
-      {
-        values: {
-          con: 1,
-          str: 1,
-          agi: 1,
-          defense: 1,
-        },
-        duration: 3,
-      },
-    ],
-    debuffs: [
-      {
-        values: {
-          con: -1,
-          str: -1,
-          agi: -1,
-          defense: -15,
-        },
-        duration: 3,
-      },
-    ],
+    agroModifier: 1,
+    buffs: [],
+
+    // buffs: [
+    //   {
+    //     values: {
+    //       con: 15,
+    //       str: 1,
+    //       agi: 1,
+    //       int: 10,
+    //       defense: 1,
+    //     },
+    //     duration: 3,
+    //   },
+    //   {
+    //     values: {
+    //       con: 1,
+    //       str: 1,
+    //       agi: 1,
+    //       defense: 1,
+    //     },
+    //     duration: 3,
+    //   },
+    // ],
+    debuffs: [],
+    // debuffs: [
+    //   {
+    //     values: {
+    //       con: -1,
+    //       str: -1,
+    //       agi: -1,
+    //       defense: -15,
+    //     },
+    //     duration: 3,
+    //   },
+    // ],
   }
 }
 

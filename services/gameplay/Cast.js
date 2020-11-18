@@ -1,6 +1,3 @@
-const { getPlayer } = require('../player/info-service')
-const { buildPlayer } = require('../../models/factories/player-factory')
-
 const { compoundBonus } = require('../player/inventory-service')
 
 const dice = require('../../util/dice')
@@ -23,12 +20,11 @@ const cast = (casterInst, skill, targetInst) => {
 
   const successful = skillType === 'healing' ? true : calcAcc(casterInst.accuracy, targetInst.flee, skill.accuracyMod)
 
-
-  const playerAtt = buffDebuff(casterInst)
+  const casterAtt = buffDebuff(casterInst)
   const targetAtt = buffDebuff(targetInst)
 
   const formulaValue = skill.formula({
-    att: playerAtt,
+    att: casterAtt,
     level: casterInst.level
   }, {
     att: targetAtt,
@@ -37,10 +33,12 @@ const cast = (casterInst, skill, targetInst) => {
 
   const value = skillType === 'healing' ? formulaValue : targetInst.protected ? formulaValue - ((formulaValue / 100) * targetInst.protection.factor) : formulaValue
 
+  const agroMod = casterInst.agroModifier ? casterInst.agroModifier : 1
+
   const agro = skill.agroGeneration ? skill.agroGeneration({
-    att: playerAtt,
+    att: casterAtt,
     level: casterInst.level
-  }) : 0
+  }) * agroMod : 0
 
   return {
     successful,
@@ -65,8 +63,8 @@ const baseAttributes = {
   defense: 0,
 }
 
-const buffDebuff = player => {
-  const { compoundedAttributes, buffs, debuffs } = player
+const buffDebuff = casterInst => {
+  const { compoundedAttributes, buffs, debuffs } = casterInst
 
   const sumBuff = (sum, buff) => {
     const { values } = buff
@@ -95,24 +93,38 @@ const calcAcc = (accuracy, flee, accuracyMod) => {
   return (accuracy * accMod) >= flee
 }
 
-const getTargetTypeId = (player, target) => {
+const getTargetTypeId = (casterInst, target) => {
   const targetId = target.id
+  const casterIsPlayer = casterInst.isPlayer
+  const casterIsMonster = casterInst.isMonster
 
-  if (!target.isPlayer)
-    return {
-      type: 'enemy',
-      targetId
-    }
+  const targetIsPlayer = target.isPlayer
+  const targetIsMonster = target.isMonster
 
-  if (player.id === target.id) {
+
+  if (casterInst.id === target.id) {
     return {
       type: 'self',
       targetId
     }
   }
 
+  if (casterIsPlayer && targetIsPlayer) {
+    return {
+      type: 'ally',
+      targetId
+    }
+  }
+
+  if (casterIsMonster && targetIsMonster) {
+    return {
+      type: 'ally',
+      targetId
+    }
+  }
+  
   return {
-    type: 'ally',
+    type: 'enemy',
     targetId
   }
 }

@@ -1,19 +1,49 @@
-const buildMonster = (monster, partySize) => {
+const setCooldowns = skill => {
     return {
-        name: monster.name,
-        attributes: monster.attributes,
-        skills: monster.skills,
-        healingSkills: monster.healingSkills,
+        ...skill,
+        currentCooldown: skill.cooldown
+    }
+}
 
-        hp: monster.hpFormula(monster.attributes, partySize),
-        maxHp: monster.hpFormula(monster.attributes, partySize),
+const buildMonster = (monster, monsterObj, id) => {
+    const attributes = monster.attributes
+    const level = monster.level
 
-        autoAttackDmg: monster.autoAttackFormula(monster.attributes),
-        flee: monster.fleeFormula(monster.attributes),
-        accuracy: monster.accuracyFormula(monster.attributes),
-        iniciativeBonus: monster.attributes.wil,
-        defense: monster.defenseFormula(monster.attributes),
-        monsterMagicalDefense: monster.magicalDefenseFormula(monster.attributes),
+    const avlDamageSkills = monsterObj.damageSkills.filter(skill => level >= skill.level)
+    const avlHealingSkills = monsterObj.healingSkills.filter(skill => level >= skill.level)
+    const avlProtectionSkills = monsterObj.protectionSkills.filter(skill => level >= skill.level)
+
+    return {
+        id: monster.id + '_' + id,
+        targetId: monster.id + '_' + id,
+        isPlayer: false,
+        level: level,
+        isMonster: true,
+
+        protected: false,
+        protection: {
+            turns: -1,
+            factor: 0,
+        },
+
+        damageSkills: avlDamageSkills.map(setCooldowns),
+        healingSkills: avlHealingSkills.map(setCooldowns),
+        protectionSkills: avlProtectionSkills.map(setCooldowns),
+
+        hp: monsterObj.hpFormula(attributes, level),
+        maxHp: monsterObj.hpFormula(attributes, level),
+
+        accuracy: monsterObj.accuracy(attributes, level),
+        flee: monsterObj.flee(attributes, level),
+        compoundedDefense: monsterObj.defense(attributes, level),
+        autoAttack: monsterObj.autoAttack(attributes, level),
+
+        compoundedAttributes: attributes,
+
+        agroModifier: 1,
+
+        buffs: [],
+        debuffs: [],
     }
 }
 

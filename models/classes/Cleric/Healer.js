@@ -1,7 +1,7 @@
 module.exports = spec => {
 
   spec.accuracy = (att, lvl) => {
-    return 1
+    return att.dex + lvl
   }
 
   spec.damageSkills = [
@@ -14,6 +14,9 @@ module.exports = spec => {
       type: 'damage',
       accuracyMod: 1,
       allowedTargets: [0],
+      debuffs: {
+        int: -1,
+      },
       level: 1,
       cooldown: 1,
       emoji: '⛑',

@@ -31,14 +31,10 @@ const startGrind = async (mapObj, ctx) => {
 
     await player.save()
 
-    ctx.reply(`Grinding on ${mapObj.name}\n\nCollect your reward via the /pet menu or by typing /collect pet rewards after ${mapObj.grindTime} minutes, you will get some xp and maybe some items!\nYou can do other things while your companion is grinding, like checking your items or going into an adventure.`, mainMenu)
+    ctx.reply(`Grinding on ${mapObj.name}\n\nCollect your rewards via the /pet menu or by typing /collect after ${mapObj.grindTime} minutes, you will get some xp and maybe some items!\nYou can do other things while your companion is grinding, like checking your items or going into an adventure.`, mainMenu)
   } catch (err) {
     throw err
   }
-}
-
-const dice = (faces) => {
-  return Math.floor((Math.random() * faces + 1) + 1)
 }
 
 module.exports = {

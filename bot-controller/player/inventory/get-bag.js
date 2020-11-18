@@ -25,33 +25,63 @@ module.exports = async (ctx) => {
     const { bag, classId } = await getBags(ctx.session.userInfo)
 
     const filteredBag = bag.filter(item => item.type === slot)
+
     await ctx.reply(`Seeing all ${slot} items. ✅ means equipable and ❌ not equipable`)
-    filteredBag.forEach(async (equipObj) => {
-      const itemName = equipObj.name.replace(/ /g, '')
-      const parsedItem = parseItemWithMod(Items[itemName], equipObj.modifier)
 
-      console.log(parsedItem, classId)
+    const group = groupByName(filteredBag)
+
+    Object.keys(group).forEach(async itemName => {
+      const itemKey = itemName.replace(/ /g, '')
+      const parsedItem = Items[itemKey]
+
+      const playerItems = group[itemName]
+
       const message =
-        `Name: ${parsedItem.name} - ${parsedItem.availableClasses.includes(classId) ? '✅' : '❌'}\n\n` +
+        `Name: ${itemName} - ${parsedItem.availableClasses.includes(classId) ? '✅' : '❌'}\n\n` +
         `Type: ${parsedItem.type.charAt(0).toUpperCase() + parsedItem.type.slice(1)}\n` +
-        `Description: ${parsedItem.description}\n` +
-        `Bonus: ${calculateBonus(parsedItem.bonuses)}\n` +
-        `Amount in Bags: ${equipObj.amount}\n\n`
+        `${playerItems.reduce((text, item) => `${item.modifier} - ${item.amount} | ` + text, '')}\n` +
+        `Description: ${parsedItem.description}\n`
 
-      await ctx.reply(message, Extra.HTML().markup((m) =>
-        m.inlineKeyboard([
-          m.callbackButton(`Equip ${equipObj.modifier} ${itemName}`, `equip ${equipObj.modifier} ${itemName}`)
-        ])))
+      await ctx.reply(message, buildInline(playerItems, parsedItem))
     })
+
   } catch (err) {
     throw err
   }
 }
 
+const groupByName = bag => {
+  return bag.reduce((grouped, item) => {
+    if (grouped[item.name]) {
+      return {
+        ...grouped,
+        [item.name]: [...grouped[item.name], item]
+      }
+    }
+    return {
+      ...grouped,
+      [item.name]: [item]
+    }
+  }, {})
+}
+
+const buildInline = (items, parsedItem) => {
+  return Extra.HTML().markup((m) =>
+    m.inlineKeyboard(
+      items.map(item => {
+        const parsedItemWithMod = parseItemWithMod(parsedItem, item.modifier)
+        const bonusText = calculateBonus(parsedItemWithMod.bonuses)
+        const itemName = item.name.replace(/ /g, '')
+        return [m.callbackButton(`${item.modifier} ${item.name} \n- ${bonusText}`, `equip ${item.modifier} ${itemName}`)]
+      })
+    )
+  )
+}
+
 const calculateBonus = (bonuses) => {
   const bonusParsed = Object.keys(bonuses).reduce((bonusesAcc, stat) => {
     if (bonuses[stat] > 0)
-      return bonusesAcc + `\n${stat}: +${bonuses[stat]}`
+      return bonusesAcc + ` ${stat}: +${bonuses[stat]}`
     return bonusesAcc
   }, '')
   if (bonusParsed)

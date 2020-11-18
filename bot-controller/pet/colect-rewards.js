@@ -25,10 +25,10 @@ module.exports = async ctx => {
       return ctx.reply(`You are already collected the rewards from your last expedition. You can go on another /pet_expedition`)
 
 
-    const exp = Math.floor((dice(map.possibleExp) / 2) + (map.possibleExp / 2))
+    // const exp = Math.floor((dice(map.possibleExp) / 2) + (map.possibleExp / 2))
 
-    player.grindingObj.isGrinding = false
-    player.grindingObj.rewardsCollected = true
+    // player.grindingObj.isGrinding = false
+    // player.grindingObj.rewardsCollected = true
 
     const grindDrop = async (possibleRewards, trash, odds) => {
       const lootRoll = dice(100)
@@ -46,7 +46,7 @@ module.exports = async ctx => {
 
     // await addExp(ctx.session.userInfo, exp)
     await player.save()
-    return ctx.reply(`Your companion finished grinding on ${map.name}\n\n`)
+    // return ctx.reply(`Your companion finished grinding on ${map.name}\n\n`)
     // return ctx.reply(`Your companion finished grinding on ${map.name}\n\n${await grindDrop(map.possibleRewards, map.trash, map.odds)}`)
 
   } catch (err) {

@@ -1,13 +1,9 @@
-const archer = require('./archer')
-const thief = require('./thief')
-const mage = require('./mage')
-const warrior = require('./warrior')
-const cleric = require('./cleric')
+const Mage = require('./Mage')
+const Warrior = require('./Warrior')
+const Cleric = require('./Cleric')
 
 module.exports = {
-  archer,
-  thief,
-  mage,
-  warrior,
-  cleric,
+  Mage,
+  Warrior,
+  Cleric,
 }

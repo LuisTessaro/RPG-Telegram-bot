@@ -33,7 +33,6 @@ module.exports = async ctx => {
         if (!map || !validMaps.includes(map))
             throw 'Invalid Map'
 
-
         await startGrind(mapsObj[map], ctx)
     } catch (err) {
         console.log(err)

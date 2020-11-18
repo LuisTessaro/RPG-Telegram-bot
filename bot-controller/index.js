@@ -12,6 +12,7 @@ const { mainMenu } = require('../models/menus')
 
 module.exports = (bot) => {
     bot.catch((errMessage, ctx) => {
+        console.log('[ERROR]', errMessage)
         ctx.reply(errMessage)
     })
 

@@ -1,50 +1,15 @@
 const mongoose = require('mongoose')
-const PetSchema = require('./PetSchema')
+const { PetSchema } = require('./PetSchema')
+const { AttributesSchema } = require('./AttributtesSchema')
+const { GrindingSchema } = require('./GrindingSchema')
 
 const Schema = mongoose.Schema
-
-const AttributesSchema = new Schema({
-    str: { type: Number, default: 0 },
-    dex: { type: Number, default: 0 },
-    agi: { type: Number, default: 0 },
-    con: { type: Number, default: 0 },
-    int: { type: Number, default: 0 },
-    wis: { type: Number, default: 0 },
-    wil: { type: Number, default: 0 },
-    luk: { type: Number, default: 0 },
-    defense: { type: Number, default: 0 },
-})
 
 const BagItemSchema = new Schema({
     name: String,
     amount: Number,
     modifier: String,
     type: String,
-})
-
-const GrindingSchema = new Schema({
-    rewardsCollected: {
-        type: Boolean,
-        default: true,
-    },
-    isGrinding: {
-        type: Boolean,
-        default: false,
-    },
-    map: {
-        name: String,
-        grindTime: Number,
-        minimumRequiredLevel: Number,
-        odds: Number,
-        possibleExp: Number,
-        possibleRewards: [String],
-        commonRewards: [String],
-
-    },
-    lastGrindStarted: {
-        type: Date,
-        default: Date.now(),
-    },
 })
 
 module.exports = mongoose.model('Player', {

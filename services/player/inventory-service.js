@@ -38,6 +38,7 @@ const equipItem = async ({ telegramId }, mod, itemName, itemSlot, itemSpacedName
     await player.save()
     return true
   } catch (err) {
+    console.log(err)
     if (err)
       throw err
   }
@@ -176,4 +177,5 @@ module.exports = {
   equipItem,
   addEquipment,
   compoundAttributes,
+  compoundBonus,
 }

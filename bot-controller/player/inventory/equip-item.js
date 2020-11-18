@@ -1,4 +1,5 @@
 const { equipItem } = require('../../../services/player/inventory-service')
+const { parseItemWithMod } = require('../../../util/item-utils')
 const Items = require('../../../models/items/equipment')
 
 module.exports = async (ctx) => {
@@ -7,6 +8,8 @@ module.exports = async (ctx) => {
 
     const item = Items[itemName]
 
+    const parsedItem = parseItemWithMod(item, mod)
+
     if (!item)
       throw 'Item does not exist'
 
@@ -14,8 +17,19 @@ module.exports = async (ctx) => {
 
     await ctx.answerCbQuery()
 
-    return ctx.reply(`${mod} ${itemName} was added to your equipments`)
+    return ctx.reply(`${mod} ${itemName} was added to your equipments\n\nBonuses:\n${calculateBonus(parsedItem.bonuses)}`)
   } catch (err) {
     throw (err)
   }
+}
+
+const calculateBonus = (bonuses) => {
+  const bonusParsed = Object.keys(bonuses).reduce((bonusesAcc, stat) => {
+    if (bonuses[stat] > 0)
+      return bonusesAcc + `${stat}: +${bonuses[stat]}\n`
+    return bonusesAcc
+  }, '')
+  if (bonusParsed)
+    return bonusParsed
+  return 'No bonus!'
 }

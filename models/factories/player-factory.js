@@ -1,17 +1,19 @@
 const {
-  archer,
-  thief,
-  mage,
-  warrior,
-  cleric,
+  Cleric,
+  Mage,
+  Warrior,
 } = require('../classes')
 
-const classesObj = {
-  archer,
-  thief,
-  mage,
-  warrior,
-  cleric,
+const { compoundAttributes } = require('../../services/player/inventory-service')
+
+const { Healer } = Cleric
+const { Fire } = Mage
+const { Protection } = Warrior
+
+const SpecsObj = {
+  Healer,
+  Fire,
+  Protection,
 }
 
 const buildStarterPlayer = (classId, specId, username, first_name, id) => {
@@ -35,63 +37,102 @@ const buildStarterPlayer = (classId, specId, username, first_name, id) => {
   }
 }
 
-const buildPlayer = player => {
-  const classObject = classesObj[player.classe]
-  const equippedItems = player.inventory ? Object.keys(player.inventory).map(position => player.inventory[position]) : []
-  const equipmentBonus = equippedItems
-    .reduce((bonus, equip) => {
-      Object.keys(equip.bonuses).forEach(key => {
-        if (equip.bonuses[key] > 0)
-          bonus[key] += equip.bonuses[key]
-      })
-      return bonus
-    },
-      {
-        str: 0,
-        dex: 0,
-        agi: 0,
-        con: 0,
-        int: 0,
-        wis: 0,
-        car: 0,
-        wil: 0,
-        luk: 0,
-        defense: 0
-      })
-
-  const composedBonuses = composeBonuses(player.attributes, equipmentBonus)
-
+const setCooldowns = skill => {
   return {
-    id: player._id,
-    username: player.username,
-    classe: player.classe,
-    level: player.level,
-    attributes: player.attributes,
-    resource: player.resource,
-    maxResource: player.maxResource,
-    skills: classObject.getSkills.filter(skill => player.level >= skill.levelRequired),
-    healingSkills: classObject.getHealingSkills.filter(skill => player.level >= skill.levelRequired),
-    hp: classObject.hpFormula(composedBonuses, player.level),
-    maxHp: classObject.hpFormula(composedBonuses, player.level),
-    autoAttackDmg: classObject.autoAttackFormula(composedBonuses, player.level),
-    flee: classObject.fleeFormula(composedBonuses, player.level),
-    accuracy: classObject.accuracyFormula(composedBonuses, player.level),
-    iniciativeBonus: composedBonuses.wil,
-    defense: equipmentBonus.defense,
-    equipmentBonus: equipmentBonus,
-    playerAttributes: composedBonuses,
+    ...skill,
+    currentCooldown: skill.cooldown
   }
 }
 
-const composeBonuses = (playerAttributes, bonusAttributes) => {
-  const atts = ['str', 'dex', 'agi', 'con', 'int', 'wis', 'wil', 'luk',]
+const buildPlayer = async player => {
+  const { compoundedFullNoNegativesBonus } = await compoundAttributes(player)
+  const classObject = getClassObject(player)
 
-  return atts.reduce((composed, att) => {
-    return {
-      ...composed,
-      [att]: playerAttributes[att] + bonusAttributes[att]
-    }
-  }, {})
+  const avlDamageSkills = classObject.damageSkills.filter(skill => player.level >= skill.level)
+  const avlHealingSkills = classObject.healingSkills.filter(skill => player.level >= skill.level)
+  const avlProtectionSkills = classObject.protectionSkills.filter(skill => player.level >= skill.level)
+
+  return {
+    id: player.telegramId,
+    targetId: player.telegramId,
+    isPlayer: true,
+    playerDbObj: player,
+    level: player.level,
+
+    allowedEquipmentTypes: classObject.allowedEquipmentTypes,
+    protected: true,
+    protection: {
+      turns: -1,
+      factor: 10,
+    },
+    damageSkills: avlDamageSkills.map(setCooldowns),
+    healingSkills: avlHealingSkills.map(setCooldowns),
+    protectionSkills: avlProtectionSkills.map(setCooldowns),
+
+    hp: classObject.hpFormula(compoundedFullNoNegativesBonus, player.level),
+    maxHp: classObject.hpFormula(compoundedFullNoNegativesBonus, player.level),
+
+    accuracy: classObject.accuracy(compoundedFullNoNegativesBonus, player.level),
+    flee: classObject.flee(compoundedFullNoNegativesBonus, player.level),
+    compoundedDefense: classObject.defense(compoundedFullNoNegativesBonus, player.level),
+    autoAttack: classObject.autoAttack(compoundedFullNoNegativesBonus, player.level),
+
+    compoundedAttributes: compoundedFullNoNegativesBonus,
+
+    baseAgro: classObject.baseAgro(compoundedFullNoNegativesBonus, player.level),
+    agroModifier: {
+      values: {
+        con: 1,
+      },
+      duration: 1,
+    },
+
+    buffs: [
+      {
+        values: {
+          con: 15,
+          str: 1,
+          agi: 1,
+          int: 10,
+          defense: 1,
+        },
+        duration: 3,
+      },
+      {
+        values: {
+          con: 1,
+          str: 1,
+          agi: 1,
+          defense: 1,
+        },
+        duration: 3,
+      },
+    ],
+    debuffs: [
+      {
+        values: {
+          con: -1,
+          str: -1,
+          agi: -1,
+          defense: -15,
+        },
+        duration: 3,
+      },
+    ],
+  }
+}
+
+const getClassObject = ({ specId }) => {
+  switch (specId) {
+    case (0):
+      return SpecsObj['Protection']
+    case (3):
+      return SpecsObj['Fire']
+    case (11):
+      return SpecsObj['Healer']
+  }
+
+  throw false
 }
 
 module.exports = {

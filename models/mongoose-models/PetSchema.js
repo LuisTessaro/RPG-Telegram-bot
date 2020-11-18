@@ -2,9 +2,13 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-module.exports = new Schema({
+const PetSchema = new Schema({
   name: String,
   id: Number,
   level: Number,
   exp: Number,
 })
+
+module.exports = {
+  PetSchema
+}

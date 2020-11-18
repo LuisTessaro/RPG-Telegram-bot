@@ -11,10 +11,9 @@ const mainMenu = Telegraf.Extra
 const bagMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        ['/bag head', '/bag legs'],
-        ['/bag body', '/bag weapon'],
-        ['/bag shield', '/bag trinket'],
-        ['/bag ring', '/bag trash'],
+        ['/bag head', '/bag body', '/bag legs'],
+        ['/bag weapon', '/bag shield'],
+        ['/bag trinket', '/bag ring'],
         ['/back_to_player 🔙'],
     ]))
 
@@ -25,6 +24,14 @@ const playerMenu = Telegraf.Extra
         ['/equipments 🛡️'],
         ['/levelup_stats 🆙'],
         ['/show_player_stats 😄'],
+        ['/back 🔙'],
+    ]))
+
+const battleMenu = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.keyboard([
+        ['/attack', '/heal'],
+        ['/defend', '/surrender'],
         ['/back 🔙'],
     ]))
 
@@ -62,4 +69,5 @@ module.exports = {
     playerMenu,
     petMenu,
     bagMenu,
+    battleMenu,
 }

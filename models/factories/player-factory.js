@@ -16,9 +16,8 @@ const SpecsObj = {
   Protection,
 }
 
-const buildStarterPlayer = (classId, specId, username, first_name, id) => {
+const buildStarterPlayer = (classId, specId, username, id) => {
   return {
-    firstName: first_name,
     username: username,
     telegramId: id,
     classId: classId,

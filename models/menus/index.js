@@ -3,8 +3,9 @@ const Telegraf = require('telegraf')
 const mainMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
-        ['/adventure 🌇', '/pet_expedition ⏱️'],
+        ['/adventure 🌇'],
         ['/player 😄', '/pet 🐾'],
+        ['/market 🎰', '/adventurers_guild 🏨'],
     ]))
 
 const bagMenu = Telegraf.Extra
@@ -37,6 +38,7 @@ const battleMenu = Telegraf.Extra
 const petMenu = Telegraf.Extra
     .markdown()
     .markup((m) => m.keyboard([
+        ['/pet_expedition ⏱️'],
         ['/collect 🥇', '/pet_info 🐾'],
         ['/back 🔙'],
     ]))

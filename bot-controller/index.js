@@ -8,6 +8,8 @@ const authMiddleware = require('../middlewares/auth-middleware')
 
 const responseTimeMiddleware = require('../middlewares/response-time-middleware')
 
+const signToken = require('../util/sign-jwt')
+
 const { mainMenu } = require('../models/menus')
 
 module.exports = (bot) => {
@@ -26,6 +28,8 @@ module.exports = (bot) => {
 
     bot.command(['start', 'back'], (ctx) => ctx.reply('Main menu:', mainMenu))
 
+    bot.command(['market', 'adventurers_guild', 'reborn'], (ctx) => ctx.reply('Not Implemented Yet 😢', mainMenu))
+
     bot.command('sessh', ctx => {
         ctx.reply(JSON.stringify(ctx.session))
     })
@@ -34,4 +38,8 @@ module.exports = (bot) => {
     player(bot)
     pet(bot)
     gameplay(bot)
+
+    bot.command('site_login', ctx => {
+        ctx.reply(signToken(ctx.session.userInfo))
+    })
 }

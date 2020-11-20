@@ -7,16 +7,16 @@ const { buildMonster } = require('../../models/factories/monster-factory')
 const { buildPlayer } = require('../../models/factories/player-factory')
 
 
-const startAdventure = async (playerIds, monsterIds) => {
+const startAdventure = async (playerIds, monsterIds, bot) => {
   const dbPlayers = await Promise.all(playerIds.map(telegramId => Player.findOne({ telegramId })))
   const isMP = playerIds.length > 1
 
-  if (dbPlayers.find(player => player[isMP ? 'isParticipatingInMPCombat' : 'isParticipatingInSPCombat']))
-    throw `Player already parting in ${isMP ? 'multiplayer' : 'singleplayer'} combat`
+  if (dbPlayers.find(player => player[isMP ? 'isParticipatingInMPCombat' : 'isParticipatingInSPCombat'])) {
+    // playerIds.forEach(player => bot.telegram.sendMessage(player, 'You are already participating in ${isMP ? 'multiplayer' : 'singleplayer'} combat'))
+    throw `A player already parting in ${isMP ? 'multiplayer' : 'singleplayer'} combat!`
+  }
 
   const builtPlayers = await Promise.all(dbPlayers.map(dbPlayer => buildPlayer(dbPlayer)))
-
-  console.log(builtPlayers.map(player => player.playerDbObj.username))
 
   //build this better start
   const builtMonster1 = buildMonster(BuildSlime(1), SlimeObj, uuidv4())

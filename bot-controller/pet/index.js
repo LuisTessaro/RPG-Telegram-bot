@@ -9,7 +9,7 @@ module.exports = (bot) => {
 
   bot.command('pet_info', petInfo)
 
-  bot.command('change_pet_name', editPet)
+  // bot.command('change_pet_name', editPet)
 
   bot.command('collect', collect)
 

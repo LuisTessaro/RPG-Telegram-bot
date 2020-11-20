@@ -8,21 +8,16 @@ const { buildKeyboard } = require('../../../util/build-combat-keyboard')
 const { startAdventure } = require('../../../services/gameplay/AdventureService')
 
 module.exports = bot => {
-
-  // Creates adventure
+  
   bot.command('adventure', async ctx => {
     try {
-      await startAdventure([207138657, 216953316], ['outskirts_slime'])
+      await startAdventure([ctx.session.userInfo.telegramId], ['outskirts_slime'], bot)
 
       return ctx.reply('Adventure Started!')
     } catch (err) {
       console.log(err)
       throw err
     }
-  })
-
-  bot.command('humn', async ctx => {
-
   })
 
 

@@ -39,12 +39,12 @@ const separate = specs => {
   }
 }
 
-const buildInline = (classObj, { username, first_name, id }) => {
+const buildInline = (classObj, { username, id }) => {
   return Extra.HTML().markup((m) =>
     m.inlineKeyboard(
       separate(classObj.specs).map(specGroup =>
         specGroup.map(spec =>
-          m.callbackButton(`${spec.name} ${classObj.className} ${spec.implemented}`, `register_player ${classObj.id} ${spec.id} ${username} ${first_name} ${id}`)))
+          m.callbackButton(`${spec.name} ${classObj.className} ${spec.implemented}`, `register_player ${classObj.id} ${spec.id} ${username} ${id}`)))
     )
   )
 }

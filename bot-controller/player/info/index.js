@@ -12,12 +12,12 @@ module.exports = async (ctx) => {
         const { equipmentNames, compoundedFullNoNegativesBonus } = await compoundAttributes(ctx.session.userInfo)
         // await compoundAttributes(ctx.session.userInfo)
 
-        const { username, exp, level } = player
+        const { username, exp, level, characterName } = player
         const { className } = playerClass
         const specName = spec.name
 
 
-        let message = `${username}: ${specName} ${className}\n\nLevel ${level}\nExperience: ${exp}`
+        let message = `${characterName ? characterName : username}: ${specName} ${className}\n\nLevel ${level}\nExperience: ${exp}`
         message += `\nEquipments:${equipmentNames}`
         message += `\n\nStats:`
         message += `\nStrength: ${compoundedFullNoNegativesBonus.str}`
@@ -29,6 +29,7 @@ module.exports = async (ctx) => {
         message += `\nWill: ${compoundedFullNoNegativesBonus.wil}`
         message += `\nLuck: ${compoundedFullNoNegativesBonus.luk}`
         message += `\nDefense: ${compoundedFullNoNegativesBonus.defense}`
+        message += `\n\nYou can edit your name and picture on the game's website.`
 
         return ctx.replyWithPhoto(playerClass.classImage, { caption: message })
     } catch (err) {

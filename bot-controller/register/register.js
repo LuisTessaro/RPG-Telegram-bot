@@ -1,21 +1,27 @@
 const { registerPlayer } = require('../../services/player/register-service')
+const { writeLog } = require('../../services/logs/log-service')
 const { mainMenu } = require('../../models/menus')
 
 module.exports = async ctx => {
-  const [classId, specId, username, first_name, id] = ctx.match.input.replace(/register_player /g, '').split(' ')
+  const [classId, specId, username, id] = ctx.match.input.replace(/register_player /g, '').split(' ')
 
   try {
     const data = {
       username,
-      first_name,
       id,
       classId,
       specId,
     }
 
+    console.log(data)
+
     await ctx.answerCbQuery()
 
     const { err, message } = await registerPlayer(data)
+
+    writeLog('register', Date.now(), {
+      username: data.username
+    })
 
     if (err)
       throw err

@@ -12,9 +12,9 @@ const BagItemSchema = new Schema({
 })
 
 module.exports = mongoose.model('Player', {
-    firstName: {
+    characterName: {
         type: String,
-        required: true,
+        default: '',
     },
     username: {
         type: String,

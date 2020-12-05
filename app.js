@@ -1,19 +1,42 @@
 require('dotenv').config()
-require('./model/mongoose')
+const mongoose = require('mongoose')
 
-const configServer = require('./config/configServer')
-const configBot = require('./config/configBot')
+const serverConfig = require('./config/config-server')
+const configBot = require('./config/config-bot')
 
-const port = process.env.PORT
+const port = process.env.PORT || process.argv[2] || 3000
 const token = process.env.BOT_TOKEN
 
-const bot = configBot.setUpBot(token)
-const app = configServer.setUpServer()
+const botController = require('./bot-controller')
+const serverController = require('./server-controller')
 
-app.listen(port, () => {
-    console.log('[INFO] Server setupListening on port: ' + port)
-})
+const startBot = async () => {
+    await mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+    }, (err) => {
+        if (err) {
+            console.log('[ERROR] Mongoose ERROR')
+            throw err
+        }
+        console.log('[INFO] Mongoose Started')
+    })
 
-bot.launch()
+    const app = await serverConfig()
+    app.use(serverController)
 
-console.log('[INFO] Bot started.')
+    const bot = configBot(token)
+    botController(bot)
+
+    bot.launch()
+    console.log('[INFO] Telegraf started.')
+
+    app.listen(port, () => {
+        console.log(`[INFO] Listening on port ${port}!`)
+        console.log('[INFO] Bot Ready.')
+    })
+}
+
+startBot()

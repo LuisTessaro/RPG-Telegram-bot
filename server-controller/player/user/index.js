@@ -9,6 +9,7 @@ const getUserByToken = async (req, res) => {
     return res.status(404).json({ message: 'Player deleted, please re-register using the bot and get a new token using /site_login' })
 
   try {
+    // return setTimeout(() => res.status(200).json(player), 5000)
     return res.status(200).json(player)
   } catch (err) {
     return res.status(500).json({ message: 'Server Error' })
@@ -17,11 +18,11 @@ const getUserByToken = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { name } = req.body
-
   try {
-    if (!name || !(name.length >= 1 && name.length <= 30))
-      return res.status(400).json({ message: 'Please provide a name that is between 3 - 30 characters' })
+    if (!name || !(name.length >= 3 && name.length <= 30))
+      return res.status(400).json({ message: 'Name must have 3 - 30 characters' })
 
+    // return setTimeout(async () => { res.status(200).json(await editName(res.locals, name)) }, 10000)
     return res.status(200).json(await editName(res.locals, name))
   } catch (err) {
     console.log(err)
@@ -32,8 +33,8 @@ const updateUser = async (req, res) => {
 const updatePet = async (req, res) => {
   const { name } = req.body
   try {
-    if (!name || !(name.length >= 1 && name.length <= 30))
-      return res.status(400).json({ message: 'Please provide a name that is between 1 - 30 characters' })
+    if (!name || !(name.length >= 3 && name.length <= 30))
+      return res.status(400).json({ message: 'Name must have 3 - 30 characters' })
 
     return res.status(200).json(await changePetName(res.locals, name)
     )

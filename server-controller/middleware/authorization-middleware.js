@@ -13,8 +13,11 @@ module.exports = (req, res, next) => {
       return res.status(400).send('Please provide an access-token')
 
     jwt.verify(accessToken, process.env.SECRET, (err, decoded) => {
-      if (err)
+
+      if (err) {
+        // return setTimeout(() => res.status(401).send('Please provide a Valid x-access-token ' + err), 5000)
         return res.status(401).send('Please provide a Valid x-access-token ' + err)
+      }
       const { telegramId, username } = decoded
       res.locals.telegramId = telegramId
       res.locals.username = username

@@ -1,12 +1,14 @@
 const express = require('express'),
   router = express.Router()
 
-router.get('/', (req, res) => {
-  res.send('ok')
+const Combat = require('../../models/mongoose-models/Combat')
+
+router.get('/', async (req, res) => {
+  res.send(await Combat.find())
 })
 
-router.delete('/', (req, res) => {
-  res.send('ok')
+router.delete('/', async (req, res) => {
+  res.send(await Combat.deleteMany())
 })
 
 module.exports = router

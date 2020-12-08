@@ -20,9 +20,11 @@ module.exports = (bot) => {
 
     bot.use(responseTimeMiddleware)
 
-    // non registered routes
+    //non registered routes
     helper(bot)
     register(bot)
+
+    //registered routes
 
     bot.use(authMiddleware)
 
@@ -34,7 +36,6 @@ module.exports = (bot) => {
         ctx.reply(JSON.stringify(ctx.session))
     })
 
-    //registered routes
     player(bot)
     pet(bot)
     gameplay(bot)

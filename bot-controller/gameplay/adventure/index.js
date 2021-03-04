@@ -7,19 +7,24 @@ const { buildKeyboard } = require('../../../util/build-combat-keyboard')
 
 const { startAdventure } = require('../../../services/gameplay/AdventureService')
 
-module.exports = bot => {
-  
-  bot.command('adventure', async ctx => {
-    try {
-      await startAdventure([ctx.session.userInfo.telegramId], ['outskirts_slime'], bot)
+const { buildTargetKeyboard, castSpell } = require('./cast')
 
-      return ctx.reply('Adventure Started!')
+module.exports = bot => {
+
+  bot.command('start_adventure', async ctx => {
+    try {
+      await startAdventure([ctx.session.userInfo.telegramId, 373675794], ['outskirts_slime'], bot)
+
+      return ctx.reply('Adventure Started!', battleMenu)
     } catch (err) {
       console.log(err)
       throw err
     }
   })
 
+  bot.command('adventure', async ctx => {
+    return ctx.reply('Adventure Menu:', battleMenu)
+  })
 
   bot.command('attack', async ctx => {
     const builtPlayer = await buildPlayer(await getPlayer(ctx.session.userInfo))
@@ -35,6 +40,9 @@ module.exports = bot => {
     const builtPlayer = await buildPlayer(await getPlayer(ctx.session.userInfo))
     ctx.reply('Choose a spell', buildKeyboard(builtPlayer.protectionSkills))
   })
+
+  bot.command('cast', buildTargetKeyboard)
+  bot.command('cast_spell', castSpell)
 
   bot.command('back_to_action', ctx => ctx.reply('Pick an action', battleMenu))
 

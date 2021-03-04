@@ -16,6 +16,7 @@ const buildMonster = (monster, monsterObj, id) => {
     return {
         id: monster.id + '_' + id,
         targetId: monster.id + '_' + id,
+        name: monster.id,
         isPlayer: false,
         level: level,
         isMonster: true,

@@ -1,11 +1,11 @@
-const Extra = require('telegraf/extra')
+const { Markup } = require('telegraf')
 const { getPlayer } = require('../../services/player/info-service')
 const Pets = require('../../models/pets')
 
 const { petMenu } = require('../../models/menus')
 
 module.exports = async ctx => {
-  const player = await getPlayer(ctx.session.userInfo)
+  const player = await getPlayer(ctx.message.from.id)
 
   if (!player.has_registered_pet) {
     Pets.forEach(pet => {
@@ -21,9 +21,7 @@ module.exports = async ctx => {
 
 
 const buildInline = (pet, id) => {
-  return Extra.HTML().markup((m) =>
-    m.inlineKeyboard(
-      [m.callbackButton(`Pick ${pet.name}`, `register_pet ${pet.name} ${pet.id} ${id}`)]
-    )
+  return Markup.inlineKeyboard(
+    [Markup.button.callback(`Pick ${pet.name}`, `register_pet ${pet.name} ${pet.id} ${id}`)]
   )
 }

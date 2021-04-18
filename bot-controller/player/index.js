@@ -1,4 +1,4 @@
-const { levelUpMenu, mainMenu, playerMenu, petMenu, bagMenu } = require('../../models/menus')
+const { levelUpMenu, playerMenu, bagMenu } = require('../../models/menus')
 const playerInfo = require('./info')
 
 const {
@@ -33,11 +33,11 @@ module.exports = (bot) => {
     bot.command('back_to_player', (ctx) => ctx.reply('Player menu:', playerMenu))
 
     bot.command('add_exp', async (ctx) => {
-        await addExp(ctx.session.userInfo, 500)
+        await addExp(ctx.message.from.id, 500)
         ctx.reply('500exp added')
     })
     bot.command('remove_exp', async (ctx) => {
-        await removeExp(ctx.session.userInfo, 500)
+        await removeExp(ctx.message.from.id, 500)
         ctx.reply('500exp removed')
     })
 }

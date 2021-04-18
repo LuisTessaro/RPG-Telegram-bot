@@ -3,7 +3,7 @@ const Items = require('../../models/items/equipment')
 
 const { giveAnItemAModifier, parseItemWithMod, itemStringToItemObject } = require('../../util/item-utils')
 
-const getBags = async ({ telegramId }) => {
+const getBags = async (telegramId) => {
   try {
     const player = await Player.findOne({ telegramId })
     return {
@@ -15,7 +15,7 @@ const getBags = async ({ telegramId }) => {
   }
 }
 
-const getEquipment = async ({ telegramId }) => {
+const getEquipment = async (telegramId) => {
   try {
     const { equipment } = await Player.findOne({ telegramId })
     return equipment
@@ -24,7 +24,7 @@ const getEquipment = async ({ telegramId }) => {
   }
 }
 
-const equipItem = async ({ telegramId }, mod, itemName, itemSlot, itemSpacedName, availableClasses) => {
+const equipItem = async (telegramId, mod, itemName, itemSlot, itemSpacedName, availableClasses) => {
   try {
     const player = await Player.findOne({ telegramId })
     if (!availableClasses.includes(player.classId))
@@ -44,7 +44,7 @@ const equipItem = async ({ telegramId }, mod, itemName, itemSlot, itemSpacedName
   }
 }
 
-const addEquipment = async ({ telegramId }, itemName) => {
+const addEquipment = async (telegramId, itemName) => {
   try {
     const item = Items[itemName]
 
@@ -87,7 +87,7 @@ const validItem = (mod, itemName, bag) => {
   })
 }
 
-const compoundAttributes = async ({ telegramId }) => {
+const compoundAttributes = async (telegramId) => {
   const player = await Player.findOne({ telegramId })
   const { attributes, equipment } = player
 

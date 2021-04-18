@@ -1,8 +1,3 @@
-const Telegraf = require('telegraf')
-const session = require('telegraf/session')
+const { Telegraf } = require('telegraf')
 
-module.exports = (token) => {
-    const telegrafInstance = new Telegraf(token)
-    telegrafInstance.use(session())
-    return telegrafInstance
-}
+module.exports = token => new Telegraf(token)

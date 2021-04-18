@@ -17,8 +17,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
-    "mongoose": "^5.10.14",
-    "telegraf": "^3.38.0",
-    "uuid": "^8.3.1"
+    "mongoose": "^5.12.4",
+    "telegraf": "^4.3.0",
+    "uuid": "^8.3.2"
   }
 }

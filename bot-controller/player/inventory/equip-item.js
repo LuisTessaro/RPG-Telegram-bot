@@ -4,7 +4,7 @@ const Items = require('../../../models/items/equipment')
 
 module.exports = async (ctx) => {
   try {
-    const [mod, itemName] = ctx.match.input.replace(/equip /g, '').split(' ')
+    const [mod, itemName, telegramId] = ctx.match.input.replace(/equip /g, '').split(' ')
 
     const item = Items[itemName]
 
@@ -13,7 +13,7 @@ module.exports = async (ctx) => {
     if (!item)
       throw 'Item does not exist'
 
-    await equipItem(ctx.session.userInfo, mod, itemName, item.type, item.name, item.availableClasses)
+    await equipItem(telegramId, mod, itemName, item.type, item.name, item.availableClasses)
 
     await ctx.answerCbQuery()
 

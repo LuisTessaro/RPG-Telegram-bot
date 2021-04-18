@@ -13,8 +13,6 @@ module.exports = async ctx => {
       specId,
     }
 
-    console.log(data)
-
     await ctx.answerCbQuery()
 
     const { err, message } = await registerPlayer(data)

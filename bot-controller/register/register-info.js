@@ -1,4 +1,4 @@
-const Extra = require('telegraf/extra')
+const { Markup } = require('telegraf')
 const validClasses = require('../../models/classes/ClassObject')
 
 module.exports = async ctx => {
@@ -6,7 +6,7 @@ module.exports = async ctx => {
     const at = ctx.message.from.username
 
     if (!at)
-      throw 'Please, setup a Telegram username first!'
+      return ctx.reply('Please, setup a Telegram username first!')
 
     validClasses.forEach(classObj => {
       const extra = buildInline(classObj, ctx.message.from)
@@ -19,7 +19,7 @@ module.exports = async ctx => {
 
 const separate = specs => {
   const specLen = specs.length
-  const parity = specLen % 2 === 0 // true=even false=odd
+  const parity = specLen % 2 === 0
 
   if (parity) {
     const aux = []
@@ -40,11 +40,14 @@ const separate = specs => {
 }
 
 const buildInline = (classObj, { username, id }) => {
-  return Extra.HTML().markup((m) =>
-    m.inlineKeyboard(
-      separate(classObj.specs).map(specGroup =>
-        specGroup.map(spec =>
-          m.callbackButton(`${spec.name} ${classObj.className} ${spec.implemented}`, `register_player ${classObj.id} ${spec.id} ${username} ${id}`)))
+  return Markup.inlineKeyboard(
+    separate(classObj.specs).map(specGroup =>
+      specGroup.map(spec =>
+        Markup.button.callback(
+          `${spec.name} ${classObj.className} ${spec.implemented}`,
+          `register_player ${classObj.id} ${spec.id} ${username} ${id}`
+        )
+      )
     )
   )
 }

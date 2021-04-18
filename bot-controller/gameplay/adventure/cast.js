@@ -3,12 +3,11 @@ const { buildKeyboard } = require('../../../util/build-target-keyboard')
 const { getCombatFullByTelegramId } = require('../../../services/gameplay/CombatService')
 
 const buildTargetKeyboard = async ctx => {
-  const { telegramId } = ctx.session.userInfo
   try {
     const skillName = ctx.message.text.replace(/\/cast /g, '').split('(')[0].trim()
-    const combatObject = await getCombatFullByTelegramId(ctx.session.userInfo)
+    const combatObject = await getCombatFullByTelegramId(ctx.message.from.id)
 
-    const usedSkill = findUsedSkill(skillName, combatObject, telegramId)
+    const usedSkill = findUsedSkill(skillName, combatObject, ctx.message.from.id)
 
     let possibleTargets = []
 
@@ -19,7 +18,7 @@ const buildTargetKeyboard = async ctx => {
       possibleTargets.push('Yourself')
 
     if (usedSkill.allowedTargets.includes(2)) {
-      const allies = getAllies(combatObject, telegramId)
+      const allies = getAllies(combatObject, ctx.message.from.id)
       if (allies)
         possibleTargets.push(...allies)
     }

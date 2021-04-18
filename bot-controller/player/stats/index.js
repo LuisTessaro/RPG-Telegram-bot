@@ -5,9 +5,12 @@ module.exports = async (ctx) => {
     const stat = ctx.message.text.split(' ')[1]
 
     if (!stat || !validStats.includes(stat))
-        throw 'Invalid stat to level up'
+        return ctx.reply('Invalid stat to level up')
 
-    await addLevel(ctx.session.userInfo, stat)
+    const { err } = await addLevel(ctx.message.from.id, stat)
+    
+    if (err)
+        return ctx.reply(err)
 
     return ctx.reply(stat + ' leveled up!')
 }

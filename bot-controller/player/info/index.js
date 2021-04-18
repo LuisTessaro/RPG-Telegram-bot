@@ -5,13 +5,11 @@ const ClassObj = require('../../../models/classes/ClassObject')
 
 module.exports = async (ctx) => {
     try {
-        const player = await getPlayer(ctx.session.userInfo)
+        const player = await getPlayer(ctx.message.from.id)
         const playerClass = ClassObj.find(classE => classE.id === player.classId)
         const spec = playerClass.specs.find(spec => spec.id === player.specId)
 
-        const { equipmentNames, compoundedFullNoNegativesBonus } = await compoundAttributes(ctx.session.userInfo)
-        // await compoundAttributes(ctx.session.userInfo)
-
+        const { equipmentNames, compoundedFullNoNegativesBonus } = await compoundAttributes(ctx.message.from.id)
         const { username, exp, level, characterName } = player
         const { className } = playerClass
         const specName = spec.name
@@ -33,6 +31,6 @@ module.exports = async (ctx) => {
 
         return ctx.replyWithPhoto(playerClass.classImage, { caption: message })
     } catch (err) {
-        console.log(err)
+        throw err
     }
 }

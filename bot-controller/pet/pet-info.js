@@ -2,7 +2,7 @@ const { getPet } = require('../../services/player/pet-info-service')
 const Pets = require('../../models/pets')
 
 module.exports = async ctx => {
-  const pet = await getPet(ctx.session.userInfo)
+  const pet = await getPet(ctx.message.from.id)
 
   const petObj = Pets.find(p => pet.id === p.id)
 

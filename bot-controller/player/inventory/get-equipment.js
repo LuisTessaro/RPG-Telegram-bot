@@ -2,7 +2,7 @@ const { getEquipment, } = require('../../../services/player/inventory-service')
 const { itemStringToItemObject, parseItemWithMod } = require('../../../util/item-utils')
 
 module.exports = async (ctx) => {
-  const equipments = await getEquipment(ctx.session.userInfo)
+  const equipments = await getEquipment(ctx.message.from.id)
 
   try {
     const msg = Object.keys(equipments.toJSON()).reduce((equipmentText, item) => {

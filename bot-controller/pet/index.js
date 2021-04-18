@@ -1,7 +1,7 @@
 const pet = require('./pet')
 const petInfo = require('./pet-info.js')
 const registerPet = require('./register-pet')
-const editPet = require('./edit-pet')
+// const editPet = require('./edit-pet')
 const collect = require('./colect-rewards')
 
 module.exports = (bot) => {

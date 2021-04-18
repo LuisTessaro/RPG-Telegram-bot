@@ -1,4 +1,4 @@
-const Extra = require('telegraf/extra')
+const { Markup } = require('telegraf')
 const Items = require('../../../models/items/equipment')
 const { getBags } = require('../../../services/player/inventory-service')
 const { parseItemWithMod } = require('../../../util/item-utils')
@@ -15,14 +15,13 @@ const validSlots = [
 
 module.exports = async (ctx) => {
   const slot = ctx.message.text.split(' ')[1]
-
   try {
     if (!slot || !validSlots.includes(slot)) {
       console.log('invalid')
       throw 'Invalid Slot'
     }
 
-    const { bag, classId } = await getBags(ctx.session.userInfo)
+    const { bag, classId } = await getBags(ctx.message.from.id)
 
     const filteredBag = bag.filter(item => item.type === slot)
 
@@ -42,7 +41,7 @@ module.exports = async (ctx) => {
         `${playerItems.reduce((text, item) => `${item.modifier} - ${item.amount} | ` + text, '')}\n` +
         `Description: ${parsedItem.description}\n`
 
-      await ctx.reply(message, buildInline(playerItems, parsedItem))
+      await ctx.reply(message, buildInline(playerItems, parsedItem, ctx.message.from.id))
     })
 
   } catch (err) {
@@ -65,16 +64,14 @@ const groupByName = bag => {
   }, {})
 }
 
-const buildInline = (items, parsedItem) => {
-  return Extra.HTML().markup((m) =>
-    m.inlineKeyboard(
-      items.map(item => {
-        const parsedItemWithMod = parseItemWithMod(parsedItem, item.modifier)
-        const bonusText = calculateBonus(parsedItemWithMod.bonuses)
-        const itemName = item.name.replace(/ /g, '')
-        return [m.callbackButton(`${item.modifier} ${item.name} \n- ${bonusText}`, `equip ${item.modifier} ${itemName}`)]
-      })
-    )
+const buildInline = (items, parsedItem, telegramId) => {
+  return Markup.inlineKeyboard(
+    items.map(item => {
+      const parsedItemWithMod = parseItemWithMod(parsedItem, item.modifier)
+      const bonusText = calculateBonus(parsedItemWithMod.bonuses)
+      const itemName = item.name.replace(/ /g, '')
+      return [Markup.button.callback(`${item.modifier} ${item.name} \n- ${bonusText}`, `equip ${item.modifier} ${itemName} ${telegramId}`)]
+    })
   )
 }
 

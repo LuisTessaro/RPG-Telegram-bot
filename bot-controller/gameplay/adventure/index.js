@@ -12,8 +12,11 @@ const { buildTargetKeyboard, castSpell } = require('./cast')
 module.exports = bot => {
 
   bot.command('start_adventure', async ctx => {
+    const userInfo = {
+      telegramId: ctx.message.from.id
+    }
     try {
-      await startAdventure([ctx.session.userInfo.telegramId, 373675794], ['outskirts_slime'], bot)
+      await startAdventure([userInfo.telegramId, 373675794], ['outskirts_slime'], bot)
 
       return ctx.reply('Adventure Started!', battleMenu)
     } catch (err) {
@@ -27,17 +30,17 @@ module.exports = bot => {
   })
 
   bot.command('attack', async ctx => {
-    const builtPlayer = await buildPlayer(await getPlayer(ctx.session.userInfo))
+    const builtPlayer = await buildPlayer(await getPlayer(ctx.message.from.id))
     ctx.reply('Choose a spell', buildKeyboard(builtPlayer.damageSkills))
   })
 
   bot.command('heal', async ctx => {
-    const builtPlayer = await buildPlayer(await getPlayer(ctx.session.userInfo))
+    const builtPlayer = await buildPlayer(await getPlayer(ctx.message.from.id))
     ctx.reply('Choose a spell', buildKeyboard(builtPlayer.healingSkills))
   })
 
   bot.command('defend', async ctx => {
-    const builtPlayer = await buildPlayer(await getPlayer(ctx.session.userInfo))
+    const builtPlayer = await buildPlayer(await getPlayer(ctx.message.from.id))
     ctx.reply('Choose a spell', buildKeyboard(builtPlayer.protectionSkills))
   })
 

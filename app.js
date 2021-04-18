@@ -16,26 +16,26 @@ const startBot = async () => {
         useCreateIndex: true,
         useFindAndModify: false,
         useUnifiedTopology: true,
-    }, (err) => {
+    }, async err => {
         if (err) {
             console.log('[ERROR] Mongoose ERROR')
             throw err
         }
         console.log('[INFO] Mongoose Started')
-    })
 
-    const app = await serverConfig()
-    app.use(serverController)
+        const app = await serverConfig()
+        app.use(serverController)
 
-    const bot = configBot(token)
-    botController(bot)
+        const bot = configBot(token)
+        botController(bot)
 
-    bot.launch()
-    console.log('[INFO] Telegraf started.')
+        bot.launch()
+        console.log('[INFO] Telegraf started.')
 
-    app.listen(port, () => {
-        console.log(`[INFO] Listening on port ${port}!`)
-        console.log('[INFO] Bot Ready.')
+        app.listen(port, () => {
+            console.log(`[INFO] Listening on port ${port}!`)
+            console.log('[INFO] Bot Ready.')
+        })
     })
 }
 

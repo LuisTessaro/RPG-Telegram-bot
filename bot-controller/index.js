@@ -6,19 +6,17 @@ const gameplay = require('./gameplay')
 
 const authMiddleware = require('../middlewares/auth-middleware')
 
-const responseTimeMiddleware = require('../middlewares/response-time-middleware')
-
-const signToken = require('../util/sign-jwt')
+// const signToken = require('../util/sign-jwt')
 
 const { mainMenu } = require('../models/menus')
 
 module.exports = (bot) => {
     bot.catch((errMessage, ctx) => {
         console.log('[ERROR]', errMessage)
-        ctx.reply(errMessage)
+        ctx.reply('An unexpected error has ocurred, please try again later')
     })
 
-    bot.use(responseTimeMiddleware)
+    // bot.use(responseTimeMiddleware)
 
     //non registered routes
     helper(bot)
@@ -32,15 +30,12 @@ module.exports = (bot) => {
 
     bot.command(['market', 'adventurers_guild', 'reborn'], (ctx) => ctx.reply('Not Implemented Yet 😢', mainMenu))
 
-    bot.command('sessh', ctx => {
-        ctx.reply(JSON.stringify(ctx.session))
-    })
-
     player(bot)
     pet(bot)
+
     gameplay(bot)
 
-    bot.command('site_login', ctx => {
-        ctx.reply(signToken(ctx.session.userInfo))
-    })
+    // bot.command('site_login', ctx => {
+    //     ctx.reply(signToken(ctx.session.userInfo))
+    // })
 }

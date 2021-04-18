@@ -51,10 +51,6 @@ module.exports = mongoose.model('Player', {
             type: String,
             default: ''
         },
-        legs: {
-            type: String,
-            default: ''
-        },
         body: {
             type: String,
             default: ''

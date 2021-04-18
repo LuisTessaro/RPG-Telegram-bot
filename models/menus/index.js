@@ -7,7 +7,7 @@ const mainMenu = Markup.keyboard([
 ])
 
 const bagMenu = Markup.keyboard(([
-    ['/bag head', '/bag body', '/bag legs'],
+    ['/bag head', '/bag body'],
     ['/bag weapon', '/bag shield'],
     ['/bag trinket', '/bag ring'],
     ['/back_to_player 🔙'],

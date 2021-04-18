@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'Wooden Dagger',
-  description: `A beaten Wooden Dagger.`,
-  type: 'weapon',
+  name: 'Wooden Helmet',
+  description: 'Is that a coconut?.',
+  type: 'head',
   availableClasses: [0, 1, 2, 3, 4],
   baseBonuses: {
     str: 1,
@@ -12,19 +12,28 @@ module.exports = {
     wis: 0,
     wil: 0,
     luk: 0,
-    defense: 0
+    defense: 3
   },
   possibleModifiers: [
     {
       prefix: 'Regular',
-      odds: 40,
+      odds: 10,
       modifier: {}
     },
     {
       prefix: 'Broken',
-      odds: 40,
+      odds: 10,
       modifier: {
         str: -1,
+        defense: -3,
+      }
+    },
+    {
+      prefix: 'Heavy',
+      odds: 80,
+      modifier: {
+        agi: -2,
+        defense: 5,
       }
     },
   ],

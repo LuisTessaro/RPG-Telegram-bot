@@ -33,7 +33,7 @@ const parseItemWithMod = (item, modifierName) => {
 const itemStringToItemObject = itemString => {
   const foundItem = Item[itemString]
   if (!foundItem)
-    throw 'Item not found'
+    throw `Item not found ${foundItem}`
 
   return foundItem
 }

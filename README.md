@@ -29,6 +29,7 @@ ADM_ACCESS_TOKEN=foo123@@!!
 - [x] Info screen
 - [x] Bag System
 - [x] Equipment System
+- [x] Equipment Rarity System
 - [ ] Multiplayer combat
 - [ ] Events (exp events drop events etc)
 - [ ] Refinement system

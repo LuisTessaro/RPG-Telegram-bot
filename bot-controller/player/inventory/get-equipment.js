@@ -4,6 +4,7 @@ const { itemStringToItemObject, parseItemWithMod } = require('../../../util/item
 module.exports = async (ctx) => {
   const equipments = await getEquipment(ctx.message.from.id)
 
+
   try {
     const msg = Object.keys(equipments.toJSON()).reduce((equipmentText, item) => {
       if (equipments[item] !== '') {

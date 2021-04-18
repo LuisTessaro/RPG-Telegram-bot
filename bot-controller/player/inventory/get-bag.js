@@ -5,7 +5,6 @@ const { parseItemWithMod } = require('../../../util/item-utils')
 
 const validSlots = [
   'head',
-  'legs',
   'body',
   'weapon',
   'shield',
@@ -77,8 +76,8 @@ const buildInline = (items, parsedItem, telegramId) => {
 
 const calculateBonus = (bonuses) => {
   const bonusParsed = Object.keys(bonuses).reduce((bonusesAcc, stat) => {
-    if (bonuses[stat] > 0)
-      return bonusesAcc + ` ${stat}: +${bonuses[stat]}`
+    if (bonuses[stat] != 0)
+      return bonusesAcc + ` ${stat}: ${bonuses[stat] > 0 ? '+' : ''}${bonuses[stat]}`
     return bonusesAcc
   }, '')
   if (bonusParsed)

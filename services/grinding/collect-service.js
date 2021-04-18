@@ -43,12 +43,11 @@ const collectItemsFromGriding = async (ctx) => {
       if (rewardsCollected)
         return ctx.reply(`You already collect the items fom the last expedition!`, petMenu)
 
-      const { odds } = player.grindingObj
       const expGained = Math.floor((map.possibleExp / 2) + dice(map.possibleExp / 2))
 
       await addExp(ctx.message.from.id, expGained)
 
-      const rewardMessage = await grindDrop(ctx.message.from.id, map.possibleRewards, map.trash, odds, expGained)
+      const rewardMessage = await grindDrop(ctx.message.from.id, map.possibleRewards, map.trash, map.odds, expGained)
 
       player.grindingObj.isGrinding = false
       player.grindingObj.rewardsCollected = true
